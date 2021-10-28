@@ -1,0 +1,75 @@
+<div class="flex flex-collum main-space-evenly mb-20">
+  <div class="flex main-space-evenly">
+    <mat-form-field appearance="outline">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date">
+        <input matEndDate placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let status of statusList" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-label class="mb-10">Choose temperature</mat-label>
+  <ngx-slider [highValue]="38" [options]="sliderOption" [value]="34"></ngx-slider>
+</div>
+
+
+<div class="container">
+  <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th *matHeaderCellDef mat-header-cell> No.</th>
+      <td *matCellDef="let element" mat-cell> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell>Name</th>
+      <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="time">
+      <th *matHeaderCellDef mat-header-cell>Time</th>
+      <td *matCellDef="let element" mat-cell> {{element.time | date: 'd/M/yyyy h:mm'}} </td>
+    </ng-container>
+
+    <!-- Degree Column -->
+    <ng-container matColumnDef="degree">
+      <th *matHeaderCellDef mat-header-cell> Degree</th>
+      <td *matCellDef="let element" mat-cell> {{element.degree}} ˚C</td>
+    </ng-container>
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th *matHeaderCellDef mat-header-cell>Status</th>
+      <td *matCellDef="let element" mat-cell> {{element.status}} </td>
+    </ng-container>
+    <!-- Image Column -->
+    <ng-container matColumnDef="image">
+      <th *matHeaderCellDef mat-header-cell>Detail</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="openDialog()" color="primary" mat-icon-button>
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
+</div>

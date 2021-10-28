@@ -1,2 +1,14 @@
-<p>root works!</p>
-<router-outlet></router-outlet>
+<mat-drawer-container class="container">
+  <mat-drawer #drawer class="mat-drawer" mode="side">Drawer content</mat-drawer>
+  <mat-drawer-content>
+    <mat-toolbar color="primary">
+      <!--      <button  mat-icon-button (click)="drawer.toggle()">-->
+      <!--        <mat-icon>menu</mat-icon>-->
+      <!--      </button>-->
+      <span>{{title.getTitle()}}</span>
+    </mat-toolbar>
+    <div style="padding: 30px">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

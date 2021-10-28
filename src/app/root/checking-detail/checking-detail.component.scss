@@ -1,0 +1,21 @@
+.container {
+  border-radius: 24px !important;
+  display: flex;
+  flex-direction: column;
+  alignment: center;
+  justify-content: center;
+}
+
+.mat-dialog-container {
+  border-radius: 24px !important;
+}
+
+.detail-container {
+  margin-top: 30px;
+}
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  alignment: center;
+}
