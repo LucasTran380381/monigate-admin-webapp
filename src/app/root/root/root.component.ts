@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class RootComponent implements OnInit {
 
-  constructor() {
+  constructor(public title: Title) {
   }
 
   ngOnInit(): void {
