@@ -20,6 +20,10 @@ body {
   display: flex;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .main-center {
   justify-content: center;
 }
@@ -31,6 +35,10 @@ body {
 .flex-collum {
   display: flex;
   flex-direction: column;
+}
+
+.gap-10 {
+  gap: 10px;
 }
 
 .main-space-around {

@@ -13,13 +13,15 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatTableModule} from "@angular/material/table";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CheckingDetailComponent} from './checking-detail/checking-detail.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSliderModule} from "@angular/material/slider";
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 @NgModule({
@@ -27,7 +29,7 @@ import {NgxSliderModule} from "@angular-slider/ngx-slider";
     HomeComponent,
     RootComponent,
     DashboardComponent,
-    CheckingDetailComponent
+    CheckingDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,10 @@ import {NgxSliderModule} from "@angular-slider/ngx-slider";
     MatSelectModule,
     MatSliderModule,
     NgxSliderModule,
-  ]
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    MatExpansionModule,
+  ],
 })
 export class RootModule {
 }

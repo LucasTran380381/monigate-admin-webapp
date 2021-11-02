@@ -1,39 +1,51 @@
 <div class="flex flex-collum main-space-evenly mb-20">
-  <div class="flex main-space-evenly">
+  <form [formGroup]="queryForm" class="query-form">
     <mat-form-field appearance="outline">
-      <mat-label>Enter a date range</mat-label>
+      <mat-label>Search checkin range date</mat-label>
       <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start date">
-        <input matEndDate placeholder="End date">
+        <input formControlName="timeMin" matStartDate placeholder="Start date">
+        <input formControlName="timeMax" matEndDate placeholder="End date">
       </mat-date-range-input>
       <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
+    <button (click)="onSubmit()" color="primary" mat-raised-button>Search</button>
+  </form>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Status</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let status of statusList" [value]="status">
-          {{status}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        More filter
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="filterForm" class="filter-panel">
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let status of statusList" [value]="status">
+            {{status}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="filter-panel__temperature">
+        <mat-label>Filter by temperature</mat-label>
+        <ngx-slider [highValue]="39" [options]="sliderOption" formControlName="tempSlider"></ngx-slider>
+      </div>
+    </form>
 
-  <mat-label class="mb-10">Choose temperature</mat-label>
-  <ngx-slider [highValue]="38" [options]="sliderOption" [value]="34"></ngx-slider>
+  </mat-expansion-panel>
 </div>
 
 
-<div class="container">
-  <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
+<div class="container mat-elevation-z8">
+  <table [dataSource]="dataSource" mat-table>
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
     <!-- Position Column -->
     <ng-container matColumnDef="position">
-      <th *matHeaderCellDef mat-header-cell> No.</th>
+      <th *matHeaderCellDef mat-header-cell>No.</th>
       <td *matCellDef="let element" mat-cell> {{element.position}} </td>
     </ng-container>
 
@@ -46,18 +58,18 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="time">
       <th *matHeaderCellDef mat-header-cell>Time</th>
-      <td *matCellDef="let element" mat-cell> {{element.time | date: 'd/M/yyyy h:mm'}} </td>
+      <td *matCellDef="let element" mat-cell> {{element.time | date: 'd/M/yyyy H:mm'}} </td>
     </ng-container>
 
     <!-- Degree Column -->
     <ng-container matColumnDef="degree">
-      <th *matHeaderCellDef mat-header-cell> Degree</th>
-      <td *matCellDef="let element" mat-cell> {{element.degree}} ˚C</td>
+      <th *matHeaderCellDef mat-header-cell>Degree</th>
+      <td *matCellDef="let element" mat-cell> {{element.temperature}} ˚C</td>
     </ng-container>
     <!-- Status Column -->
     <ng-container matColumnDef="status">
       <th *matHeaderCellDef mat-header-cell>Status</th>
-      <td *matCellDef="let element" mat-cell> {{element.status}} </td>
+      <td *matCellDef="let element" [ngStyle]="{'color': element.status === 'Denied' ? 'red': 'green'}" mat-cell> {{element.status}} </td>
     </ng-container>
     <!-- Image Column -->
     <ng-container matColumnDef="image">
@@ -69,7 +81,11 @@
       </td>
     </ng-container>
 
+
     <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
     <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
   </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
 </div>
