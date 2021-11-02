@@ -17,7 +17,6 @@ export interface PeriodicElement {
   imageUrl: string
 }
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -38,7 +37,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     },
   )
   displayedColumns: string[] = ['position', 'name', 'time', 'degree', 'status', 'image'];
-  ELEMENT_DATA: PeriodicElement[] = [
+  elements: PeriodicElement[] = [
     {
       position: 1,
       name: 'Nhan Tran',
@@ -72,7 +71,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       imageUrl: 'https://www.pyimagesearch.com/wp-content/uploads/2020/05/face_mask_detection_featured.jpg',
     },
   ];
-  dataSource = this.ELEMENT_DATA;
+  dataSource = this.elements;
 
   statusList = [
     "All",
@@ -93,12 +92,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.sub = this.filterForm.valueChanges.subscribe(value => this.filterChecking(value))
   }
 
   generateRandomDate() {
-    return new Date();
+    return new Date()
   }
 
   openDialog() {
@@ -113,7 +111,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   filterChecking(formValue: any) {
-
+    const status: string = formValue.status;
+    const tempMin: number = formValue.tempSlider[0];
+    const tempMax: number = formValue.tempSlider[1];
+    this.dataSource = this.elements.filter(value => status === 'All' ? tempMin <= value.temperature && value.temperature <= tempMax :
+                                                    tempMin <= value.temperature && value.temperature <= tempMax && value.status === status,
+    )
   }
 
   ngOnDestroy(): void {
