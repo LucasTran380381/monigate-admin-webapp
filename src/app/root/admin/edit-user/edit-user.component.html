@@ -1,0 +1,54 @@
+<h1 mat-dialog-title>{{isAddMode ? 'Thêm thông tin người dùng' : 'Cập nhật thông tin người dùng'}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm">
+    <mat-accordion multi>
+
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Tài khoản
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expanded-panel-content">
+          <mat-form-field appearance="outline">
+            <mat-label>Tên đăng nhập</mat-label>
+            <input matInput>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Mật khẩu</mat-label>
+            <input [type]="shouldHidePassword ? 'password' : 'text'" matInput>
+            <button (click)="shouldHidePassword = !shouldHidePassword" mat-icon-button matSuffix>
+              <mat-icon>{{shouldHidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Favorite food</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let role of roles" [value]="role.roleId">
+                {{role.roleName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            This is the expansion title
+          </mat-panel-title>
+          <mat-panel-description>
+            This is a summary of the content
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>This is the primary content of the panel.</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button (click)="onCloseDialog()" mat-button>Huỷ</button>
+  <button color="primary" mat-raised-button>{{isAddMode ? 'Thêm' : 'Cập nhật'}}</button>
+</div>
+

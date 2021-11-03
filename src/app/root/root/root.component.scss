@@ -1,3 +1,11 @@
 .mat-drawer {
   color: indigo;
 }
+
+mat-toolbar {
+  display: flex;
+}
+
+.spacer {
+  flex: 1;
+}

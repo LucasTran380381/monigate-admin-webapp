@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {User} from '../models/user';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ export class AuthService {
 
   currentUser?: User
 
-  constructor() {
+  constructor(private router: Router) {
     const jsonUser = localStorage.getItem("currentUser");
 
     if (jsonUser) {this.currentUser = JSON.parse(jsonUser)}
@@ -25,4 +26,9 @@ export class AuthService {
     return null;
   }
 
+  onLogout() {
+    this.currentUser = undefined;
+    localStorage.removeItem('currentUser')
+    this.router.navigate(['login']).then()
+  }
 }

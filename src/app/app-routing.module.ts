@@ -5,7 +5,6 @@ import {NotFoundComponent} from "./not-found/not-found.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   {
     path: '',
     loadChildren: () => import('./root/root.module').then(m => m.RootModule),

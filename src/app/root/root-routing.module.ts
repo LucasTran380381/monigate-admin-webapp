@@ -16,6 +16,7 @@ const routes: Routes = [
           role: 'admin',
         },
       },
+      {path: '', redirectTo: 'admin', pathMatch: 'full'},
       {path: 'dashboard', component: DashboardComponent},
     ],
   },
