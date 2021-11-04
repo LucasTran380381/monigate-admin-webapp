@@ -2,7 +2,6 @@
 <div mat-dialog-content>
   <form [formGroup]="userForm">
     <mat-accordion multi>
-
       <mat-expansion-panel expanded>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -24,7 +23,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Favorite food</mat-label>
+            <mat-label>Quyền người dùng</mat-label>
             <mat-select>
               <mat-option *ngFor="let role of roles" [value]="role.roleId">
                 {{role.roleName}}
@@ -36,13 +35,27 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            This is the expansion title
+            Thông tin người dùng
           </mat-panel-title>
-          <mat-panel-description>
-            This is a summary of the content
-          </mat-panel-description>
         </mat-expansion-panel-header>
-        <p>This is the primary content of the panel.</p>
+        <div class="expanded-panel-content">
+          <mat-form-field appearance="outline">
+            <mat-label>Họ</mat-label>
+            <input matInput type="text">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Tên</mat-label>
+            <input matInput type="text">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Điện thoại</mat-label>
+            <input matInput pattern="[0-9]{10}" type="tel">
+          </mat-form-field>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
   </form>

@@ -8,6 +8,7 @@
             <mat-label>Username</mat-label>
             <input formControlName="username" matInput>
             <mat-icon matPrefix>person_outline</mat-icon>
+            <mat-error *ngIf="loginForm.controls.username.errors?.notFound">Sai tên đăng nhập hoặc mật khẩu</mat-error>
           </mat-form-field>
         </p>
         <p>
