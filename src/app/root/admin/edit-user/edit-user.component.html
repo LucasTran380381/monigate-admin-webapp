@@ -1,67 +1,40 @@
 <h1 mat-dialog-title>{{isAddMode ? 'Thêm thông tin người dùng' : 'Cập nhật thông tin người dùng'}}</h1>
 <div mat-dialog-content>
   <form [formGroup]="userForm">
-    <mat-accordion multi>
-      <mat-expansion-panel expanded>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Tài khoản
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="expanded-panel-content">
-          <mat-form-field appearance="outline">
-            <mat-label>Tên đăng nhập</mat-label>
-            <input matInput>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Mật khẩu</mat-label>
-            <input [type]="shouldHidePassword ? 'password' : 'text'" matInput>
-            <button (click)="shouldHidePassword = !shouldHidePassword" mat-icon-button matSuffix>
-              <mat-icon>{{shouldHidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Quyền người dùng</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let role of roles" [value]="role.roleId">
-                {{role.roleName}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Thông tin người dùng
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="expanded-panel-content">
-          <mat-form-field appearance="outline">
-            <mat-label>Họ</mat-label>
-            <input matInput type="text">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Tên</mat-label>
-            <input matInput type="text">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput type="email">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Điện thoại</mat-label>
-            <input matInput pattern="[0-9]{10}" type="tel">
-          </mat-form-field>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
+    <div class="expanded-panel-content">
+      <mat-form-field appearance="outline" class="flex-1">
+        <mat-label>Họ</mat-label>
+        <input formControlName="lastname" matInput type="text">
+        <mat-error *ngIf="userForm.controls.lastname.errors">Họ phải bắt đầu từ 1 ký tự đến 20 ký tự</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="flex-1">
+        <mat-label>Tên</mat-label>
+        <input formControlName="firstname" matInput type="text">
+        <mat-error *ngIf="userForm.controls.firstname.errors">Tên phải bắt đầu từ 1 ký tự đến 20 ký tự</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput type="email">
+        <mat-error *ngIf="userForm.controls.email.errors">Vui lòng nhập đúng email</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Điện thoại</mat-label>
+        <input formControlName="phone" matInput pattern="[0-9]{10}" type="tel">
+        <mat-error *ngIf="userForm.controls.phone.errors">Vui lòng nhập đúng số điện thoại</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Quyền người dùng</mat-label>
+        <mat-select formControlName="roleId">
+          <mat-option *ngFor="let role of roles" [value]="role.id">
+            {{role.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </form>
 </div>
 <div mat-dialog-actions>
   <button (click)="onCloseDialog()" mat-button>Huỷ</button>
-  <button color="primary" mat-raised-button>{{isAddMode ? 'Thêm' : 'Cập nhật'}}</button>
+  <button (click)="onSubmit()" [disabled]="userForm.invalid" color="primary" mat-raised-button>{{isAddMode ? 'Thêm' : 'Cập nhật'}}</button>
 </div>
 
