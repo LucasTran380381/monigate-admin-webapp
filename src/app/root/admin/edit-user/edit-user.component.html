@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>{{isAddMode ? 'Thêm thông tin người dùng' : 'Cập nhật thông tin người dùng'}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm">
+    <div class="expanded-panel-content">
+      <mat-form-field appearance="outline" class="flex-1">
+        <mat-label>Họ</mat-label>
+        <input formControlName="lastname" matInput type="text">
+        <mat-error *ngIf="userForm.controls.lastname.errors">Họ phải bắt đầu từ 1 ký tự đến 20 ký tự</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="flex-1">
+        <mat-label>Tên</mat-label>
+        <input formControlName="firstname" matInput type="text">
+        <mat-error *ngIf="userForm.controls.firstname.errors">Tên phải bắt đầu từ 1 ký tự đến 20 ký tự</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput type="email">
+        <mat-error *ngIf="userForm.controls.email.errors">Vui lòng nhập đúng email</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Điện thoại</mat-label>
+        <input formControlName="phone" matInput pattern="[0-9]{10}" type="tel">
+        <mat-error *ngIf="userForm.controls.phone.errors">Vui lòng nhập đúng số điện thoại</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Quyền người dùng</mat-label>
+        <mat-select formControlName="roleId">
+          <mat-option *ngFor="let role of roles" [value]="role.id">
+            {{role.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button (click)="onCloseDialog()" mat-button>Huỷ</button>
+  <button (click)="onSubmit()" [disabled]="userForm.invalid" color="primary" mat-raised-button>{{isAddMode ? 'Thêm' : 'Cập nhật'}}</button>
+</div>
+

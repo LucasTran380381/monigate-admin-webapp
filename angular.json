@@ -117,8 +117,14 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "monigate-admin-webapp:build:production",
+            "firebaseProject": "monigate-admin-webapp",
+            "firebaseHostingSite": "monigate-admin-webapp"
+          }
         }
       }
     }

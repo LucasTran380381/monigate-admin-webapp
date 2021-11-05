@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -16,6 +17,7 @@
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
     "@angular/core": "~12.2.0",
+    "@angular/fire": "^7.0.4",
     "@angular/forms": "~12.2.0",
     "@angular/material": "^12.2.11",
     "@angular/platform-browser": "~12.2.0",
@@ -23,7 +25,9 @@
     "@angular/router": "~12.2.0",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
-    "firebase-tools": "^9.21.0",
+    "firebase": "^9.1.0",
+    "firebase-tools": "^6.11.0",
+    "rxfire": "^6.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

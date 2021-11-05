@@ -6,6 +6,16 @@
       <!--        <mat-icon>menu</mat-icon>-->
       <!--      </button>-->
       <span>{{title.getTitle()}}</span>
+      <div class="spacer"></div>
+      <button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="onLogout()" mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
     </mat-toolbar>
     <div style="padding: 30px">
       <router-outlet></router-outlet>

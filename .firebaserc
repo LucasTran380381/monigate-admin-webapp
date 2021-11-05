@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "monigate-admin-webapp": {
+      "hosting": {
+        "monigate-admin-webapp": [
+          "monigate-admin-webapp"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "monigate-admin-webapp"
+  }
+}

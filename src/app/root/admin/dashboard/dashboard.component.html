@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="search-bar">
+    <form class="search-bar">
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Placeholder">
+        <mat-hint>Tìm kiếm bằng tên nhân viên hoặc mã nhân viên</mat-hint>
+      </mat-form-field>
+    </form>
+    <button (click)="onQuery()" color="primary" mat-icon-button>
+      <mat-icon>search</mat-icon>
+    </button>
+    <div class="spacer"></div>
+    <button (click)="onOpenDialog()" class="btn-add" color="primary" mat-button>
+      <mat-icon>add</mat-icon>
+      Thêm người dùng
+    </button>
+  </div>
+</div>
