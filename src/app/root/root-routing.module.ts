@@ -13,9 +13,10 @@ const routes: Routes = [
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
         canActivate: [AuthorizationGuard],
         data: {
-          role: 'admin',
+          role: 'Admin',
         },
       },
+      {path: '', redirectTo: 'admin', pathMatch: 'full'},
       {path: 'dashboard', component: DashboardComponent},
     ],
   },

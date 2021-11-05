@@ -22,7 +22,7 @@ import {MatSliderModule} from "@angular/material/slider";
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatExpansionModule} from "@angular/material/expansion";
-
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -51,6 +51,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatPaginatorModule,
     ReactiveFormsModule,
     MatExpansionModule,
+    MatMenuModule,
   ],
 })
 export class RootModule {
