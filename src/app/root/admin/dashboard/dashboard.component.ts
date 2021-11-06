@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {User} from '../../../models/user';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {EditUserComponent} from '../edit-user/edit-user.component';
 
 @Component({
@@ -9,7 +9,8 @@ import {EditUserComponent} from '../edit-user/edit-user.component';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
+  editUserDialog: MatDialogRef<EditUserComponent, any> | undefined
 
   constructor(private title: Title, private dialog: MatDialog) {
     this.title.setTitle('Admin dashboard')
@@ -19,14 +20,17 @@ export class DashboardComponent implements OnInit {
   }
 
   onQuery() {
-
   }
 
   onOpenDialog(user?: User) {
-    this.dialog.open(EditUserComponent, {
+    this.editUserDialog = this.dialog.open(EditUserComponent, {
       width: '800px',
       data: user,
       disableClose: true,
     })
+  }
+
+  ngOnDestroy(): void {
+    this.editUserDialog?.close()
   }
 }

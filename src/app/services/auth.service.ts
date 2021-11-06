@@ -18,9 +18,7 @@ export class AuthService {
   constructor(private router: Router, private http: HttpClient) {
     const jsonUser = localStorage.getItem("currentUser");
     this.token = localStorage.getItem('token') ?? undefined
-
     if (jsonUser) {this.currentUser = JSON.parse(jsonUser)}
-
   }
 
   onLogin(username: string, password: string): Observable<User> {
@@ -35,12 +33,6 @@ export class AuthService {
       localStorage.setItem('token', value.token)
       return user
     }))
-    // if (username === 'admin' && password === '123') {
-    //   const user = new User('ad1', "Nhan", "Tran", "", 1, "0908380381", "nhantse140983@fpt.edu.vn", "admin")
-    //   localStorage.setItem("currentUser", JSON.stringify(user))
-    //   this.currentUser = user;
-    //   return user
-    // }
   }
 
   onLogout() {

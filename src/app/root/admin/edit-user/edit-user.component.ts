@@ -25,20 +25,30 @@ export class EditUserComponent implements OnInit {
 
   constructor(private snackbar: MatSnackBar, private fb: FormBuilder, private accountService: AccountService, private dialogRef: MatDialogRef<EditUserComponent>, @Inject(MAT_DIALOG_DATA) public data?: User) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.isAddMode = this.data == undefined
-    this.roles = await this.accountService.getAllRole().toPromise()
+    this.onGetAllRole().then()
   }
 
   onCloseDialog() {
     this.dialogRef.close()
   }
 
+  async onGetAllRole() {
+    try { this.roles = await this.accountService.getAllRole().toPromise()} catch (e) { }
+  }
+
   async onSubmit() {
-    await this.accountService.onRegisterUser(this.userForm.value).toPromise();
-    this.snackbar.open(
-      'Tạo user thành công',
-    )
-    this.dialogRef.close()
+    try {
+      await this.accountService.onRegisterUser(this.userForm.value).toPromise();
+      this.snackbar.open(
+        'Tạo user thành công',
+      )
+      this.dialogRef.close()
+    } catch (e) {
+      this.snackbar.open('Đã có lỗi xảy ra, vui lòng thử lại', undefined, {
+        panelClass: 'red-snackbar',
+      })
+    }
   }
 }
