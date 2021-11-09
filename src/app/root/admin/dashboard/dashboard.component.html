@@ -1,13 +1,14 @@
 <div class="container">
   <div class="search-bar">
-    <form class="search-bar">
+    <div class="search-control">
       <mat-form-field appearance="outline">
         <mat-label>Tìm kiếm</mat-label>
-        <input matInput>
+        <input (keyup.enter)="onSearch()" [formControl]="searchControl" matInput>
         <mat-hint>Tìm kiếm bằng tên nhân viên hoặc mã nhân viên</mat-hint>
+        <mat-error *ngIf="searchControl.errors">Vui lòng nhập ít nhất 3 ký tự</mat-error>
       </mat-form-field>
-    </form>
-    <button (click)="onQuery()" color="primary" mat-icon-button>
+    </div>
+    <button (click)="onSearch()" color="primary" mat-icon-button>
       <mat-icon>search</mat-icon>
     </button>
     <div class="spacer"></div>
@@ -15,5 +16,66 @@
       <mat-icon>add</mat-icon>
       Thêm người dùng
     </button>
+  </div>
+  <div *ngIf="filteredUser.data?.length" class="table-section mat-elevation-z8">
+    <table [dataSource]="filteredUser" mat-table>
+
+      <ng-container matColumnDef="position">
+        <th *matHeaderCellDef mat-header-cell> No.</th>
+        <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th *matHeaderCellDef mat-header-cell> Name</th>
+        <td *matCellDef="let element" mat-cell> {{element.lastName + ' ' + element.firstName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th *matHeaderCellDef mat-header-cell>Username</th>
+        <td *matCellDef="let element" mat-cell> {{element.account.username}} </td>
+      </ng-container>
+      <ng-container matColumnDef="roleName">
+        <th *matHeaderCellDef mat-header-cell>Role</th>
+        <td *matCellDef="let element" mat-cell> {{element.account.role.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th *matHeaderCellDef mat-header-cell>Email</th>
+        <td *matCellDef="let element" mat-cell> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th *matHeaderCellDef mat-header-cell>Phone</th>
+        <td *matCellDef="let element" mat-cell> {{element.phone}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th *matHeaderCellDef mat-header-cell>Status</th>
+        <td *matCellDef="let element" mat-cell>
+          <mat-slide-toggle
+            [checked]="element.status === 100"
+            class="example-margin"
+            color="primary">
+          </mat-slide-toggle>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+          <button color="primary" mat-icon-button>
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]">
+    </mat-paginator>
+  </div>
+  <div *ngIf="isNotFoundUser" class="not-found-section">
+    <h1>Không tìm thấy người dùng</h1>
   </div>
 </div>

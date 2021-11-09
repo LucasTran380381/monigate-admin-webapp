@@ -1,23 +1,19 @@
 <div class="center-container">
   <mat-card>
     <mat-card-title style="text-align: center">Login Monigate Admin</mat-card-title>
-    <mat-card-content align="center">
+    <mat-card-content>
       <form [formGroup]="loginForm">
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
-            <input formControlName="username" matInput>
-            <mat-icon matPrefix>person_outline</mat-icon>
-            <mat-error *ngIf="loginForm.controls.username.errors?.notFound">Sai tên đăng nhập hoặc mật khẩu</mat-error>
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input formControlName="password" matInput type="password">
-            <mat-icon matPrefix>password</mat-icon>
-          </mat-form-field>
-        </p>
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input formControlName="username" matInput>
+          <mat-icon matPrefix>person_outline</mat-icon>
+          <mat-error *ngIf="loginForm.controls.username.errors?.notFound">Sai tên đăng nhập hoặc mật khẩu</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input formControlName="password" matInput type="password">
+          <mat-icon matPrefix>password</mat-icon>
+        </mat-form-field>
         <button (click)="onLogin()" color="primary" mat-raised-button>Login</button>
       </form>
     </mat-card-content>

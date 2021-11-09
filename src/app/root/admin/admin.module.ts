@@ -12,7 +12,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatTableModule} from '@angular/material/table';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -37,6 +40,10 @@ const routes: Routes = [
     MatOptionModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatSlideToggleModule,
+    MatPaginatorModule,
+    FormsModule,
   ],
 })
 export class AdminModule {}

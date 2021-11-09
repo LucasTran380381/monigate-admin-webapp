@@ -2,6 +2,17 @@
 <div mat-dialog-content>
   <form [formGroup]="userForm">
     <div class="expanded-panel-content">
+      <mat-form-field appearance="outline">
+        <mat-label>Id</mat-label>
+        <input formControlName="id" matInput>
+        <mat-error *ngIf="userForm.controls.id.errors?.required">Vui lòng nhập id</mat-error>
+        <mat-error *ngIf="userForm.controls.id.errors?.duplicate">Id đã bị trùng</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput type="email">
+        <mat-error *ngIf="userForm.controls.email.errors">Vui lòng nhập đúng email</mat-error>
+      </mat-form-field>
       <mat-form-field appearance="outline" class="flex-1">
         <mat-label>Họ</mat-label>
         <input formControlName="lastname" matInput type="text">
@@ -11,11 +22,6 @@
         <mat-label>Tên</mat-label>
         <input formControlName="firstname" matInput type="text">
         <mat-error *ngIf="userForm.controls.firstname.errors">Tên phải bắt đầu từ 1 ký tự đến 20 ký tự</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input formControlName="email" matInput type="email">
-        <mat-error *ngIf="userForm.controls.email.errors">Vui lòng nhập đúng email</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Điện thoại</mat-label>

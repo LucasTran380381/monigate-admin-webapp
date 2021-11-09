@@ -4,7 +4,7 @@
   align-items: baseline;
   flex-wrap: wrap;
 
-  form {
+  .search-control {
     flex: 2;
 
     mat-form-field {
@@ -16,3 +16,19 @@
     flex: 2;
   }
 }
+
+.table-section {
+  margin-top: 20px;
+
+  table {
+    width: 100%;
+  }
+}
+
+.not-found-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  color: #939393;
+}
+

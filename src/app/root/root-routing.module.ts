@@ -16,6 +16,14 @@ const routes: Routes = [
           role: 'Admin',
         },
       },
+      {
+        path: 'technical',
+        loadChildren: () => import('./technical/technical.module').then(m => m.TechnicalModule),
+        canActivate: [AuthorizationGuard],
+        data: {
+          role: 'Technical',
+        },
+      },
       {path: '', redirectTo: 'admin', pathMatch: 'full'},
       {path: 'dashboard', component: DashboardComponent},
     ],
