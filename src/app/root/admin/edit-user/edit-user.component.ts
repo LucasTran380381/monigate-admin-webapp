@@ -24,10 +24,20 @@ export class EditUserComponent implements OnInit {
     roleId: ['', Validators.required],
   })
 
-  constructor(private snackbar: MatSnackBar, private fb: FormBuilder, private accountService: UserService, private dialogRef: MatDialogRef<EditUserComponent>, @Inject(MAT_DIALOG_DATA) public data?: User) { }
+  constructor(private snackbar: MatSnackBar, private fb: FormBuilder, private userService: UserService, private dialogRef: MatDialogRef<EditUserComponent>, @Inject(MAT_DIALOG_DATA) public data?: User) { }
 
   ngOnInit() {
     this.isAddMode = this.data == undefined
+    this.userForm.patchValue(
+      {
+        id: this.data?.id,
+        firstname: this.data?.firstName,
+        lastname: this.data?.lastName,
+        email: this.data?.email,
+        phone: this.data?.phone,
+        roleId: this.data?.account.role?.id,
+      },
+    )
     this.onGetAllRole().then()
   }
 
@@ -36,12 +46,15 @@ export class EditUserComponent implements OnInit {
   }
 
   async onGetAllRole() {
-    try { this.roles = await this.accountService.getUserRoles().toPromise()} catch (e) { }
+    try { this.roles = await this.userService.getUserRoles().toPromise()} catch (e) { }
   }
 
   async onSubmit() {
     try {
-      await this.accountService.onRegisterUser(this.userForm.value).toPromise();
+      if (!this.isAddMode) {
+
+      }
+      await this.userService.onRegisterUser(this.userForm.value).toPromise();
       this.snackbar.open(
         'Tạo user thành công',
         undefined,

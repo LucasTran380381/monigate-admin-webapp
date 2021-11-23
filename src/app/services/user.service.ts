@@ -20,11 +20,19 @@ export class UserService {
   }
 
   searchUser(query: string) {
-    return this.http.get<User[]>(`${environment.apiUrl}/User/filter`, {
+    return this.http.get<User[]>(`${environment.apiUrl}/User/search`, {
       params: {
         search: query,
       },
     })
+  }
+
+  updateUser(userInfo: any) {
+    return this.http.put(`${environment.apiUrl}/User`, userInfo)
+  }
+
+  getUser(id: string) {
+    return this.http.get<User>(`${environment.apiUrl}/User/${id}`)
   }
 
 }

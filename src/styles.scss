@@ -1,6 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@use '~@angular/material' as mat;
+
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+$my-custom-level: mat.define-typography-level(
+  $font-weight: 400,
+  $font-size: 1rem,
+  $line-height: 1,
+  $letter-spacing: normal,
+);
+
+$my-custom-typo: mat.define-typography-config(
+  $body-1: $my-custom-level,
+  $caption: mat.define-typography-level(1rem, 1, 300),
+);
+
+@include mat.core($my-custom-typo);
 
 
 html, body {
@@ -9,7 +26,6 @@ html, body {
 
 body {
   margin: 0;
-  font-family: 'Work Sans', serif;
 }
 
 .container {

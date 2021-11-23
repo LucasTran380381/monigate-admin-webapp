@@ -17,14 +17,18 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   editUserDialog: MatDialogRef<EditUserComponent, any> | undefined
   searchControl = new FormControl(undefined, [Validators.minLength(3)])
   originalUsers: User [] = []
-  filteredUser: MatTableDataSource<User> = new MatTableDataSource<User>()
-  displayedColumns: string[] = ['position', 'name', 'username', 'roleName', 'email', 'phone', 'status', 'action'];
+  userDataSource: MatTableDataSource<User> = new MatTableDataSource<User>()
+  disabledUserDataSource: MatTableDataSource<User> = new MatTableDataSource<User>()
+  userTableColumns: string[] = ['position', 'name', 'username', 'roleName', 'status', 'action'];
+  disabledUserTableColumns: string[] = ['position', 'name', 'username', 'roleName', 'status'];
   isNotFoundUser = false
   @ViewChild('paginator', {static: false})
   private paginator: MatPaginator | undefined;
+  @ViewChild('disablePaginator', {static: false})
+  private disablePaginator: MatPaginator | undefined;
 
   constructor(private title: Title, private dialog: MatDialog, private userService: UserService, private changeDetector: ChangeDetectorRef) {
-    this.title.setTitle('Admin dashboard')
+    this.title.setTitle('Quản lí ngưởi dùng - Monigate Admin')
   }
 
   ngOnInit(): void {
@@ -53,19 +57,20 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       return
     }
     try {
-      this.originalUsers = await this.userService.searchUser(this.searchControl.value.trim()).toPromise()
+      const result = await this.userService.searchUser(this.searchControl.value.trim()).toPromise()
+      this.userDataSource.data = result.filter(user => user.status !== 0)
+      this.disabledUserDataSource.data = result.filter(user => user.status === 0)
       this.isNotFoundUser = false
-      this.filteredUser.data = this.originalUsers
       this.changeDetector.detectChanges()
       if (this.paginator)
-        this.filteredUser.paginator = this.paginator
+        this.userDataSource.paginator = this.paginator
+      if (this.disablePaginator)
+        this.disabledUserDataSource.paginator = this.disablePaginator
     } catch (e) {
       if (e.status === 404) {
-        this.originalUsers = []
-        this.filteredUser.data = []
+        this.userDataSource.data = []
         this.isNotFoundUser = true
       }
-      console.log('error', e)
     }
   }
 

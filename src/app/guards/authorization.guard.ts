@@ -19,6 +19,9 @@ export class AuthorizationGuard implements CanActivate {
         case 'Admin':
           commands = ['admin']
           break;
+        case 'Technical Moderator':
+          commands = ['technical']
+          break
       }
       this.router.navigate(commands).then()
     }

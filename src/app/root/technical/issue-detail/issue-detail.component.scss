@@ -1,0 +1,35 @@
+.mat-dialog-content {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .img-section {
+    flex: 1;
+  }
+
+  mat-accordion {
+    flex: 1;
+  }
+}
+
+.issue-detail {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.title {
+  flex: 1;
+  font-weight: 600;
+  color: #939393;
+}
+
+.content {
+  text-align: left;
+  flex: 2;
+}
+
+mat-panel-title {
+  font-weight: 700;
+}

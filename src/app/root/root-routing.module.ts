@@ -21,7 +21,7 @@ const routes: Routes = [
         loadChildren: () => import('./technical/technical.module').then(m => m.TechnicalModule),
         canActivate: [AuthorizationGuard],
         data: {
-          role: 'Technical',
+          role: 'Technical Moderator',
         },
       },
       {path: '', redirectTo: 'admin', pathMatch: 'full'},

@@ -1,1 +1,116 @@
-<p>report-management works!</p>
+<main class="container">
+  <div class="status-section">
+    <mat-card>
+      <div class="left-content">
+
+      </div>
+      <div class="right-content">
+        <h2>Tổng số vấn đề</h2>
+        <h4>{{openedIssue + approvedIssue + rejectedIssue}}</h4>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div class="left-content">
+
+      </div>
+      <div class="right-content">
+        <h2>Vấn đề chưa được tiếp nhận</h2>
+        <h4>{{openedIssue}}</h4>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div class="left-content">
+
+      </div>
+      <div class="right-content">
+        <h2>Vấn đề đang giải quyết</h2>
+        <h4>{{approvedIssue}}</h4>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div class="left-content">
+
+      </div>
+      <div class="right-content">
+        <h2>Vấn đề bị từ chối</h2>
+        <h4>{{rejectedIssue}}</h4>
+      </div>
+    </mat-card>
+  </div>
+  <mat-expansion-panel class="filter-section">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Bộ lọc</mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="filterForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Ngày báo cáo</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input formControlName="startDate" matStartDate placeholder="Start date">
+          <input formControlName="endDate" matEndDate placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Loại vấn đề</mat-label>
+        <mat-select formControlName="type">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let issueType of issueTypes" [value]="issueType.id">
+            {{issueType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Trạng thái</mat-label>
+        <mat-select formControlName="status">
+          <mat-option></mat-option>
+          <mat-option [value]="100">Chưa tiếp nhận</mat-option>
+          <mat-option [value]="200">Đang xử lí</mat-option>
+          <mat-option [value]="300">Từ chối tiếp nhận</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </mat-expansion-panel>
+  <div [hidden]="!issueDataSource.filteredData.length" class="mat-elevation-z8">
+    <table [dataSource]="issueDataSource" mat-table>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th *matHeaderCellDef mat-header-cell> No.</th>
+        <td *matCellDef="let element, let i= index" mat-cell> {{i + 1}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="date">
+        <th *matHeaderCellDef mat-header-cell>Ngày báo cáo</th>
+        <td *matCellDef="let element;" mat-cell> {{element.reportDate | date:'d/M/yyyy'}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="type">
+        <th *matHeaderCellDef mat-header-cell>Loại vấn đề</th>
+        <td *matCellDef="let element" mat-cell> {{element.issueType.name}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="status">
+        <th *matHeaderCellDef mat-header-cell>Trạng thái</th>
+        <td *matCellDef="let element" [style]="onGetStatusStyle(element.status)" mat-cell> {{onGetStatusTitle(element.status)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+          <button (click)="onOpenDetailDialog(element)" color="primary" mat-icon-button>
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>
+
+</main>

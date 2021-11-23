@@ -8,13 +8,33 @@
 }
 
 .expanded-panel-content {
+  //display: flex;
+  //flex-wrap: wrap;
+  //gap: 10px;
+  //justify-content: space-around;
   padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 50% auto;
+  grid-template-areas: 'left-control right-control';
   gap: 10px;
-  justify-content: space-around;
 
-  mat-form-field {
-    flex: 1;
+
+  .id-control {
+    grid-area: left-control;
   }
+
+  .email-control {
+    grid-area: right-control;
+  }
+
+  .expanded-control {
+    grid-column-start: left-control;
+    grid-column-end: right-control;
+  }
+
+}
+
+.id-title {
+  margin-left: 10px;
+  margin-bottom: 20px;
 }

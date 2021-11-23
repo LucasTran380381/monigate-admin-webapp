@@ -16,10 +16,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 const routes: Routes = [
-  {path: 'dashboard', component: DashboardComponent},
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: 'user-management', component: DashboardComponent},
+  {path: '', redirectTo: 'user-management', pathMatch: 'full'},
 ]
 
 @NgModule({
@@ -44,6 +47,9 @@ const routes: Routes = [
     MatSlideToggleModule,
     MatPaginatorModule,
     FormsModule,
+    MatTabsModule,
+    MatMenuModule,
+    MatButtonToggleModule,
   ],
 })
 export class AdminModule {}

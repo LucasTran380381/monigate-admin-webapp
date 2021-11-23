@@ -17,6 +17,14 @@
   }
 }
 
+.data-section {
+  margin-top: 20px;
+}
+
+.filter-panel-content {
+
+}
+
 .table-section {
   margin-top: 20px;
 
@@ -30,5 +38,9 @@
   display: flex;
   justify-content: center;
   color: #939393;
+}
+
+mat-button-toggle-group {
+  height: 80%;
 }
 

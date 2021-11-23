@@ -1,0 +1,44 @@
+.status-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+
+  mat-card {
+    padding: 20px;
+    width: 250px;
+
+    h2 {
+      font-size: 18px;
+      font-weight: 400;
+      color: #939393;
+    }
+
+    h4 {
+      font-size: 28px;
+      font-weight: 700;
+    }
+  }
+}
+
+.filter-section {
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    mat-form-field {
+      flex: 1;
+    }
+  }
+}
+
+table {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

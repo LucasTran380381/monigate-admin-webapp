@@ -24,9 +24,16 @@ export class LoginComponent implements OnInit {
     const formValue = this.loginForm.value;
     try {
       const user = await this.authService.onLogin(formValue.username, formValue.password).toPromise()
-      if (user.account.roleName === 'Admin') {
-        this.router.navigate(['admin']).then()
+      let command = ['']
+      switch (user.account.roleName) {
+        case'Admin':
+          command = ['admin']
+          break
+        case 'Technical Moderator':
+          command = ['technical']
+          break
       }
+      this.router.navigate(command).then()
     } catch (e) {
       if (e.status === 404)
         this.loginForm.controls.username.setErrors({notFound: true})

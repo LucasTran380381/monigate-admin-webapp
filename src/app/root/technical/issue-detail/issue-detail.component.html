@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>Báo cáo chi tiết</h1>
+<div mat-dialog-content>
+  <img alt="" class="img-section"
+       src="{{issue.reportedCheckin?.faceMaskImageUrl??'https://phocode.com/wp-content/uploads/2020/10/placeholder-1-1.png'}}"
+       width="200px">
+  <mat-accordion>
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Thông tin vấn đề</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="issue-expanded-content">
+        <p class="issue-detail"><span class="title">Id:</span><span class="content">{{issue.id}}</span></p>
+        <p class="issue-detail"><span class="title">Loại vấn đề: </span><span class="content">{{issue.issueType.name}}</span></p>
+        <p class="issue-detail"><span class="title">Ghi chú:</span><span class="content">{{issue.note}}</span></p>
+        <p class="issue-detail"><span class="title">Ngày báo cáo: </span><span class="content">{{issue.reportDate | date:'d/M/yyyy'}}</span>
+        </p>
+        <p
+          class="issue-detail"><span class="title">Trạng thái: </span><span [style]="getStatusStyle(issue.status)"
+                                                                            class="content">{{getStatusTitle(issue.status)}}</span></p>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Thông tin checkin
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="issue-expanded-content">
+        <p
+          class="issue-detail"><span class="title">Thời gian</span><span
+          class="content">{{issue.reportedCheckin.checkinTime | date:'h:m d/M/yyyy'}}</span></p>
+        <p
+          class="issue-detail"><span class="title">Nhiệt độ</span><span
+          class="content">{{issue.reportedCheckin.temperature}}</span></p>
+        <p
+          class="issue-detail"><span class="title">Trạng thái khẩu trang</span><span
+          class="content">{{issue.reportedCheckin.isValidFaceMask ? 'Đúng quy cách' : 'Sai quy cách'}}</span></p>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Thông tin người dùng</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="issue-expanded-content">
+        <p
+          class="issue-detail"><span class="title">Email</span><span
+          class="content">{{issue.reportedCheckin.user.email}}</span></p>
+        <p
+          class="issue-detail"><span class="title">Họ và tên</span><span
+          class="content">{{issue.reportedCheckin.user.lastName + ' ' + issue.reportedCheckin.user.firstName}}</span></p>
+        <p
+          class="issue-detail"><span class="title">Số điện thoại</span><span
+          class="content">{{issue.reportedCheckin.user.phone}}</span></p>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
