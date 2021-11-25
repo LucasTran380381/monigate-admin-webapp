@@ -35,4 +35,10 @@ export class UserService {
     return this.http.get<User>(`${environment.apiUrl}/User/${id}`)
   }
 
+  changeStatus(id: string, statusCode: number) {
+    return this.http.put(`${environment.apiUrl}/User/status`, {
+      id, statusCode,
+    })
+  }
+
 }

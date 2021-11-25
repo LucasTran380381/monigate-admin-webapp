@@ -67,11 +67,11 @@
                   <mat-icon>password</mat-icon>
                   <span>Đặt lại mật khẩu</span>
                 </button>
-                <button mat-menu-item>
+                <button (click)="openBlockDialog(element.id, element.status === 100 ? 110 : 100)" mat-menu-item>
                   <mat-icon>block</mat-icon>
-                  <span style="color: red">Chặn tạm thời người dùng</span>
+                  <span style="color: red">{{element.status === 100 ? 'Chặn' : 'Bỏ chặn'}}</span>
                 </button>
-                <button mat-menu-item>
+                <button (click)="openConfirmDisableDialog(element.id)" mat-menu-item>
                   <mat-icon>person_off</mat-icon>
                   <span style="color: red">Vô hiệu hoá người dùng</span>
                 </button>
@@ -87,7 +87,6 @@
       </mat-tab>
       <mat-tab [disabled]="disabledUserDataSource.data.length === 0" label="Người dùng bị vô hiệu hoá">
         <table [dataSource]="disabledUserDataSource" mat-table>
-
           <ng-container matColumnDef="position">
             <th *matHeaderCellDef mat-header-cell> No.</th>
             <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
@@ -102,20 +101,13 @@
             <th *matHeaderCellDef mat-header-cell>Username</th>
             <td *matCellDef="let element" mat-cell> {{element.account.username}} </td>
           </ng-container>
+          <ng-container matColumnDef="email">
+            <th *matHeaderCellDef mat-header-cell>Username</th>
+            <td *matCellDef="let element" mat-cell> {{element.email}} </td>
+          </ng-container>
           <ng-container matColumnDef="roleName">
             <th *matHeaderCellDef mat-header-cell>Role</th>
             <td *matCellDef="let element" mat-cell> {{element.account.role.name}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="status">
-            <th *matHeaderCellDef mat-header-cell>Block status</th>
-            <td *matCellDef="let element" [ngStyle]="{'color': element.status === 100? 'green' : 'red'}" mat-cell>
-              {{element.status === 100 ? 'Bình thường' : 'Bị chặn'}}
-              <!--              <mat-button-toggle-group>-->
-              <!--                <mat-button-toggle style="color: red">Bị chặn</mat-button-toggle>-->
-              <!--                <mat-button-toggle style="color: green" checked>Bình thường</mat-button-toggle>-->
-              <!--              </mat-button-toggle-group>-->
-            </td>
           </ng-container>
 
           <tr *matHeaderRowDef="disabledUserTableColumns" mat-header-row></tr>

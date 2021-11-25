@@ -53,15 +53,16 @@ export class EditUserComponent implements OnInit {
     try {
       if (!this.isAddMode) {
 
+      } else {
+        await this.userService.onRegisterUser(this.userForm.value).toPromise();
+        this.snackbar.open(
+          'Tạo user thành công',
+          undefined,
+          {
+            panelClass: 'green-snackbar',
+          },
+        )
       }
-      await this.userService.onRegisterUser(this.userForm.value).toPromise();
-      this.snackbar.open(
-        'Tạo user thành công',
-        undefined,
-        {
-          panelClass: 'green-snackbar',
-        },
-      )
       this.dialogRef.close()
     } catch (e) {
       if (e.status === 500) {

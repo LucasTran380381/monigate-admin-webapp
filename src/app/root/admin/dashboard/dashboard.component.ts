@@ -7,6 +7,8 @@ import {FormControl, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {ConfirmDialogComponent} from '../../confirm-dialog/confirm-dialog.component';
+import {DialogData} from '../../../models/dialog-data';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,13 +16,13 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
-  editUserDialog: MatDialogRef<EditUserComponent, any> | undefined
+  editUserDialog: MatDialogRef<EditUserComponent> | undefined
   searchControl = new FormControl(undefined, [Validators.minLength(3)])
   originalUsers: User [] = []
   userDataSource: MatTableDataSource<User> = new MatTableDataSource<User>()
   disabledUserDataSource: MatTableDataSource<User> = new MatTableDataSource<User>()
   userTableColumns: string[] = ['position', 'name', 'username', 'roleName', 'status', 'action'];
-  disabledUserTableColumns: string[] = ['position', 'name', 'username', 'roleName', 'status'];
+  disabledUserTableColumns: string[] = ['position', 'name', 'username', 'email', 'roleName'];
   isNotFoundUser = false
   @ViewChild('paginator', {static: false})
   private paginator: MatPaginator | undefined;
@@ -74,4 +76,40 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  openBlockDialog(id: string, status: number) {
+    const dialogData = new DialogData(status === 110 ? 'Xác nhận chặn người dùng' : 'Xác nhận bỏ chặn', status, status === 110 ? 'Chặn' : 'Bỏ' +
+      ' chặn', 'Huỷ bỏ')
+    this.dialog.open(ConfirmDialogComponent, {
+      data: dialogData,
+    }).afterClosed().subscribe(value => {
+      if (!value)
+        return
+      this.userService.changeStatus(id, value).subscribe(() => {
+        const userForUpdateStatus = this.userDataSource.data.find(user => user.id === id);
+        if (userForUpdateStatus)
+          userForUpdateStatus.status = status
+      })
+    });
+  }
+
+  openConfirmDisableDialog(id: string) {
+    const dialogData = new DialogData('Xác nhận vô hiệu hoá người dùng', 'disable', 'Vô hiệu hoá', 'Huỷ bỏ')
+    this.dialog.open(ConfirmDialogComponent, {
+      data: dialogData,
+    }).afterClosed().subscribe(message => {
+      if (message == 'disable') {
+        this.userService.changeStatus(id, 0).subscribe(() => {
+          const deletedIndex = this.userDataSource.data.findIndex(user => user.id === id);
+          const disabledUser = this.userDataSource.data.find(user => user.id === id);
+          this.userDataSource.data.splice(deletedIndex, 1)
+          this.userDataSource._updateChangeSubscription()
+
+          if (disabledUser) {
+            this.disabledUserDataSource.data.push(disabledUser)
+            this.disabledUserDataSource._updateChangeSubscription()
+          }
+        }, error => console.log(error))
+      }
+    })
+  }
 }

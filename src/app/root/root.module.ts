@@ -23,6 +23,7 @@ import {NgxSliderModule} from "@angular-slider/ngx-slider";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatMenuModule} from '@angular/material/menu';
+import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {MatMenuModule} from '@angular/material/menu';
     RootComponent,
     DashboardComponent,
     CheckingDetailComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
