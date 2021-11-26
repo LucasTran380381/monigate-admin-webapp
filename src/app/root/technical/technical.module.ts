@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {IssueDetailComponent} from './issue-detail/issue-detail.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
 
 const routes: Routes = [
   {path: 'report-management', component: ReportManagementComponent},
@@ -39,6 +40,7 @@ const routes: Routes = [
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MatDividerModule,
   ],
 })
 export class TechnicalModule {}

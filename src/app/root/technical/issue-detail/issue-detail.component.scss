@@ -1,3 +1,24 @@
+.mat-dialog-header {
+  background-color: #3f51b5;
+  padding: 20px 20px 10px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-divider {
+  background-color: #3f51b5;
+}
+
+.issue-expanded-content {
+  padding: 20px 0 0;
+}
+
+.vertical-spacer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .mat-dialog-content {
   padding: 20px;
   display: flex;

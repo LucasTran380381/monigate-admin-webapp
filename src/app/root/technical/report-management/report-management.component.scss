@@ -1,4 +1,24 @@
 .status-section {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+.status-section-header {
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px 10px;
+  background-color: #3f51b5;
+  color: white;
+}
+
+mat-divider {
+  background-color: #3f51b5;
+}
+
+.status-section-content {
+  padding: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -21,6 +41,24 @@
   }
 }
 
+.issue-list-section {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  border-radius: 20px;
+}
+
+.issue-list-section-header {
+  padding: 20px 20px 10px;
+  background-color: #3f51b5;
+  border-radius: 20px 20px 0 0;
+  color: white;
+}
+
+.issue-list-section-content {
+  padding: 20px;
+}
+
 .filter-section {
   form {
     display: flex;
@@ -31,6 +69,12 @@
       flex: 1;
     }
   }
+}
+
+mat-divider {
+  background-color: #3f51b5;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 table {

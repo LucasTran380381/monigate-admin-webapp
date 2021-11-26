@@ -1,4 +1,9 @@
-<h1 mat-dialog-title>Báo cáo chi tiết</h1>
+<div class="mat-dialog-header">
+  <h1>Báo cáo chi tiết</h1>
+  <button mat-dialog-close mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 <div mat-dialog-content>
   <img alt="" class="img-section"
        src="{{issue.reportedCheckin?.faceMaskImageUrl??'https://phocode.com/wp-content/uploads/2020/10/placeholder-1-1.png'}}"
@@ -8,6 +13,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title>Thông tin vấn đề</mat-panel-title>
       </mat-expansion-panel-header>
+      <mat-divider></mat-divider>
       <div class="issue-expanded-content">
         <p class="issue-detail"><span class="title">Id:</span><span class="content">{{issue.id}}</span></p>
         <p class="issue-detail"><span class="title">Loại vấn đề: </span><span class="content">{{issue.issueType.name}}</span></p>
@@ -19,12 +25,14 @@
                                                                             class="content">{{getStatusTitle(issue.status)}}</span></p>
       </div>
     </mat-expansion-panel>
+    <div class="vertical-spacer"></div>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Thông tin checkin
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <mat-divider></mat-divider>
       <div class="issue-expanded-content">
         <p
           class="issue-detail"><span class="title">Thời gian</span><span
@@ -37,10 +45,12 @@
           class="content">{{issue.reportedCheckin.isValidFaceMask ? 'Đúng quy cách' : 'Sai quy cách'}}</span></p>
       </div>
     </mat-expansion-panel>
+    <div class="vertical-spacer"></div>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Thông tin người dùng</mat-panel-title>
       </mat-expansion-panel-header>
+      <mat-divider></mat-divider>
       <div class="issue-expanded-content">
         <p
           class="issue-detail"><span class="title">Email</span><span
