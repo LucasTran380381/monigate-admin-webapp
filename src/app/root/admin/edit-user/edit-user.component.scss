@@ -1,40 +1,66 @@
+.mat-dialog-header {
+  background-color: #3f51b5;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: white;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
 .mat-dialog-actions {
   display: flex;
   justify-content: center;
 }
 
 .mat-dialog-content {
-  padding: 20px;
+
 }
 
-.expanded-panel-content {
-  //display: flex;
-  //flex-wrap: wrap;
-  //gap: 10px;
-  //justify-content: space-around;
-  padding: 10px;
+.id-section {
+}
+
+.id-content {
+  color: #3f51b5;
+}
+
+form {
   display: grid;
-  grid-template-columns: 50% auto;
-  grid-template-areas: 'left-control right-control';
-  gap: 10px;
-
-
-  .id-control {
-    grid-area: left-control;
-  }
-
-  .email-control {
-    grid-area: right-control;
-  }
-
-  .expanded-control {
-    grid-column-start: left-control;
-    grid-column-end: right-control;
-  }
-
+  align-items: center;
+  grid-template-areas:
+    'id id role'
+    'lastName firstName firstName'
+    'phone email email';
+  grid-template-columns:
+    1fr 1fr 1fr;
+  gap: 5px;
 }
 
-.id-title {
-  margin-left: 10px;
-  margin-bottom: 20px;
+.id {
+  grid-area: id;
+}
+
+.role {
+  grid-area: role;
+}
+
+.last-name {
+  grid-area: lastName;
+}
+
+.first-name {
+  grid-area: firstName;
+}
+
+.phone {
+  grid-area: phone;
+}
+
+.email {
+  grid-area: email;
+}
+
+mat-divider {
+  color: #3f51b5;
+  background-color: #3f51b5;
 }

@@ -1,126 +1,132 @@
 <div class="container">
-  <div class="search-bar">
-    <div class="search-control">
-      <mat-form-field appearance="outline">
-        <mat-label>Tìm kiếm</mat-label>
-        <input (keyup.enter)="onSearch()" [formControl]="searchControl" matInput>
-        <mat-hint>Tìm kiếm bằng tên nhân viên hoặc mã nhân viên</mat-hint>
-        <mat-error *ngIf="searchControl.errors">Vui lòng nhập ít nhất 3 ký tự</mat-error>
-      </mat-form-field>
+  <div class="search-section mat-elevation-z8">
+    <h2>Tìm kiếm người dùng</h2>
+    <div class="search-bar">
+      <div class="search-control">
+        <mat-form-field appearance="outline">
+          <mat-label>Tìm kiếm</mat-label>
+          <input (keyup.enter)="onSearch()" [formControl]="searchControl" matInput>
+          <mat-hint>Tìm kiếm bằng tên nhân viên hoặc mã nhân viên</mat-hint>
+          <mat-error *ngIf="searchControl.errors">Vui lòng nhập ít nhất 3 ký tự</mat-error>
+        </mat-form-field>
+      </div>
+      <button (click)="onSearch()" color="primary" mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+      <div class="spacer"></div>
+      <button (click)="onOpenDialog()" class="btn-add" color="primary" mat-button>
+        <mat-icon>add</mat-icon>
+        Thêm người dùng
+      </button>
     </div>
-    <button (click)="onSearch()" color="primary" mat-icon-button>
-      <mat-icon>search</mat-icon>
-    </button>
-    <div class="spacer"></div>
-    <button (click)="onOpenDialog()" class="btn-add" color="primary" mat-button>
-      <mat-icon>add</mat-icon>
-      Thêm người dùng
-    </button>
   </div>
-  <div *ngIf="userDataSource.data?.length" class="table-section mat-elevation-z8">
-    <mat-tab-group mat-align-tabs="start">
-      <mat-tab label="Người dùng không bị vô hiệu hoá">
-        <table [dataSource]="userDataSource" mat-table>
+  <div class="center">
+    <div *ngIf="userDataSource.data?.length" class="table-section mat-elevation-z8">
+      <div class="section-header">
+        <h2>Danh sách người dùng</h2>
+      </div>
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Người dùng không bị vô hiệu hoá">
+          <table [dataSource]="userDataSource" mat-table>
 
-          <ng-container matColumnDef="position">
-            <th *matHeaderCellDef mat-header-cell> No.</th>
-            <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
-          </ng-container>
+            <ng-container matColumnDef="position">
+              <th *matHeaderCellDef mat-header-cell> No.</th>
+              <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="name">
-            <th *matHeaderCellDef mat-header-cell> Name</th>
-            <td *matCellDef="let element" mat-cell> {{element.lastName + ' ' + element.firstName}} </td>
-          </ng-container>
+            <ng-container matColumnDef="name">
+              <th *matHeaderCellDef mat-header-cell> Name</th>
+              <td *matCellDef="let element" mat-cell> {{element.lastName + ' ' + element.firstName}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="username">
-            <th *matHeaderCellDef mat-header-cell>Username</th>
-            <td *matCellDef="let element" mat-cell> {{element.account.username}} </td>
-          </ng-container>
-          <ng-container matColumnDef="roleName">
-            <th *matHeaderCellDef mat-header-cell>Role</th>
-            <td *matCellDef="let element" mat-cell> {{element.account.role.name}} </td>
-          </ng-container>
+            <ng-container matColumnDef="username">
+              <th *matHeaderCellDef mat-header-cell>Username</th>
+              <td *matCellDef="let element" mat-cell> {{element.account.username}} </td>
+            </ng-container>
+            <ng-container matColumnDef="roleName">
+              <th *matHeaderCellDef mat-header-cell>Role</th>
+              <td *matCellDef="let element" mat-cell> {{element.account.role.name}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="status">
-            <th *matHeaderCellDef mat-header-cell>Block status</th>
-            <td *matCellDef="let element" [ngStyle]="{'color': element.status === 100? 'green' : 'red'}" mat-cell>
-              {{element.status === 100 ? 'Bình thường' : 'Bị chặn'}}
-              <!--              <mat-button-toggle-group>-->
-              <!--                <mat-button-toggle style="color: red">Bị chặn</mat-button-toggle>-->
-              <!--                <mat-button-toggle style="color: green" checked>Bình thường</mat-button-toggle>-->
-              <!--              </mat-button-toggle-group>-->
-            </td>
-          </ng-container>
+            <ng-container matColumnDef="status">
+              <th *matHeaderCellDef mat-header-cell>Block status</th>
+              <td *matCellDef="let element" [ngStyle]="{'color': element.status === 100? 'green' : 'red'}" mat-cell>
+                {{element.status === 100 ? 'Bình thường' : 'Bị chặn'}}
+                <!--              <mat-button-toggle-group>-->
+                <!--                <mat-button-toggle style="color: red">Bị chặn</mat-button-toggle>-->
+                <!--                <mat-button-toggle style="color: green" checked>Bình thường</mat-button-toggle>-->
+                <!--              </mat-button-toggle-group>-->
+              </td>
+            </ng-container>
 
-          <ng-container matColumnDef="action">
-            <th *matHeaderCellDef mat-header-cell></th>
-            <td *matCellDef="let element" mat-cell>
-              <button [matMenuTriggerFor]="actionMenu" aria-label="Example icon-button with a menu" mat-icon-button>
-                <mat-icon>more_horiz</mat-icon>
-              </button>
-              <mat-menu #actionMenu="matMenu">
-                <button (click)="onOpenDialog(element)" mat-menu-item>
-                  <mat-icon>edit</mat-icon>
-                  <span>Cập nhật thông tin người dùng</span>
+            <ng-container matColumnDef="action">
+              <th *matHeaderCellDef mat-header-cell></th>
+              <td *matCellDef="let element" mat-cell>
+                <button [matMenuTriggerFor]="actionMenu" aria-label="Example icon-button with a menu" mat-icon-button>
+                  <mat-icon>more_horiz</mat-icon>
                 </button>
-                <button mat-menu-item>
-                  <mat-icon>password</mat-icon>
-                  <span>Đặt lại mật khẩu</span>
-                </button>
-                <button (click)="openBlockDialog(element.id, element.status === 100 ? 110 : 100)" mat-menu-item>
-                  <mat-icon>block</mat-icon>
-                  <span style="color: red">{{element.status === 100 ? 'Chặn' : 'Bỏ chặn'}}</span>
-                </button>
-                <button (click)="openConfirmDisableDialog(element.id)" mat-menu-item>
-                  <mat-icon>person_off</mat-icon>
-                  <span style="color: red">Vô hiệu hoá người dùng</span>
-                </button>
-              </mat-menu>
-            </td>
-          </ng-container>
+                <mat-menu #actionMenu="matMenu">
+                  <button (click)="onOpenDialog(element)" mat-menu-item>
+                    <mat-icon>edit</mat-icon>
+                    <span>Cập nhật thông tin</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>password</mat-icon>
+                    <span>Đặt lại mật khẩu</span>
+                  </button>
+                  <button (click)="openBlockDialog(element.id, element.status === 100 ? 110 : 100)" mat-menu-item>
+                    <mat-icon>block</mat-icon>
+                    <span style="color: red">{{element.status === 100 ? 'Chặn' : 'Bỏ chặn'}}</span>
+                  </button>
+                  <button (click)="openConfirmDisableDialog(element.id)" mat-menu-item>
+                    <mat-icon>person_off</mat-icon>
+                    <span style="color: red">Vô hiệu hoá</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
 
-          <tr *matHeaderRowDef="userTableColumns" mat-header-row></tr>
-          <tr *matRowDef="let row; columns: userTableColumns;" mat-row></tr>
-        </table>
-        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]">
-        </mat-paginator>
-      </mat-tab>
-      <mat-tab [disabled]="disabledUserDataSource.data.length === 0" label="Người dùng bị vô hiệu hoá">
-        <table [dataSource]="disabledUserDataSource" mat-table>
-          <ng-container matColumnDef="position">
-            <th *matHeaderCellDef mat-header-cell> No.</th>
-            <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
-          </ng-container>
+            <tr *matHeaderRowDef="userTableColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: userTableColumns;" mat-row></tr>
+          </table>
+          <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]">
+          </mat-paginator>
+        </mat-tab>
+        <mat-tab [disabled]="disabledUserDataSource.data.length === 0" label="Người dùng bị vô hiệu hoá">
+          <table [dataSource]="disabledUserDataSource" mat-table>
+            <ng-container matColumnDef="position">
+              <th *matHeaderCellDef mat-header-cell> No.</th>
+              <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="name">
-            <th *matHeaderCellDef mat-header-cell> Name</th>
-            <td *matCellDef="let element" mat-cell> {{element.lastName + ' ' + element.firstName}} </td>
-          </ng-container>
+            <ng-container matColumnDef="name">
+              <th *matHeaderCellDef mat-header-cell> Name</th>
+              <td *matCellDef="let element" mat-cell> {{element.lastName + ' ' + element.firstName}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="username">
-            <th *matHeaderCellDef mat-header-cell>Username</th>
-            <td *matCellDef="let element" mat-cell> {{element.account.username}} </td>
-          </ng-container>
-          <ng-container matColumnDef="email">
-            <th *matHeaderCellDef mat-header-cell>Username</th>
-            <td *matCellDef="let element" mat-cell> {{element.email}} </td>
-          </ng-container>
-          <ng-container matColumnDef="roleName">
-            <th *matHeaderCellDef mat-header-cell>Role</th>
-            <td *matCellDef="let element" mat-cell> {{element.account.role.name}} </td>
-          </ng-container>
+            <ng-container matColumnDef="username">
+              <th *matHeaderCellDef mat-header-cell>Username</th>
+              <td *matCellDef="let element" mat-cell> {{element.account.username}} </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th *matHeaderCellDef mat-header-cell>Username</th>
+              <td *matCellDef="let element" mat-cell> {{element.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="roleName">
+              <th *matHeaderCellDef mat-header-cell>Role</th>
+              <td *matCellDef="let element" mat-cell> {{element.account.role.name}} </td>
+            </ng-container>
 
-          <tr *matHeaderRowDef="disabledUserTableColumns" mat-header-row></tr>
-          <tr *matRowDef="let row; columns: disabledUserTableColumns;" mat-row></tr>
-        </table>
-        <mat-paginator #disablePaginator [pageSizeOptions]="[5, 10, 20]">
-        </mat-paginator>
-      </mat-tab>
-    </mat-tab-group>
-
-
-  </div>
-  <div *ngIf="isNotFoundUser" class="not-found-section">
-    <h1>Không tìm thấy người dùng</h1>
+            <tr *matHeaderRowDef="disabledUserTableColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: disabledUserTableColumns;" mat-row></tr>
+          </table>
+          <mat-paginator #disablePaginator [pageSizeOptions]="[5, 10, 20]">
+          </mat-paginator>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div *ngIf="isNotFoundUser" class="not-found-section">
+      <h1>Không tìm thấy người dùng</h1>
+    </div>
   </div>
 </div>

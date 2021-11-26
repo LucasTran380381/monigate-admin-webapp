@@ -24,6 +24,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatMenuModule} from '@angular/material/menu';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component'
     ReactiveFormsModule,
     MatExpansionModule,
     MatMenuModule,
+    MatDividerModule,
   ],
 })
 export class RootModule {

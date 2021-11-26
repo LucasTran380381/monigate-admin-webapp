@@ -1,47 +1,52 @@
-<h1 mat-dialog-title>{{isAddMode ? 'Thêm thông tin người dùng' : 'Cập nhật thông tin người dùng'}}</h1>
+<div class="mat-dialog-header">
+  <h1>{{isAddMode ? 'Thêm người dùng' : 'Cập nhật thông tin'}}</h1>
+  <button mat-dialog-close mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 <div mat-dialog-content>
-  <h2 *ngIf="!isAddMode" class="id-title">Id: {{data?.id}}</h2>
   <form [formGroup]="userForm">
-    <div class="expanded-panel-content">
-      <mat-form-field *ngIf="isAddMode" appearance="outline">
-        <mat-label>Id</mat-label>
-        <input [readonly]="!isAddMode" formControlName="id" matInput>
-        <mat-error *ngIf="userForm.controls.id.errors?.required">Vui lòng nhập id</mat-error>
-        <mat-error *ngIf="userForm.controls.id.errors?.duplicate">Id đã bị trùng</mat-error>
-      </mat-form-field>
-      <mat-form-field [class.expanded-control]="!isAddMode" appearance="outline">
-        <mat-label>Quyền người dùng</mat-label>
-        <mat-select formControlName="roleId">
-          <mat-option *ngFor="let role of roles" [value]="role.id">
-            {{role.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="flex-1">
-        <mat-label>Họ</mat-label>
-        <input formControlName="lastname" matInput type="text">
-        <mat-error *ngIf="userForm.controls.lastname.errors">Họ phải bắt đầu từ 1 ký tự đến 20 ký tự</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="flex-1">
-        <mat-label>Tên</mat-label>
-        <input formControlName="firstname" matInput type="text">
-        <mat-error *ngIf="userForm.controls.firstname.errors">Tên phải bắt đầu từ 1 ký tự đến 20 ký tự</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input formControlName="email" matInput type="email">
-        <mat-error *ngIf="userForm.controls.email.errors">Vui lòng nhập đúng email</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Điện thoại</mat-label>
-        <input formControlName="phone" matInput pattern="[0-9]{10}" type="tel">
-        <mat-error *ngIf="userForm.controls.phone.errors">Vui lòng nhập đúng số điện thoại</mat-error>
-      </mat-form-field>
+    <div *ngIf="!isAddMode" class="id id-section">
+      <h2>Mã nhân viên: <span class="id-content">{{data?.id}}</span></h2>
     </div>
+    <mat-form-field *ngIf="isAddMode" appearance="outline" class="id">
+      <mat-label>Mã nhân viên</mat-label>
+      <input [readonly]="!isAddMode" formControlName="id" matInput>
+      <mat-error *ngIf="userForm.controls.id.errors?.required">Vui lòng nhập id</mat-error>
+      <mat-error *ngIf="userForm.controls.id.errors?.duplicate">Id đã bị trùng</mat-error>
+    </mat-form-field>
+    <mat-form-field [class.expanded-control]="!isAddMode" appearance="outline" class="role">
+      <mat-label>Quyền người dùng</mat-label>
+      <mat-select formControlName="roleId">
+        <mat-option *ngFor="let role of roles" [value]="role.id">
+          {{role.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="last-name">
+      <mat-label>Họ</mat-label>
+      <input formControlName="lastname" matInput type="text">
+      <mat-error *ngIf="userForm.controls.lastname.errors">Họ phải bắt đầu từ 1 ký tự đến 20 ký tự</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="first-name">
+      <mat-label>Tên</mat-label>
+      <input formControlName="firstname" matInput type="text">
+      <mat-error *ngIf="userForm.controls.firstname.errors">Tên phải bắt đầu từ 1 ký tự đến 20 ký tự</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="email">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" matInput type="email">
+      <mat-error *ngIf="userForm.controls.email.errors">Vui lòng nhập đúng email</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="phone">
+      <mat-label>Điện thoại</mat-label>
+      <input formControlName="phone" matInput pattern="[0-9]{10}" type="tel">
+      <mat-error *ngIf="userForm.controls.phone.errors">Vui lòng nhập đúng số điện thoại</mat-error>
+    </mat-form-field>
   </form>
 </div>
+<mat-divider></mat-divider>
 <div mat-dialog-actions>
-  <button (click)="onCloseDialog()" mat-button>Huỷ</button>
   <button (click)="onSubmit()" [disabled]="userForm.invalid || (!isAddMode && userForm.pristine)" color="primary"
           mat-raised-button>{{isAddMode ? 'Thêm' : 'Cập nhật'}}</button>
 </div>

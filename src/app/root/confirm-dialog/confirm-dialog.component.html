@@ -1,4 +1,7 @@
-<h1 mat-dialog-title>{{data.title}}</h1>
+<div class="mat-dialog-header">
+  <h1>{{data.title}}</h1>
+</div>
+<mat-divider></mat-divider>
 <div *ngIf="data.content" mat-dialog-content>{{data.content}}</div>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>{{data.cancelLabel}}</button>

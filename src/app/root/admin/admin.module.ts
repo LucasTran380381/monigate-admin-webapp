@@ -19,6 +19,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatDividerModule} from '@angular/material/divider';
 
 const routes: Routes = [
   {path: 'user-management', component: DashboardComponent},
@@ -50,6 +51,7 @@ const routes: Routes = [
     MatTabsModule,
     MatMenuModule,
     MatButtonToggleModule,
+    MatDividerModule,
   ],
 })
 export class AdminModule {}

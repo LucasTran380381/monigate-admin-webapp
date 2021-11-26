@@ -19,7 +19,6 @@ $my-custom-typo: mat.define-typography-config(
 
 @include mat.core($my-custom-typo);
 
-
 html, body {
   height: 100vh;
 }

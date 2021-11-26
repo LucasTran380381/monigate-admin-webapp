@@ -1,3 +1,10 @@
+.search-section {
+  border-radius: 20px;
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
 .search-bar {
   display: flex;
   gap: 10px;
@@ -5,15 +12,13 @@
   flex-wrap: wrap;
 
   .search-control {
-    flex: 2;
-
     mat-form-field {
-      width: 100%;
+      width: 35ch;
     }
   }
 
   .spacer {
-    flex: 2;
+    flex: 1;
   }
 }
 
@@ -25,13 +30,35 @@
 
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+}
+
 .table-section {
+  border-radius: 20px;
+  width: 80%;
   margin-top: 20px;
 
   table {
     width: 100%;
   }
 }
+
+.section-header {
+  border-radius: 20px 20px 0 0;
+  padding-top: 20px;
+  padding-left: 20px;
+  background-color: #3f51b5;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+mat-paginator {
+  border-radius: 0 0 20px 20px;
+}
+
 
 .not-found-section {
   margin-top: 20px;
