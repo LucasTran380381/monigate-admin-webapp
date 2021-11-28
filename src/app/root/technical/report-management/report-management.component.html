@@ -26,7 +26,7 @@
 
       </div>
       <div class="right-content">
-        <h2>Vấn đề đang giải quyết</h2>
+        <h2>Vấn đề được tiếp nhận</h2>
         <h4>{{approvedIssue}}</h4>
       </div>
     </mat-card>
@@ -83,7 +83,6 @@
     <mat-divider></mat-divider>
     <div [hidden]="!issueDataSource.filteredData.length" class="mat-elevation-z3">
       <table [dataSource]="issueDataSource" mat-table>
-
         <!-- Position Column -->
         <ng-container matColumnDef="position">
           <th *matHeaderCellDef mat-header-cell> No.</th>

@@ -81,6 +81,10 @@ table {
   width: 100%;
 }
 
+tr:nth-child(even) {
+  background-color: #d5d5d5;
+}
+
 .container {
   display: flex;
   flex-direction: column;

@@ -3,6 +3,10 @@ table {
   border-radius: 24px;
 }
 
+tr:nth-child(even) {
+  background-color: #d5d5d5;
+}
+
 .query-form {
   display: flex;
   gap: 12px;
