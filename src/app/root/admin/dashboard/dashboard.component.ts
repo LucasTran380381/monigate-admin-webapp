@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   private disablePaginator: MatPaginator | undefined;
 
   constructor(private title: Title, private dialog: MatDialog, private userService: UserService, private changeDetector: ChangeDetectorRef) {
-    this.title.setTitle('Quản lí ngưởi dùng - Monigate Admin')
+    this.title.setTitle('Monigate Admin')
   }
 
   ngOnInit(): void {

@@ -1,15 +1,19 @@
 <mat-drawer-container class="container">
   <mat-drawer #drawer class="mat-drawer" mode="side">Drawer content</mat-drawer>
   <mat-drawer-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar class="mat-elevation-z8" color="primary">
       <!--      <button  mat-icon-button (click)="drawer.toggle()">-->
       <!--        <mat-icon>menu</mat-icon>-->
       <!--      </button>-->
       <span>{{title.getTitle()}}</span>
       <div class="spacer"></div>
-      <button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
-        <mat-icon>more_vert</mat-icon>
-      </button>
+      <nav class="nav-list">
+        <a *ngFor="let navItem of navItems" [routerLink]="navItem.routerLink" class="nav-item" matRipple
+           routerLinkActive="nav-item__active">{{navItem.title}}</a>
+        <button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="nav-item" mat-icon-button>
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </nav>
       <mat-menu #menu="matMenu">
         <button (click)="onLogout()" mat-menu-item>
           <mat-icon>logout</mat-icon>

@@ -35,7 +35,7 @@ export class AuthService {
     }))
   }
 
-  onLogout() {
+  logout() {
     this.currentUser = undefined;
     localStorage.removeItem('currentUser')
     localStorage.removeItem('token')

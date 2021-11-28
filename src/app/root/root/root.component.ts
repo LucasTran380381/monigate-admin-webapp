@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {AuthService} from '../../services/auth.service';
+import {NavItem} from '../../models/nav-item';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +9,35 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./root.component.scss'],
 })
 export class RootComponent implements OnInit {
+  navItems: NavItem[] = []
 
   constructor(public title: Title, private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.setupNavLinks()
   }
 
   onLogout() {
-    this.authService.onLogout()
+    this.authService.logout()
+  }
+
+  setupNavLinks() {
+    const role = this.authService.currentUser?.account.roleName;
+    console.log(role)
+    switch (role) {
+      case 'Admin':
+        this.navItems = [
+          new NavItem('Quản lí người dùng', '/admin/user-management'),
+        ]
+        break;
+      case 'Technical Moderator':
+        this.navItems = [
+          new NavItem('Quản lí báo cáo', '/technical/report-management'),
+        ]
+        break;
+    }
+    //share nav link
+    this.navItems.push(new NavItem('Profile', '/profile'));
   }
 }

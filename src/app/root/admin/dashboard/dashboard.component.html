@@ -1,6 +1,8 @@
 <div class="container">
   <div class="search-section mat-elevation-z8">
-    <h2>Tìm kiếm người dùng</h2>
+    <div class="search-header">
+      <h2>Tìm kiếm người dùng</h2>
+    </div>
     <div class="search-bar">
       <div class="search-control">
         <mat-form-field appearance="outline">
@@ -30,26 +32,26 @@
           <table [dataSource]="userDataSource" mat-table>
 
             <ng-container matColumnDef="position">
-              <th *matHeaderCellDef mat-header-cell> No.</th>
+              <th *matHeaderCellDef mat-header-cell>Stt</th>
               <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="name">
-              <th *matHeaderCellDef mat-header-cell> Name</th>
+              <th *matHeaderCellDef mat-header-cell>Họ và tên</th>
               <td *matCellDef="let element" mat-cell> {{element.lastName + ' ' + element.firstName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="username">
-              <th *matHeaderCellDef mat-header-cell>Username</th>
+              <th *matHeaderCellDef mat-header-cell>Tên đăng nhập</th>
               <td *matCellDef="let element" mat-cell> {{element.account.username}} </td>
             </ng-container>
             <ng-container matColumnDef="roleName">
-              <th *matHeaderCellDef mat-header-cell>Role</th>
+              <th *matHeaderCellDef mat-header-cell>Quyền người dùng</th>
               <td *matCellDef="let element" mat-cell> {{element.account.role.name}} </td>
             </ng-container>
 
             <ng-container matColumnDef="status">
-              <th *matHeaderCellDef mat-header-cell>Block status</th>
+              <th *matHeaderCellDef mat-header-cell>Trạng thái</th>
               <td *matCellDef="let element" [ngStyle]="{'color': element.status === 100? 'green' : 'red'}" mat-cell>
                 {{element.status === 100 ? 'Bình thường' : 'Bị chặn'}}
                 <!--              <mat-button-toggle-group>-->
@@ -95,25 +97,25 @@
         <mat-tab [disabled]="disabledUserDataSource.data.length === 0" label="Người dùng bị vô hiệu hoá">
           <table [dataSource]="disabledUserDataSource" mat-table>
             <ng-container matColumnDef="position">
-              <th *matHeaderCellDef mat-header-cell> No.</th>
+              <th *matHeaderCellDef mat-header-cell>Stt</th>
               <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="name">
-              <th *matHeaderCellDef mat-header-cell> Name</th>
+              <th *matHeaderCellDef mat-header-cell>Họ và tên</th>
               <td *matCellDef="let element" mat-cell> {{element.lastName + ' ' + element.firstName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="username">
-              <th *matHeaderCellDef mat-header-cell>Username</th>
+              <th *matHeaderCellDef mat-header-cell>Tên đăng nhập</th>
               <td *matCellDef="let element" mat-cell> {{element.account.username}} </td>
             </ng-container>
             <ng-container matColumnDef="email">
-              <th *matHeaderCellDef mat-header-cell>Username</th>
+              <th *matHeaderCellDef mat-header-cell>Email</th>
               <td *matCellDef="let element" mat-cell> {{element.email}} </td>
             </ng-container>
             <ng-container matColumnDef="roleName">
-              <th *matHeaderCellDef mat-header-cell>Role</th>
+              <th *matHeaderCellDef mat-header-cell>Quyền người dùng</th>
               <td *matCellDef="let element" mat-cell> {{element.account.role.name}} </td>
             </ng-container>
 

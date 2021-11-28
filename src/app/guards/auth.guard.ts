@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!this.authService.currentUser) {
-      this.authService.onLogout()
+      this.authService.logout()
       return false
     }
 

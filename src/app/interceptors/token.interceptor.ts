@@ -19,7 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401) {
-          this.authService.onLogout()
+          this.authService.logout()
           this.snackbar.open('Phiên đăng nhập đã hết hạn')
         }
         return throwError(err);

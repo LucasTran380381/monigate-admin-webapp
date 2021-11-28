@@ -30,7 +30,7 @@ export class ReportManagementComponent implements OnInit {
   })
 
   constructor(private title: Title, private technicalService: TechnicalService, private dialog: MatDialog) {
-    this.title.setTitle('Quản lý báo cáo kỹ thuật - Monigate Technical Moderator')
+    this.title.setTitle('Monigate Technical Moderator')
   }
 
   @ViewChild(MatPaginator, {static: false}) set content(content: MatPaginator) {

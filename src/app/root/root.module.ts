@@ -25,6 +25,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatMenuModule} from '@angular/material/menu';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatRippleModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatExpansionModule,
     MatMenuModule,
     MatDividerModule,
+    MatRippleModule,
   ],
 })
 export class RootModule {
