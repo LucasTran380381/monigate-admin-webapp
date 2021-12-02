@@ -15,16 +15,20 @@ import {MatIconModule} from '@angular/material/icon';
 import {IssueDetailComponent} from './issue-detail/issue-detail.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
+import {CheckinStatisticsComponent} from './checkin-statistics/checkin-statistics.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 const routes: Routes = [
   {path: 'report-management', component: ReportManagementComponent},
   {path: '', redirectTo: 'report-management', pathMatch: 'full'},
+  {path: 'checkin-statistics', component: CheckinStatisticsComponent},
 ];
 
 @NgModule({
   declarations: [
     ReportManagementComponent,
     IssueDetailComponent,
+    CheckinStatisticsComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +45,7 @@ const routes: Routes = [
     MatIconModule,
     MatDialogModule,
     MatDividerModule,
+    MatTooltipModule,
   ],
 })
 export class TechnicalModule {}

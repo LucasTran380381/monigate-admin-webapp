@@ -33,7 +33,8 @@ export class RootComponent implements OnInit {
         break;
       case 'Technical Moderator':
         this.navItems = [
-          new NavItem('Quản lí báo cáo', '/technical/report-management'),
+          new NavItem('Báo cáo kỹ thuật', '/technical/report-management'),
+          new NavItem('Thống kê checkin', '/technical/checkin-statistics'),
         ]
         break;
     }

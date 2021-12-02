@@ -1,0 +1,108 @@
+<div class="status-section mat-elevation-z8">
+  <div class="status-section-header">
+    <h2>Thông tin checkin</h2>
+  </div>
+  <div class="status-section-content">
+    <mat-card>
+      <div class="card-header">
+        <h2>Số checkin hôm nay</h2>
+      </div>
+      <div class="card-content">
+        <h4>{{totalCheckin}}</h4>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div class="card-header">
+        <h2>Không đeo hoặc đeo khẩu trang không đúng cách</h2>
+      </div>
+      <div class="card-content">
+        <h4>{{numOfWrongFaceMask}}</h4>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div class="card-header">
+        <h2>Nhiệt độ cao bất thường</h2>
+      </div>
+      <div class="card-content">
+        <h4>{{numOfHighTemperature}}</h4>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="data-section mat-elevation-z8">
+  <div class="data-section-header">
+    <h2> Danh sách checkin hôm nay - {{midnightCurrentDate | date:'dd/M/yyyy'}}</h2>
+  </div>
+
+  <!--  <div class="filter-section">-->
+  <!--    <mat-expansion-panel>-->
+  <!--      <mat-expansion-panel-header>-->
+  <!--        <mat-panel-title>Bộ lọc</mat-panel-title>-->
+  <!--      </mat-expansion-panel-header>-->
+
+  <!--      <form>-->
+  <!--        <mat-form-field appearance="outline">-->
+  <!--          <mat-label>Trạng thái</mat-label>-->
+  <!--          <mat-select formControlName="type">-->
+  <!--            <mat-option></mat-option>-->
+  <!--          </mat-select>-->
+  <!--        </mat-form-field>-->
+  <!--      </form>-->
+  <!--    </mat-expansion-panel>-->
+  <!--  </div>-->
+
+  <!--  <mat-divider></mat-divider>-->
+
+  <div class="table-section">
+    <table [dataSource]="checkinDataSource" mat-table>
+      <ng-container matColumnDef="no">
+        <th *matHeaderCellDef mat-header-cell matTooltip="Số thứ tự">
+          <mat-icon>tag</mat-icon>
+        </th>
+        <td *matCellDef="let element, let i= index" mat-cell> {{i + 1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="time">
+        <th *matHeaderCellDef mat-header-cell matTooltip="Thời gian checkin">
+          <mat-icon>schedule</mat-icon>
+        </th>
+        <td *matCellDef="let element;" mat-cell> {{element.checkinTime | date:'H:mm'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="temperature">
+        <th *matHeaderCellDef mat-header-cell matTooltip="Nhiệt độ checkin">
+          <mat-icon>thermostat</mat-icon>
+        </th>
+        <td *matCellDef="let element" [ngStyle]="{'color': element.temperature > 37.5 ? 'red' :'black'}" mat-cell> {{element.temperature |
+          number :
+          '1.1-1'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="faceMaskStatus">
+        <th *matHeaderCellDef mat-header-cell matTooltip="Trạng thái khẩu trang">
+          <mat-icon>masks</mat-icon>
+        </th>
+        <td *matCellDef="let element" [style]="getFaceMaksStatusStyle(element.faceMaskStatus)" mat-cell>
+          {{getFaceMaskStatusTitle(element.faceMaskStatus)}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th *matHeaderCellDef mat-header-cell matTooltip="Trạng thái checkin">
+          <mat-icon>info</mat-icon>
+        </th>
+        <td *matCellDef="let element" [matTooltip]="getStatusTooltip(element.status)" [style]="getStatusStyle(element.status)" mat-cell>
+          <mat-icon>{{getStatusIcon(element.status)}}</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>
+
+</div>
