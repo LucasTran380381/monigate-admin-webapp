@@ -10,6 +10,7 @@ import {NavItem} from '../../models/nav-item';
 })
 export class RootComponent implements OnInit {
   navItems: NavItem[] = []
+  currentDay = Date.now()
 
   constructor(public title: Title, private authService: AuthService) {
   }

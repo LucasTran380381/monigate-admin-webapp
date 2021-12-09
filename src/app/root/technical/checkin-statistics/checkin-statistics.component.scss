@@ -24,15 +24,31 @@ mat-divider {
   gap: 20px;
   justify-content: center;
 
-  mat-card {
-    padding: 20px;
-    width: 280px;
+}
+
+mat-card {
+  padding: 20px;
+  width: 350px;
+  display: grid;
+  grid-template-areas:
+      'logo header'
+      'logo content';
+  align-items: center;
+}
+
+.logo {
+  grid-area: logo;
+  width: 100%;
+  margin-right: 20px;
+
+  mat-icon {
+    font-size: 40px;
   }
 }
 
 .card-header {
-  height: 60%;
-  font-size: 18px;
+  grid-area: header;
+  font-size: 14px;
   font-weight: 400;
   color: #939393;
   text-align: center;
@@ -41,6 +57,8 @@ mat-divider {
 }
 
 .card-content {
+  grid-area: content;
+
   h4 {
     font-size: 28px;
     font-weight: 700;
@@ -49,14 +67,15 @@ mat-divider {
   text-align: right;
 }
 
-.data-section {
+.section {
   margin-left: auto;
   margin-right: auto;
   width: 80%;
   border-radius: 20px;
+  margin-bottom: 30px;
 }
 
-.data-section-header {
+.section-header {
   background-color: #3f51b5;
   color: white;
   border-radius: 20px 20px 0 0;
@@ -89,4 +108,8 @@ tr:nth-child(even) {
 
 mat-paginator {
   border-radius: 0 0 20px 20px;
+}
+
+.chart-section {
+  padding: 20px;
 }

@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -19,12 +19,19 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatNativeDateModule} from "@angular/material/core";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptor} from './interceptors/token.interceptor';
+import {NgChartsModule} from 'ng2-charts';
+import localeGB from '@angular/common/locales/vi';
+import {registerLocaleData} from '@angular/common';
+import {TimestampPipe} from './pipes/timestamp.pipe';
+
+registerLocaleData(localeGB);
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NotFoundComponent,
+    TimestampPipe,
   ],
   imports: [
     ReactiveFormsModule,
@@ -43,8 +50,13 @@ import {TokenInterceptor} from './interceptors/token.interceptor';
     MatNativeDateModule,
     MatDatepickerModule, MatFormFieldModule, MatInputModule, BrowserAnimationsModule,
     FormsModule,
+    NgChartsModule,
   ],
   providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'vi',
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

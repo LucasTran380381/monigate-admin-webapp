@@ -17,6 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import {CheckinStatisticsComponent} from './checkin-statistics/checkin-statistics.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {NgChartsModule} from 'ng2-charts';
 
 const routes: Routes = [
   {path: 'report-management', component: ReportManagementComponent},
@@ -46,6 +47,7 @@ const routes: Routes = [
     MatDialogModule,
     MatDividerModule,
     MatTooltipModule,
+    NgChartsModule,
   ],
 })
 export class TechnicalModule {}

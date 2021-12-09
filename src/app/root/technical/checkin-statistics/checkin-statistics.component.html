@@ -4,22 +4,31 @@
   </div>
   <div class="status-section-content">
     <mat-card>
+      <div class="logo" style="color: #303d8f">
+        <mat-icon>meeting_room</mat-icon>
+      </div>
       <div class="card-header">
-        <h2>Số checkin hôm nay</h2>
+        <h2>Tổng số checkin</h2>
       </div>
       <div class="card-content">
         <h4>{{totalCheckin}}</h4>
       </div>
     </mat-card>
     <mat-card>
+      <div class="logo" style="color: orange">
+        <mat-icon>masks</mat-icon>
+      </div>
       <div class="card-header">
-        <h2>Không đeo hoặc đeo khẩu trang không đúng cách</h2>
+        <h2>Đeo khẩu trang không đúng</h2>
       </div>
       <div class="card-content">
         <h4>{{numOfWrongFaceMask}}</h4>
       </div>
     </mat-card>
     <mat-card>
+      <div class="logo" style="color: red">
+        <mat-icon>thermostat</mat-icon>
+      </div>
       <div class="card-header">
         <h2>Nhiệt độ cao bất thường</h2>
       </div>
@@ -30,8 +39,8 @@
   </div>
 </div>
 
-<div class="data-section mat-elevation-z8">
-  <div class="data-section-header">
+<div class="section mat-elevation-z8">
+  <div class="section-header">
     <h2> Danh sách checkin hôm nay - {{midnightCurrentDate | date:'dd/M/yyyy'}}</h2>
   </div>
 
@@ -58,40 +67,41 @@
     <table [dataSource]="checkinDataSource" mat-table>
       <ng-container matColumnDef="no">
         <th *matHeaderCellDef mat-header-cell matTooltip="Số thứ tự">
-          <mat-icon>tag</mat-icon>
+          Số thứ tự
         </th>
         <td *matCellDef="let element, let i= index" mat-cell> {{i + 1}} </td>
       </ng-container>
 
       <ng-container matColumnDef="time">
         <th *matHeaderCellDef mat-header-cell matTooltip="Thời gian checkin">
-          <mat-icon>schedule</mat-icon>
+          Thời gian
         </th>
-        <td *matCellDef="let element;" mat-cell> {{element.checkinTime | date:'H:mm'}} </td>
+        <td *matCellDef="let element;" mat-cell> {{element.checkinTime | date:'H:mm':'-420'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="temperature">
         <th *matHeaderCellDef mat-header-cell matTooltip="Nhiệt độ checkin">
-          <mat-icon>thermostat</mat-icon>
+          Nhiệt độ
         </th>
         <td *matCellDef="let element" [ngStyle]="{'color': element.temperature > 37.5 ? 'red' :'black'}" mat-cell> {{element.temperature |
           number :
-          '1.1-1'}}
+          '1.1-1'}} ˚C
         </td>
       </ng-container>
 
       <ng-container matColumnDef="faceMaskStatus">
         <th *matHeaderCellDef mat-header-cell matTooltip="Trạng thái khẩu trang">
-          <mat-icon>masks</mat-icon>
+          Trạng thái khẩu trang
         </th>
-        <td *matCellDef="let element" [style]="getFaceMaksStatusStyle(element.faceMaskStatus)" mat-cell>
-          {{getFaceMaskStatusTitle(element.faceMaskStatus)}}
+        <td *matCellDef="let element" [matTooltip]="getFaceMaskStatusTooltip(element.faceMaskStatus)"
+            [style]="getFaceMaksStatusStyle(element.faceMaskStatus)" mat-cell>
+          <mat-icon>masks</mat-icon>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
         <th *matHeaderCellDef mat-header-cell matTooltip="Trạng thái checkin">
-          <mat-icon>info</mat-icon>
+          Trạng thái checkin
         </th>
         <td *matCellDef="let element" [matTooltip]="getStatusTooltip(element.status)" [style]="getStatusStyle(element.status)" mat-cell>
           <mat-icon>{{getStatusIcon(element.status)}}</mat-icon>
@@ -103,6 +113,16 @@
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>
+
+</div>
+
+<div class="section mat-elevation-z8">
+  <div class="section-header">
+    <h2>Biểu đồ checkin tháng {{midnightCurrentDate | date : 'M/y'}}</h2>
+  </div>
+  <div class="chart-section">
+    <canvas [data]="chartData" [options]="chartOptions" [type]="chartType" baseChart height="600" width="400"></canvas>
   </div>
 
 </div>

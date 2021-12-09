@@ -7,7 +7,7 @@
       <div class="search-control">
         <mat-form-field appearance="outline">
           <mat-label>Tìm kiếm</mat-label>
-          <input (keyup.enter)="onSearch()" [formControl]="searchControl" matInput>
+          <input [formControl]="searchControl" matInput>
           <mat-hint>Tìm kiếm bằng tên nhân viên hoặc mã nhân viên</mat-hint>
           <mat-error *ngIf="searchControl.errors">Vui lòng nhập ít nhất 3 ký tự</mat-error>
         </mat-form-field>
@@ -47,7 +47,7 @@
             </ng-container>
             <ng-container matColumnDef="roleName">
               <th *matHeaderCellDef mat-header-cell>Quyền người dùng</th>
-              <td *matCellDef="let element" mat-cell> {{element.account.role.name}} </td>
+              <td *matCellDef="let element" mat-cell>hello</td>
             </ng-container>
 
             <ng-container matColumnDef="status">
@@ -116,7 +116,7 @@
             </ng-container>
             <ng-container matColumnDef="roleName">
               <th *matHeaderCellDef mat-header-cell>Quyền người dùng</th>
-              <td *matCellDef="let element" mat-cell> {{element.account.role.name}} </td>
+              <td *matCellDef="let element" mat-cell>hello</td>
             </ng-container>
 
             <tr *matHeaderRowDef="disabledUserTableColumns" mat-header-row></tr>

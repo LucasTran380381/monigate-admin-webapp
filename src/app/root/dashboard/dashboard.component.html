@@ -72,7 +72,7 @@
       <td *matCellDef="let element" [ngStyle]="{'color': element.status === 'Denied' ? 'red': 'green'}" mat-cell> {{element.status}} </td>
     </ng-container>
     <!-- Image Column -->
-    <ng-container matColumnDef="image">
+    <ng-container matColumnDef="action">
       <th *matHeaderCellDef mat-header-cell>Detail</th>
       <td *matCellDef="let element" mat-cell>
         <button (click)="openDialog()" color="primary" mat-icon-button>

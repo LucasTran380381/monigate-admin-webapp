@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       status: new FormControl("All"),
     },
   )
-  displayedColumns: string[] = ['position', 'name', 'time', 'degree', 'status', 'image'];
+  displayedColumns: string[] = ['position', 'name', 'time', 'degree', 'status', 'action'];
   elements: PeriodicElement[] = [
     {
       position: 1,

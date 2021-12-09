@@ -26,6 +26,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatRippleModule} from '@angular/material/core';
+import {NgChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {MatRippleModule} from '@angular/material/core';
     ConfirmDialogComponent,
   ],
   imports: [
+    NgChartsModule,
     CommonModule,
     RootRoutingModule,
     MatSidenavModule,

@@ -5,6 +5,9 @@ import {Checkin} from '../../../models/checkin';
 import {MatPaginator} from '@angular/material/paginator';
 import {CheckinStatus} from '../../../models/enums/checkin-status';
 import {FaceMaskStatus} from '../../../models/enums/face-mask-status';
+import {ChartConfiguration, ChartOptions, ChartType} from 'chart.js';
+import {DatePipe} from '@angular/common';
+import {BaseChartDirective} from 'ng2-charts';
 
 @Component({
   selector: 'app-checkin-statistics',
@@ -14,6 +17,7 @@ import {FaceMaskStatus} from '../../../models/enums/face-mask-status';
 export class CheckinStatisticsComponent implements OnInit {
   checkinDataSource = new MatTableDataSource<Checkin>()
   midnightCurrentDate = new Date(new Date().setHours(0, 0, 0, 0))
+  firstDateOfMonth = new Date(this.midnightCurrentDate.getFullYear(), this.midnightCurrentDate.getMonth(), 1)
   displayedColumns = ['no', 'time', 'temperature', 'faceMaskStatus', 'status'];
   @ViewChild(MatPaginator, {static: false})
   paginator?: MatPaginator
@@ -21,9 +25,47 @@ export class CheckinStatisticsComponent implements OnInit {
   numOfWrongFaceMask = 0
   numOfHighTemperature = 0
 
+  chartData: ChartConfiguration['data'] = {
+    datasets: [
+      {
+        data: [],
+        label: 'Tổng số Checkin',
+        borderColor: '#3f51b5',
+      },
+      {
+        data: [],
+        label: 'Đeo khẩu trang không đúng',
+        borderColor: 'orange',
+      },
+      {
+        data: [],
+        label: 'Nhiệt độ cao bất thường',
+        borderColor: 'red',
+      },
+    ],
+    labels: [],
+  }
+  chartLabels: string[] = [];
+  chartOptions: ChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+  };
+  chartType: ChartType = 'line'
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective
+
   constructor(private checkinService: CheckinService) { }
 
   ngOnInit(): void {
+    this.checkinService.getCheckinChartDate(this.firstDateOfMonth).subscribe(reports => {
+      const pipe = new DatePipe('vi')
+      this.chartData.labels = reports.map(report => pipe.transform(report.checkinDate, 'd/M'))
+      this.chartData.datasets[0].data = reports.map(report => report.totalCheckin)
+      this.chartData.datasets[1].data = reports.map(report => report.numOfInvalidFaceMask)
+      this.chartData.datasets[2].data = reports.map(report => report.numOfHighTemperature)
+      this.chart?.chart?.update()
+      console.log('chart label', this.chartData.labels)
+    })
+
     this.checkinService.getCheckinBetweenDate(this.midnightCurrentDate)
       .subscribe(checkins => {
         this.setupGeneralInfo(checkins)
@@ -33,26 +75,26 @@ export class CheckinStatisticsComponent implements OnInit {
       })
   }
 
+  getDatesInMonth(month?: number, year?: number) {
+    const dateInMonth: Date[] = [];
+    if (month == null) {
+      month = new Date().getMonth();
+    }
+    if (year == null) {
+      year = new Date().getFullYear();
+    }
+    let date = new Date(month, year, 1);
+    while (date.getMonth() === month) {
+      dateInMonth.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+    return dateInMonth;
+  }
+
   setupGeneralInfo(checkins: Checkin[]) {
     this.totalCheckin = checkins.length
     this.numOfWrongFaceMask = checkins.filter(checkin => checkin.faceMaskStatus != FaceMaskStatus.correct).length
     this.numOfHighTemperature = checkins.filter(checkin => checkin.temperature > 37.5).length
-  }
-
-  getStatusTitle(status: number) {
-    let title = ''
-    switch (status) {
-      case CheckinStatus.approve:
-        title = 'Chấp nhận'
-        break
-      case CheckinStatus.approveManual:
-        title = 'Cảnh báo'
-        break
-      case CheckinStatus.decline:
-        title = 'Từ chối'
-        break
-    }
-    return title
   }
 
   getStatusIcon(status: CheckinStatus) {
@@ -95,7 +137,7 @@ export class CheckinStatisticsComponent implements OnInit {
     return style;
   }
 
-  getFaceMaskStatusTitle(status: FaceMaskStatus) {
+  getFaceMaskStatusTooltip(status: FaceMaskStatus) {
     switch (status) {
       case FaceMaskStatus.none:
         return 'Không đeo khẩu trang'

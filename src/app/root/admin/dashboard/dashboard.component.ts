@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     try {
       const result = await this.userService.searchUser(this.searchControl.value.trim()).toPromise()
+      console.log('result', result)
       this.userDataSource.data = result.filter(user => user.status !== 0)
       this.disabledUserDataSource.data = result.filter(user => user.status === 0)
       this.isNotFoundUser = false

@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Checkin} from "../models/checkin";
 import {environment} from "../../environments/environment";
 import {map} from 'rxjs/operators';
+import {TimestampPipe} from '../pipes/timestamp.pipe';
+import {CheckinChart} from '../models/checkin-chart';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +25,12 @@ export class CheckinService {
   }
 
   getCheckinBetweenDate(dateFrom?: Date, dateTo?: Date) {
+    const timestampPipe = new TimestampPipe();
     let params: any = {}
-    if (dateFrom) params.timeMin = dateFrom.getTime()
-    if (dateTo) params.timeMax = dateTo.getTime()
+    if (dateFrom) {
+      params.timeMin = timestampPipe.transform(dateFrom)
+    }
+    if (dateTo) params.timeMax = timestampPipe.transform(dateTo)
     return this.http.get<Checkin[]>(`${environment.apiUrl}/Checkin/filter`, {params: params})
       .pipe(map(checkins => checkins.sort((previousCheckin, nextCheckin) => {
           const previousCheckinTime = new Date(previousCheckin.checkinTime).getTime();
@@ -33,5 +38,44 @@ export class CheckinService {
           return nextCheckinTime - previousCheckinTime;
         }),
       ))
+  }
+
+  getCheckinChartDate(dateFrom: Date, dateTo?: Date) {
+    const timestampPipe = new TimestampPipe()
+    let params: any = {timeMin: timestampPipe.transform(dateFrom)};
+    if (dateTo) params.timeMax = timestampPipe.transform(dateFrom);
+
+    return this.http.get<any[]>(`${environment.apiUrl}/Checkin/report`, {params: params}).pipe(map((resp: any[]) => {
+      return resp.map((record: {
+        checkinDate: Date, checkinReport: any, faceMaskReport: any, temperatureReport: any
+      }) => new CheckinChart(record.checkinDate, this.countTotalCheckin(record.checkinReport), this.countInvalidFaceMask(record.faceMaskReport), this.countHighTemperature(record.temperatureReport)));
+    }));
+  }
+
+  countTotalCheckin(checkinReport: {
+    Approved?: number;
+    ApprovedManually?: number,
+    DeclinedManually?: number,
+  }) {
+    const numOfApprovedCheckin = checkinReport.Approved ?? 0
+    const numOfApprovedManuallyCheckin = checkinReport.ApprovedManually ?? 0
+    const numOfDeclinedManuallyCheckin = checkinReport.DeclinedManually ?? 0
+
+    return numOfApprovedCheckin + numOfApprovedManuallyCheckin + numOfDeclinedManuallyCheckin
+  }
+
+  countInvalidFaceMask(report: {
+    None?: number
+    Unavailable?: number
+  }) {
+    const numOfNonEFaceMask = report.None ?? 0
+    const numOfUnavailableFaceMask = report.Unavailable ?? 0
+    return numOfNonEFaceMask + numOfUnavailableFaceMask
+  }
+
+  countHighTemperature(temperatureReport: {
+    Abnormal?: number
+  }) {
+    return temperatureReport.Abnormal ?? 0
   }
 }
