@@ -1,5 +1,5 @@
 export enum FaceMaskStatus {
-  none = 0,
-  correct = 100,
-  incorrect = 110
+  none = 100,
+  correct = 200,
+  incorrect = 210,
 }

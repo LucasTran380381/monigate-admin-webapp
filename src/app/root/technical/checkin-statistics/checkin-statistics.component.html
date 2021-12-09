@@ -76,7 +76,7 @@
         <th *matHeaderCellDef mat-header-cell matTooltip="Thời gian checkin">
           Thời gian
         </th>
-        <td *matCellDef="let element;" mat-cell> {{element.checkinTime | date:'H:mm':'-420'}} </td>
+        <td *matCellDef="let element;" mat-cell> {{element.checkinTime | date:'H:mm'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="temperature">

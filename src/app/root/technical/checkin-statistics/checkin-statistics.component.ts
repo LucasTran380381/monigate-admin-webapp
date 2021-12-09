@@ -49,6 +49,28 @@ export class CheckinStatisticsComponent implements OnInit {
   chartOptions: ChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    scales: {
+      yAxes: {
+        title: {
+          display: true,
+          text: 'Số người',
+          font: {
+            size: 18,
+            weight: 'bold',
+          },
+        },
+      },
+      xAxes: {
+        title: {
+          display: true,
+          text: 'Ngày',
+          font: {
+            weight: 'bold',
+            size: 18,
+          },
+        },
+      },
+    },
   };
   chartType: ChartType = 'line'
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective
@@ -63,7 +85,6 @@ export class CheckinStatisticsComponent implements OnInit {
       this.chartData.datasets[1].data = reports.map(report => report.numOfInvalidFaceMask)
       this.chartData.datasets[2].data = reports.map(report => report.numOfHighTemperature)
       this.chart?.chart?.update()
-      console.log('chart label', this.chartData.labels)
     })
 
     this.checkinService.getCheckinBetweenDate(this.midnightCurrentDate)
