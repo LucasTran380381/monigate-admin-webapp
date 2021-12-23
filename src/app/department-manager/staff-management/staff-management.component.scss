@@ -1,0 +1,49 @@
+.card {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+.card-header {
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px 10px;
+}
+
+.card-header__flex {
+  @extend .card-header;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-content__padding {
+  padding: 10px 20px 0;
+}
+
+mat-form-field {
+  width: 250px;
+  margin-right: 30px;
+}
+
+table {
+  width: 100%;
+}
+
+mat-paginator {
+  border-radius: 0 0 20px 20px;
+}
+
+tr:nth-child(even) {
+  background-color: #e8e8e8;
+}
+
+.mat-header-cell {
+  text-align: center;
+}
+
+.mat-cell {
+  text-align: center;
+}

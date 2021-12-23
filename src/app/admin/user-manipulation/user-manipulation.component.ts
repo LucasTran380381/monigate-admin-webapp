@@ -1,20 +1,24 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {User} from '../../../models/user';
+import {User} from '../../models/user';
 import {FormBuilder, Validators} from '@angular/forms';
-import {UserService} from '../../../services/user.service';
-import {Role} from '../../../models/role';
+import {UserService} from '../../services/user.service';
+import {Role} from '../../models/role';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Department} from '../../models/department';
+import {DepartmentService} from '../../services/department.service';
+import {DepartmentStatus} from '../../models/enums/department-status';
 
 @Component({
   selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.scss'],
+  templateUrl: './user-manipulation.component.html',
+  styleUrls: ['./user-manipulation.component.scss'],
 })
-export class EditUserComponent implements OnInit {
+export class UserManipulation implements OnInit {
   isAddMode = true
   shouldHidePassword: boolean = true;
   roles: Role[] = []
+  departments: Department[] = []
   userForm = this.fb.group({
     id: ['', [Validators.required]],
     firstname: ['', [Validators.maxLength(20), Validators.minLength(1)]],
@@ -22,12 +26,19 @@ export class EditUserComponent implements OnInit {
     email: ['', [Validators.email]],
     phone: ['', Validators.pattern('[0-9]{10}')],
     roleId: ['', Validators.required],
+    departmentId: ['', Validators.required],
   })
 
-  constructor(private snackbar: MatSnackBar, private fb: FormBuilder, private userService: UserService, private dialogRef: MatDialogRef<EditUserComponent>, @Inject(MAT_DIALOG_DATA) public data?: User) { }
+  constructor(private snackbar: MatSnackBar,
+              private fb: FormBuilder,
+              private userService: UserService,
+              private departmentService: DepartmentService,
+              private dialogRef: MatDialogRef<UserManipulation>,
+              @Inject(MAT_DIALOG_DATA) public data?: User) { }
 
   ngOnInit() {
     this.isAddMode = this.data == undefined
+
     this.userForm.patchValue(
       {
         id: this.data?.id,
@@ -36,9 +47,12 @@ export class EditUserComponent implements OnInit {
         email: this.data?.email,
         phone: this.data?.phone,
         roleId: this.data?.account.role?.id,
+        departmentId: this.data?.departmentId,
       },
     )
+    this.departmentService.getDepartments(DepartmentStatus.active).subscribe(value => this.departments = value)
     this.onGetAllRole().then()
+
   }
 
   onCloseDialog() {

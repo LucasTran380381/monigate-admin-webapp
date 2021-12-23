@@ -11,15 +11,23 @@
     </div>
     <mat-form-field *ngIf="isAddMode" appearance="outline" class="id">
       <mat-label>Mã nhân viên*</mat-label>
-      <input [readonly]="!isAddMode" formControlName="id" matInput>
+      <input formControlName="id" matInput>
       <mat-error *ngIf="userForm.controls.id.errors?.required">Vui lòng nhập id</mat-error>
       <mat-error *ngIf="userForm.controls.id.errors?.duplicate">Id đã bị trùng</mat-error>
     </mat-form-field>
-    <mat-form-field [class.expanded-control]="!isAddMode" appearance="outline" class="role">
+    <mat-form-field appearance="outline" class="role">
       <mat-label>Quyền người dùng*</mat-label>
       <mat-select formControlName="roleId">
         <mat-option *ngFor="let role of roles" [value]="role.id">
           {{role.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="department">
+      <mat-label>Phòng ban*</mat-label>
+      <mat-select formControlName="departmentId">
+        <mat-option *ngFor="let department of departments" [value]="department.id">
+          {{department.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>

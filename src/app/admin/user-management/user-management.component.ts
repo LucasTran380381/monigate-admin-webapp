@@ -1,22 +1,23 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {User} from '../../../models/user';
+import {User} from '../../models/user';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {EditUserComponent} from '../edit-user/edit-user.component';
+import {UserManipulation} from '../user-manipulation/user-manipulation.component';
 import {FormControl, Validators} from '@angular/forms';
-import {UserService} from '../../../services/user.service';
+import {UserService} from '../../services/user.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {ConfirmDialogComponent} from '../../confirm-dialog/confirm-dialog.component';
-import {DialogData} from '../../../models/dialog-data';
+import {ConfirmDialogComponent} from '../../root/confirm-dialog/confirm-dialog.component';
+import {DialogData} from '../../models/dialog-data';
+import {ImportUserComponent} from '../import-user/import-user.component';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  templateUrl: './user-management.component.html',
+  styleUrls: ['./user-management.component.scss'],
 })
-export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
-  editUserDialog: MatDialogRef<EditUserComponent> | undefined
+export class UserManagementComponent implements OnInit, OnDestroy, AfterViewInit {
+  editUserDialog: MatDialogRef<UserManipulation> | undefined
   searchControl = new FormControl(undefined, [Validators.minLength(3)])
   originalUsers: User [] = []
   userDataSource: MatTableDataSource<User> = new MatTableDataSource<User>()
@@ -39,8 +40,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
   }
 
-  onOpenDialog(user?: User) {
-    this.editUserDialog = this.dialog.open(EditUserComponent, {
+  openUserManipulationDialog(user?: User) {
+    this.editUserDialog = this.dialog.open(UserManipulation, {
       width: '600px',
       data: user,
       disableClose: true,
@@ -112,5 +113,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         }, error => console.log(error))
       }
     })
+  }
+
+  openImportUserDialog() {
+    this.dialog.open(ImportUserComponent)
   }
 }

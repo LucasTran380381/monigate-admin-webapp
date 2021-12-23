@@ -1,0 +1,94 @@
+<!--filter section-->
+<div class="card mat-elevation-z8">
+  <div class="card-header">
+    <h2>Bộ lọc</h2>
+  </div>
+  <div class="card-content__padding">
+    <mat-form-field appearance="outline">
+      <mat-label>Tháng</mat-label>
+      <mat-select [formControl]="filterFormControl">
+        <mat-option *ngFor="let monthIndex of monthIndexes" [value]="monthIndex">Tháng {{monthIndex + 1}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="fetchStaffList()" color="primary" mat-icon-button>
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!--staff list-->
+<div class="card mat-elevation-z8">
+  <div class="card-header__flex">
+    <h2>Bảng theo dõi nhân viên - tháng {{month + 1}}</h2>
+    <button (click)="exportToExcel()" mat-icon-button matTooltip="Xuất file excel">
+      <mat-icon>file_download</mat-icon>
+    </button>
+  </div>
+  <div class="card-content">
+    <table [dataSource]="staffListDataSource" mat-table>
+      <ng-container matColumnDef="no">
+        <th *matHeaderCellDef mat-header-cell>
+          Số thứ tự
+        </th>
+        <td *matCellDef="let element, let i= index" mat-cell> {{i + 1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <th *matHeaderCellDef mat-header-cell>
+          Mã nhân viên
+        </th>
+        <td *matCellDef="let element;" mat-cell> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th *matHeaderCellDef mat-header-cell>
+          Họ và tên
+        </th>
+        <td *matCellDef="let element" mat-cell> {{element.lastName}} {{element.firstName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="checkinCounter">
+        <th *matHeaderCellDef mat-header-cell>
+          Số lần checkin
+        </th>
+        <td *matCellDef="let element" mat-cell>
+          {{element.checkinCount}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="faultFaceMaskCounter">
+        <th *matHeaderCellDef mat-header-cell>
+          Số lần sai khẩu trang
+        </th>
+        <td *matCellDef="let element" mat-cell>
+          {{element.maskFaultCount}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="highTemperatureCounter">
+        <th *matHeaderCellDef mat-header-cell>
+          Số lần nhiệt độ cao
+        </th>
+        <td *matCellDef="let element" mat-cell>
+          {{element.abnormalTempCount}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th *matHeaderCellDef mat-header-cell>
+        </th>
+        <td *matCellDef="let element" mat-cell>
+          <button (click)="openDetailDialog(element.id)" color="primary" mat-icon-button>
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>
+
+</div>

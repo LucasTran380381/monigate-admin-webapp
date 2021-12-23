@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '', canActivate: [AuthGuard], component: RootComponent, children: [
       {
         path: 'admin',
-        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+        loadChildren: () => import('../admin/admin.module').then(m => m.AdminModule),
         canActivate: [AuthorizationGuard],
         data: {
           role: 'Admin',
@@ -22,6 +22,13 @@ const routes: Routes = [
         canActivate: [AuthorizationGuard],
         data: {
           role: 'Technical Moderator',
+        },
+      }, {
+        path: 'manager',
+        loadChildren: () => import('../department-manager/department-manager.module').then(m => m.DepartmentManagerModule),
+        canActivate: [AuthorizationGuard],
+        data: {
+          role: 'Department Manager',
         },
       },
       {path: '', redirectTo: 'admin', pathMatch: 'full'},

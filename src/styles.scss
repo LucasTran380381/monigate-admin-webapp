@@ -57,6 +57,10 @@ body {
   gap: 10px;
 }
 
+.spacer {
+  flex: 1;
+}
+
 .main-space-around {
   justify-content: space-around;
 }
@@ -94,4 +98,19 @@ body {
 
 .mat-tooltip {
   font-size: 16px !important;
+}
+
+.card {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+.card-header {
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px 10px;
 }

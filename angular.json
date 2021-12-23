@@ -30,6 +30,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "xlsx-js-style",
+              "xlsx"
+            ],
             "outputPath": "dist/monigate-admin-webapp",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -44,7 +48,9 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/xlsx-style/dist/xlsx.core.min.js"
+            ]
           },
           "configurations": {
             "production": {

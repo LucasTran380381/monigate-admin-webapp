@@ -25,11 +25,11 @@ export class RootComponent implements OnInit {
 
   setupNavLinks() {
     const role = this.authService.currentUser?.account.roleName;
-    console.log(role)
     switch (role) {
       case 'Admin':
         this.navItems = [
           new NavItem('Quản lí người dùng', '/admin/user-management'),
+          new NavItem('Quản lí phòng ban', '/admin/department-management'),
         ]
         break;
       case 'Technical Moderator':
@@ -38,6 +38,12 @@ export class RootComponent implements OnInit {
           new NavItem('Thống kê checkin', '/technical/checkin-statistics'),
         ]
         break;
+      case 'Department Manager':
+        this.navItems = [
+          new NavItem('Quản lí nhân viên', '/manager/staff-management'),
+        ]
+        break;
+
     }
     //share nav link
     this.navItems.push(new NavItem('Profile', '/profile'));

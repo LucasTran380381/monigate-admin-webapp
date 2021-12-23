@@ -1,0 +1,29 @@
+<div mat-dialog-title>
+  <h1>{{isAddMode ? 'Thêm phòng ban' : 'Chỉnh sửa phòng ban'}}</h1>
+  <div class="spacer"></div>
+  <button mat-dialog-close="" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div mat-dialog-content>
+  <form [formGroup]="departmentForm">
+    <mat-form-field *ngIf="isAddMode" appearance="outline" class="id-control">
+      <mat-label>Mã phòng ban*</mat-label>
+      <input formControlName="id" matInput>
+      <mat-error *ngIf="departmentForm.controls.id.errors?.required">Vui lòng nhập mã phòng ban</mat-error>
+      <mat-error *ngIf="departmentForm.controls.id.errors?.duplicate">Mã phòng ban đã bị trùng</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="name-control">
+      <mat-label>Tên phòng ban*</mat-label>
+      <input formControlName="name" matInput>
+      <mat-error *ngIf="departmentForm.controls.name.errors?.required">Vui lòng nhập tên phòng ban</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions>
+  <button (click)="addDepartment()" [disabled]="departmentForm.invalid" color="primary" mat-raised-button>Thêm</button>
+</div>

@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DashboardComponent} from './dashboard/dashboard.component';
+import {UserManagementComponent} from './user-management/user-management.component';
 import {RouterModule, Routes} from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import {EditUserComponent} from './edit-user/edit-user.component';
+import {UserManipulation} from './user-manipulation/user-manipulation.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -20,16 +20,29 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatDividerModule} from '@angular/material/divider';
+import {DepartmentManagementComponent} from './department-management/department-management.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {ImportDepartmentComponent} from './import-department/import-department.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {DepartmentManipulationComponent} from './department-manipulation/department-manipulation.component';
+import {ImportUserComponent} from './import-user/import-user.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const routes: Routes = [
-  {path: 'user-management', component: DashboardComponent},
+  {path: 'user-management', component: UserManagementComponent},
   {path: '', redirectTo: 'user-management', pathMatch: 'full'},
+  {path: 'department-management', component: DepartmentManagementComponent},
+
 ]
 
 @NgModule({
   declarations: [
-    DashboardComponent,
-    EditUserComponent,
+    UserManagementComponent,
+    UserManipulation,
+    DepartmentManagementComponent,
+    ImportDepartmentComponent,
+    ImportUserComponent,
+    DepartmentManipulationComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +65,9 @@ const routes: Routes = [
     MatMenuModule,
     MatButtonToggleModule,
     MatDividerModule,
+    MatTooltipModule,
+    MatStepperModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class AdminModule {}

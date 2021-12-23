@@ -1,4 +1,5 @@
 import {Account} from './account';
+import {Department} from './department';
 
 export class User {
   id: string = '';
@@ -8,9 +9,11 @@ export class User {
   status: number;
   phone: string;
   email: string;
+  departmentId: string;
+  department: Department;
   account: Account;
 
-  constructor(id: string, firstName: string, lastName: string, avatarUrl: string, status: number, phone: string, email: string, account: Account) {
+  constructor(id: string, firstName: string, lastName: string, avatarUrl: string, status: number, phone: string, email: string, departmentId: string, department: Department, account: Account) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -18,6 +21,8 @@ export class User {
     this.status = status;
     this.phone = phone;
     this.email = email;
+    this.departmentId = departmentId;
+    this.department = department;
     this.account = account;
   }
 }

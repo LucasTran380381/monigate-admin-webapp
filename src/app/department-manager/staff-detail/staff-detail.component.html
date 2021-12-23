@@ -1,0 +1,68 @@
+<div class="mat-dialog-header">
+  <h1>Chi tiết nhân viên</h1>
+  <button mat-dialog-close="" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div mat-dialog-content>
+  <div class="card mat-elevation-z8">
+    <h2 class="card-header">Thông tin nhân viên</h2>
+    <div class="card-content">
+      <div class="info-section">
+        <div class="info-title">Mã nhân viên</div>
+        <div class="info-content">Se140983</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card mat-elevation-z8">
+    <h2 class="card-header">Danh sách check-in</h2>
+    <div class="card-content">
+      <table [dataSource]="checkinDataSource" mat-table>
+        <ng-container matColumnDef="no">
+          <th *matHeaderCellDef mat-header-cell>
+            Số thứ tự
+          </th>
+          <td *matCellDef="let element, let i= index" mat-cell> {{i + 1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="checkinTime">
+          <th *matHeaderCellDef mat-header-cell>
+            Thời gian
+          </th>
+          <td *matCellDef="let element;" mat-cell> {{element.checkinTime | date:'short'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="temperature">
+          <th *matHeaderCellDef mat-header-cell>
+            Nhiệt độ
+          </th>
+          <td *matCellDef="let element" mat-cell>{{element.temperature}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="maskStatus">
+          <th *matHeaderCellDef mat-header-cell>
+            Số lần checkin
+          </th>
+          <td *matCellDef="let element" mat-cell>
+            {{element.faceMaskStatus}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="checkinStatus">
+          <th *matHeaderCellDef mat-header-cell>
+            Số lần sai khẩu trang
+          </th>
+          <td *matCellDef="let element" mat-cell>
+            {{element.status}}
+          </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+    </div>
+  </div>
+</div>

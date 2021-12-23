@@ -1,0 +1,23 @@
+.card-header__flex {
+  display: flex;
+}
+
+.card-content__padding {
+  padding: 10px 20px 0;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-header-cell {
+  text-align: center;
+}
+
+.mat-cell {
+  text-align: center;
+}
+
+mat-paginator {
+  border-radius: 0 0 20px 20px;
+}

@@ -28,7 +28,8 @@ form {
   display: grid;
   align-items: center;
   grid-template-areas:
-    'id id role'
+    'id id id'
+    'role department department'
     'lastName firstName firstName'
     'phone email email';
   grid-template-columns:
@@ -42,6 +43,10 @@ form {
 
 .role {
   grid-area: role;
+}
+
+.department {
+  grid-area: department;
 }
 
 .last-name {

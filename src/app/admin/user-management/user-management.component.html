@@ -16,10 +16,20 @@
         <mat-icon>search</mat-icon>
       </button>
       <div class="spacer"></div>
-      <button (click)="onOpenDialog()" class="btn-add" color="primary" mat-button>
+      <button [matMenuTriggerFor]="menu" class="btn-add" color="primary" mat-button>
         <mat-icon>add</mat-icon>
         Thêm người dùng
       </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="openUserManipulationDialog()" mat-menu-item>
+          <mat-icon>add</mat-icon>
+          <span>Thêm người dùng thủ công</span>
+        </button>
+        <button (click)="openImportUserDialog()" mat-menu-item>
+          <mat-icon>file_upload</mat-icon>
+          <span>Nhập bằng excel</span>
+        </button>
+      </mat-menu>
     </div>
   </div>
   <div class="center">
@@ -47,7 +57,7 @@
             </ng-container>
             <ng-container matColumnDef="roleName">
               <th *matHeaderCellDef mat-header-cell>Quyền người dùng</th>
-              <td *matCellDef="let element" mat-cell>hello</td>
+              <td *matCellDef="let element" mat-cell>{{element.account.role.name}}</td>
             </ng-container>
 
             <ng-container matColumnDef="status">
@@ -68,7 +78,7 @@
                   <mat-icon>more_horiz</mat-icon>
                 </button>
                 <mat-menu #actionMenu="matMenu">
-                  <button (click)="onOpenDialog(element)" mat-menu-item>
+                  <button (click)="openUserManipulationDialog(element)" mat-menu-item>
                     <mat-icon>edit</mat-icon>
                     <span>Cập nhật thông tin</span>
                   </button>
