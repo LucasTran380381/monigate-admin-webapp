@@ -33,6 +33,7 @@
 }
 
 .card {
+  width: 80%;
   margin-top: 20px;
 }
 
@@ -40,19 +41,8 @@
 
 }
 
-.center {
-  display: flex;
-  justify-content: center;
-}
-
-.table-section {
-  border-radius: 20px;
-  width: 80%;
-  margin-top: 20px;
-
-  table {
-    width: 100%;
-  }
+table {
+  width: 100%;
 }
 
 tr:nth-child(even) {

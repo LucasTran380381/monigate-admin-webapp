@@ -36,50 +36,27 @@ mat-card {
   align-items: center;
 }
 
-.logo {
-  grid-area: logo;
-  width: 100%;
-  margin-right: 20px;
-
-  mat-icon {
-    font-size: 40px;
-  }
+.card {
+  width: 80%;
 }
 
-.card-header {
-  grid-area: header;
-  font-size: 14px;
-  font-weight: 400;
-  color: #939393;
-  text-align: center;
-  border-bottom: 1px solid #3f51b5;
-  margin-bottom: 10px;
+.card_small {
+  width: 300px;
 }
 
-.card-content {
-  grid-area: content;
+.card-content__padding {
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
 
   h4 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
   }
 
-  text-align: right;
-}
-
-.card {
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-  border-radius: 20px;
-  margin-bottom: 30px;
-}
-
-.card-header {
-  background-color: #3f51b5;
-  color: white;
-  border-radius: 20px 20px 0 0;
-  padding: 20px 20px 10px;
+  mat-icon {
+    margin-right: 20px;
+  }
 }
 
 .filter-section {

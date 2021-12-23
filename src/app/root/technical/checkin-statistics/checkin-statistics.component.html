@@ -3,44 +3,42 @@
     <h2>Thông tin checkin</h2>
   </div>
   <div class="status-section-content">
-    <mat-card>
-      <div class="logo" style="color: #303d8f">
-        <mat-icon>meeting_room</mat-icon>
-      </div>
+
+    <div class="card card_small mat-elevation-z8">
       <div class="card-header">
         <h2>Tổng số checkin</h2>
       </div>
-      <div class="card-content">
+      <div class="card-content__padding">
+        <mat-icon style="color: #303d8f; ">meeting_room</mat-icon>
         <h4>{{totalCheckin}}</h4>
       </div>
-    </mat-card>
-    <mat-card>
-      <div class="logo" style="color: orange">
-        <mat-icon>masks</mat-icon>
-      </div>
+    </div>
+
+    <div class="card card_small mat-elevation-z8">
       <div class="card-header">
-        <h2>Đeo khẩu trang không đúng</h2>
+        <h2>Đeo khẩu trang sai</h2>
       </div>
-      <div class="card-content">
+      <div class="card-content__padding">
+        <mat-icon style="color: orange">masks</mat-icon>
         <h4>{{numOfWrongFaceMask}}</h4>
       </div>
-    </mat-card>
-    <mat-card>
-      <div class="logo" style="color: red">
-        <mat-icon>thermostat</mat-icon>
-      </div>
+    </div>
+
+    <div class="card card_small mat-elevation-z8">
       <div class="card-header">
         <h2>Nhiệt độ cao bất thường</h2>
       </div>
-      <div class="card-content">
+      <div class="card-content__padding">
+        <mat-icon style="color: red">thermostat</mat-icon>
         <h4>{{numOfHighTemperature}}</h4>
       </div>
-    </mat-card>
+    </div>
+
   </div>
 </div>
 
-<div class="section mat-elevation-z8">
-  <div class="section-header">
+<div class="card mat-elevation-z8">
+  <div class="card-header">
     <h2> Danh sách checkin hôm nay - {{midnightCurrentDate | date:'dd/M/yyyy'}}</h2>
   </div>
 
@@ -63,7 +61,7 @@
 
   <!--  <mat-divider></mat-divider>-->
 
-  <div class="table-section">
+  <div class="card-content">
     <table [dataSource]="checkinDataSource" mat-table>
       <ng-container matColumnDef="no">
         <th *matHeaderCellDef mat-header-cell matTooltip="Số thứ tự">
@@ -117,11 +115,11 @@
 
 </div>
 
-<div class="section mat-elevation-z8">
-  <div class="section-header">
+<div class="card mat-elevation-z8">
+  <div class="card-header">
     <h2>Biểu đồ checkin tháng {{midnightCurrentDate | date : 'M/y'}}</h2>
   </div>
-  <div class="chart-section">
+  <div class="card-content__padding">
     <canvas [data]="chartData" [options]="chartOptions" [type]="chartType" baseChart height="600" width="400"></canvas>
   </div>
 

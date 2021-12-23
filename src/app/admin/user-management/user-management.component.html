@@ -32,11 +32,12 @@
       </mat-menu>
     </div>
   </div>
-  <div class="center">
-    <div *ngIf="userDataSource.data?.length" class="table-section mat-elevation-z8">
-      <div class="section-header">
-        <h2>Danh sách người dùng</h2>
-      </div>
+  <div *ngIf="userDataSource.data?.length" class="card mat-elevation-z8">
+    <div class="card-header">
+      <h2>Danh sách người dùng</h2>
+    </div>
+
+    <div class="card-contetn">
       <mat-tab-group mat-align-tabs="start">
         <mat-tab label="Người dùng không bị vô hiệu hoá">
           <table [dataSource]="userDataSource" mat-table>
@@ -137,8 +138,8 @@
         </mat-tab>
       </mat-tab-group>
     </div>
-    <div *ngIf="isNotFoundUser" class="not-found-section">
-      <h1>Không tìm thấy người dùng</h1>
-    </div>
+  </div>
+  <div *ngIf="isNotFoundUser" class="not-found-section">
+    <h1>Không tìm thấy người dùng</h1>
   </div>
 </div>
