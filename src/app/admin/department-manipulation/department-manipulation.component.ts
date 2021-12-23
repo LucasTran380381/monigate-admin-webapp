@@ -21,9 +21,15 @@ export class DepartmentManipulationComponent implements OnInit {
   }
 
   addDepartment() {
+    if (this.departmentForm.invalid) return
     this.departmentService.addDepartment(this.departmentForm.value).subscribe(
-      value => this.dialogRef.close('refresh'),
+      _ => this.dialogRef.close('refresh'),
+      error => {
+        if (error.status == 409)
+          this.departmentForm.controls.id.setErrors({
+            duplicate: true,
+          })
+      },
     )
   }
-
 }
