@@ -62,6 +62,7 @@ export class StaffManagementComponent implements OnInit {
         dateFrom: this.firstDateOfMonth,
         dateTo: this.lastDateOfMonth,
       },
+      width: '800px',
     })
   }
 

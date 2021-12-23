@@ -25,4 +25,8 @@ export class User {
     this.department = department;
     this.account = account;
   }
+
+  get fullName(): string {
+    return `${this.lastName} ${this.firstName}`
+  }
 }

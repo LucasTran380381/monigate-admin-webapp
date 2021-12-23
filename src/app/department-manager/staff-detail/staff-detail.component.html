@@ -5,12 +5,28 @@
   </button>
 </div>
 <div mat-dialog-content>
-  <div class="card mat-elevation-z8">
+  <div *ngIf="user" class="card mat-elevation-z8">
     <h2 class="card-header">Thông tin nhân viên</h2>
     <div class="card-content">
       <div class="info-section">
         <div class="info-title">Mã nhân viên</div>
-        <div class="info-content">Se140983</div>
+        <div class="info-content">{{user.id}}</div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">Họ và tên</div>
+        <div class="info-content">{{user.lastName}} {{user.firstName}}</div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">Số điện thoại</div>
+        <div class="info-content">{{user.phone}}</div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">Email</div>
+        <div class="info-content">{{user.email}}</div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">Mã phòng ban</div>
+        <div class="info-content">{{user.departmentId}}</div>
       </div>
     </div>
 
@@ -42,19 +58,23 @@
 
         <ng-container matColumnDef="maskStatus">
           <th *matHeaderCellDef mat-header-cell>
-            Số lần checkin
+            Trạng thái khẩu trang
           </th>
           <td *matCellDef="let element" mat-cell>
-            {{element.faceMaskStatus}}
+            <div *ngIf="formatMaskStatus(element.faceMaskStatus); let status" [matTooltip]="status.tooltip">
+              <mat-icon [class]="status.style">masks</mat-icon>
+            </div>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="checkinStatus">
           <th *matHeaderCellDef mat-header-cell>
-            Số lần sai khẩu trang
+            Trạng thái checkin
           </th>
           <td *matCellDef="let element" mat-cell>
-            {{element.status}}
+            <div *ngIf="formatCheckinStatus(element.status); let status" [matTooltip]="status.tooltip">
+              <mat-icon [class]="status.style">{{status.icon}}</mat-icon>
+            </div>
           </td>
         </ng-container>
 

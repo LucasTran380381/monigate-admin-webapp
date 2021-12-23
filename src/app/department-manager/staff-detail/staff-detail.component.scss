@@ -15,10 +15,15 @@
 }
 
 .info-title {
+  flex: 1;
   color: #3f51b5;
   font-size: 18px;
   font-weight: bold;
   margin-right: 20px;
+}
+
+.info-content {
+  flex: 2;
 }
 
 .mat-paginator {
