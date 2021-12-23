@@ -1,5 +1,5 @@
 export enum CheckinStatus {
   approve = 100,
   approveManual = 200,
-  decline = 210
+  decline = 110
 }

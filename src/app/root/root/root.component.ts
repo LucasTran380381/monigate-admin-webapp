@@ -30,6 +30,7 @@ export class RootComponent implements OnInit {
         this.navItems = [
           new NavItem('Quản lí người dùng', '/admin/user-management'),
           new NavItem('Quản lí phòng ban', '/admin/department-management'),
+          new NavItem('Quản lí quyền người dùng', '/admin/role-management'),
         ]
         break;
       case 'Technical Moderator':

@@ -27,12 +27,14 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {DepartmentManipulationComponent} from './department-manipulation/department-manipulation.component';
 import {ImportUserComponent} from './import-user/import-user.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {RoleManagementComponent} from './role-management/role-management.component';
+import {RoleManipulationComponent} from './role-manipulation/role-manipulation.component';
 
 const routes: Routes = [
   {path: 'user-management', component: UserManagementComponent},
   {path: '', redirectTo: 'user-management', pathMatch: 'full'},
   {path: 'department-management', component: DepartmentManagementComponent},
-
+  {path: 'role-management', component: RoleManagementComponent},
 ]
 
 @NgModule({
@@ -43,6 +45,8 @@ const routes: Routes = [
     ImportDepartmentComponent,
     ImportUserComponent,
     DepartmentManipulationComponent,
+    RoleManagementComponent,
+    RoleManipulationComponent,
   ],
   imports: [
     CommonModule,

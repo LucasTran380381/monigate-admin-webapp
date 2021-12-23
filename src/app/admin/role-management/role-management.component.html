@@ -1,0 +1,34 @@
+<div class="card mat-elevation-z8">
+  <div class="card-header"><h2>Danh sách quyền người dùng</h2>
+  </div>
+
+  <div class="card-content">
+    <table [dataSource]="rolesDataSource" mat-table>
+      <ng-container matColumnDef="no">
+        <th *matHeaderCellDef mat-header-cell>
+          Số thứ tự
+        </th>
+        <td *matCellDef="let element, let i= index" mat-cell> {{i + 1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <th *matHeaderCellDef mat-header-cell>
+          Mã quyền
+        </th>
+        <td *matCellDef="let element;" mat-cell> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th *matHeaderCellDef mat-header-cell>
+          Tên quyền
+        </th>
+        <td *matCellDef="let element" mat-cell>{{element.name}}</td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>
+</div>

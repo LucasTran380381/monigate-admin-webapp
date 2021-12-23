@@ -1,0 +1,25 @@
+<div mat-dialog-title>
+  <h1>{{!data ? 'Thêm quyền' : 'Chỉnh sửa quyền'}}</h1>
+  <button mat-dialog-close="" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div mat-dialog-content>
+  <form [formGroup]="roleForm">
+    <mat-form-field appearance="outline" class="name-control">
+      <mat-label>Tên quyền*</mat-label>
+      <input formControlName="name" matInput>
+      <mat-error *ngIf="roleForm.controls.name.errors?.required">Vui lòng nhập tên quyền</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions>
+  <button (click)="submit()" color="primary" mat-raised-button>
+    <mat-icon>send</mat-icon>
+    <span> {{!data ? 'Tạo' : 'Cập nhật'}}</span>
+  </button>
+</div>

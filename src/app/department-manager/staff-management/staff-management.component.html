@@ -61,7 +61,7 @@
           Số lần sai khẩu trang
         </th>
         <td *matCellDef="let element" mat-cell>
-          {{element.maskFaultCount}}
+          {{element.maskFaultCount}} | ({{element.maskFaultCount / element.checkinCount| percent}})
         </td>
       </ng-container>
 
@@ -70,7 +70,7 @@
           Số lần nhiệt độ cao
         </th>
         <td *matCellDef="let element" mat-cell>
-          {{element.abnormalTempCount}}
+          {{element.abnormalTempCount}} | ({{element.abnormalTempCount / element.checkinCount | percent}})
         </td>
       </ng-container>
 
