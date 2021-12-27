@@ -23,6 +23,8 @@ import {NgChartsModule} from 'ng2-charts';
 import localeGB from '@angular/common/locales/vi';
 import {registerLocaleData} from '@angular/common';
 import {TimestampPipe} from './pipes/timestamp.pipe';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 
 registerLocaleData(localeGB);
 
@@ -51,6 +53,10 @@ registerLocaleData(localeGB);
     MatDatepickerModule, MatFormFieldModule, MatInputModule, BrowserAnimationsModule,
     FormsModule,
     NgChartsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [
     {

@@ -1,9 +1,7 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ManagerService} from '../services/manager.service';
-import {MatTableDataSource} from '@angular/material/table';
 import {CheckinForStaffDetail} from '../models/checkin-for-staff-detail';
-import {MatPaginator} from '@angular/material/paginator';
 import {User} from '../../models/user';
 import {CheckinStatus} from '../../models/enums/checkin-status';
 import {FaceMaskStatus} from '../../models/enums/face-mask-status';
@@ -15,10 +13,8 @@ import {FaceMaskStatus} from '../../models/enums/face-mask-status';
 })
 export class StaffDetailComponent implements OnInit {
   user: User
-  checkinDataSource: MatTableDataSource<CheckinForStaffDetail> = new MatTableDataSource<CheckinForStaffDetail>()
-  displayedColumns: string[] = ['no', 'checkinTime', 'temperature', 'maskStatus', 'checkinStatus'];
-  @ViewChild(MatPaginator)
-  paginator: MatPaginator
+  viewDate = new Date();
+  checkins: CheckinForStaffDetail[] = []
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private managerService: ManagerService) { }
 
@@ -29,8 +25,7 @@ export class StaffDetailComponent implements OnInit {
         if (!value)
           return
         this.user = value.user
-        this.checkinDataSource.data = value.checkins.sort((a, b) => new Date(b.checkinTime).getTime() - new Date(a.checkinTime).getTime())
-        this.checkinDataSource.paginator = this.paginator
+        this.checkins = value.checkins
       })
   }
 
@@ -56,4 +51,14 @@ export class StaffDetailComponent implements OnInit {
     }
   }
 
+  getCheckin(date: string) {
+    return this.checkins.find(checkin => new Date(checkin.checkinTime).getDate() == new Date(date).getDate())
+  }
+
+  formatTemperatureStatus(temperature: number) {
+    if (temperature > 37.5)
+      return {style: 'error-color', tooltip: `${temperature}`}
+    else
+      return {style: 'success-color', tooltip: `${temperature}`}
+  }
 }

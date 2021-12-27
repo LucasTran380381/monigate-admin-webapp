@@ -47,3 +47,24 @@ tr:nth-child(even) {
 .mat-cell {
   text-align: center;
 }
+
+.cell-flex {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.left {
+  grid-area: left;
+  text-align: right;
+  width: 30px;
+}
+
+.center {
+  grid-area: center;
+}
+
+.right {
+  text-align: right;
+  width: 30px;
+  grid-area: right;
+}
