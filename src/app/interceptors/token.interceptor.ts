@@ -11,11 +11,15 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private snackbar: MatSnackBar) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.authService.token}`,
-      },
-    })
+    const shouldIncludeToken = !request.url.includes('login')
+    if (shouldIncludeToken) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.authService.token}`,
+        },
+      });
+    }
+
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401) {

@@ -1,0 +1,46 @@
+.mat-dialog-title {
+  justify-content: space-between;
+  background-color: #3f51b5;
+  display: flex;
+  color: white;
+  padding: 20px 20px 10px;
+}
+
+mat-divider {
+  background-color: #3f51b5;
+}
+
+.info-section {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.info-title {
+  flex: 1;
+  color: #3f51b5;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.info-content {
+  flex: 2;
+}
+
+.mt-10 {
+  margin-top: 100px;
+}
+
+.img-cover {
+  object-fit: cover;
+}
+
+.action-form-field {
+  width: 300px;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  align-items: baseline;
+}

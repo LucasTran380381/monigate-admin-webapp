@@ -21,16 +21,16 @@ export class AuthService {
     if (jsonUser) {this.currentUser = JSON.parse(jsonUser)}
   }
 
-  onLogin(username: string, password: string): Observable<User> {
+  login(username: string, password: string): Observable<User> {
     return this.http.post<any>(`${environment.apiUrl}/Account/login`, {
       username, password,
     }).pipe(map(value => {
       const user = value.user as User
       user.account = new Account(value.username, value.roleName)
       this.currentUser = user
-      this.token = value.token
+      this.token = value.accessToken.token
       localStorage.setItem('currentUser', JSON.stringify(user))
-      localStorage.setItem('token', value.token)
+      localStorage.setItem('token', this.token ?? '')
       return user
     }))
   }

@@ -44,6 +44,11 @@ export class RootComponent implements OnInit {
           new NavItem('Quản lí nhân viên', '/manager/staff-management'),
         ]
         break;
+      case 'Medical Staff':
+        this.navItems = [
+          new NavItem('Báo cáo bệnh án', '/medical'),
+        ]
+        break;
 
     }
     //share nav link

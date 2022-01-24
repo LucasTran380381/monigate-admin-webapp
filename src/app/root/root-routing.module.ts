@@ -4,6 +4,7 @@ import {RootComponent} from "./root/root.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {AuthGuard} from '../guards/auth.guard';
 import {AuthorizationGuard} from '../guards/authorization.guard';
+import {MedicalManagerComponent} from '../medical-manager/medical-manager.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,14 @@ const routes: Routes = [
         canActivate: [AuthorizationGuard],
         data: {
           role: 'Department Manager',
+        },
+      },
+      {
+        path: 'medical',
+        component: MedicalManagerComponent,
+        canActivate: [AuthorizationGuard],
+        data: {
+          role: 'Medical Staff',
         },
       },
       {path: '', redirectTo: 'admin', pathMatch: 'full'},

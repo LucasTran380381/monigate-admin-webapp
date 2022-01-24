@@ -1,0 +1,54 @@
+<div mat-dialog-title>
+  <h1>Báo cáo chi tiết</h1>
+  <div class="spacer"></div>
+  <button mat-dialog-close="" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div mat-dialog-content>
+
+  <div *ngIf="diseaseReport" class="card mat-elevation-z8">
+    <h2 class="card-header">Thông tin chung</h2>
+    <div class="card-content">
+      <div class="info-section">
+        <div class="info-title">Mã báo cáo</div>
+        <div class="info-content">{{diseaseReport.id}}</div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">Mã nhân viên</div>
+        <div class="info-content">{{diseaseReport.reportedUserId}}</div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">Mẫ chuẩn đoán</div>
+        <div class="info-content">{{diseaseReport.diseaseCode}}</div>
+      </div>
+      <div class="info-section">
+        <div class="info-title">Ngày tháng</div>
+        <div class="info-content">{{diseaseReport.reportDate | date}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="diseaseReport?.reportImageUrls" class=" card mat-elevation-z8">
+    <h2 class="card-header">Hình ảnh thêm</h2>
+    <div class="card-content">
+      <img *ngFor="let src of diseaseReport.reportImageUrls" [src]="src" alt="" class="img-cover" width="100%">
+    </div>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions>
+  <mat-form-field appearance="outline" class="action-form-field">
+    <mat-label>Số ngày cần truy vết thông báo</mat-label>
+    <input [formControl]="dateRangeControl" matInput type="number">
+    <mat-error *ngIf="dateRangeControl.hasError('required')">Vui lòng nhập số ngày</mat-error>
+    <mat-error *ngIf="dateRangeControl.hasError('min')">Vui lòng nhập không ít hơn 1 ngày</mat-error>
+    <mat-error *ngIf="dateRangeControl.hasError('max')">Vui lòng nhập không vượt quá 30 ngày</mat-error>
+  </mat-form-field>
+  <button (click)="notify()" [disabled]="dateRangeControl.invalid" color="primary" mat-icon-button>
+    <mat-icon>notifications_active</mat-icon>
+  </button>
+</div>

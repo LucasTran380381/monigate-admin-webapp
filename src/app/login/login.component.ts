@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   async onLogin() {
     const formValue = this.loginForm.value;
     try {
-      const user = await this.authService.onLogin(formValue.username, formValue.password).toPromise()
+      const user = await this.authService.login(formValue.username, formValue.password).toPromise()
       let command = ['']
       switch (user.account.roleName) {
         case'Admin':

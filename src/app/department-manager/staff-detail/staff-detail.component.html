@@ -32,7 +32,7 @@
 
   </div>
   <div class="card mat-elevation-z8">
-    <h2 class="card-header">Danh sách check-in</h2>
+    <h2 class="card-header">Danh sách check-in tháng {{viewDate.getMonth() + 1}}</h2>
     <div class="card-content">
       <mwl-calendar-month-view [cellTemplate]="customCellTemplate" [viewDate]="viewDate"></mwl-calendar-month-view>
     </div>

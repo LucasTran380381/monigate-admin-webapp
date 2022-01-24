@@ -25,6 +25,11 @@ import {registerLocaleData} from '@angular/common';
 import {TimestampPipe} from './pipes/timestamp.pipe';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
+import {MedicalManagerComponent} from './medical-manager/medical-manager.component';
+import {MatTableModule} from '@angular/material/table';
+import {DiseaseReportDetailComponent} from './disease-report-detail/disease-report-detail.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
 
 registerLocaleData(localeGB);
 
@@ -34,6 +39,8 @@ registerLocaleData(localeGB);
     LoginComponent,
     NotFoundComponent,
     TimestampPipe,
+    MedicalManagerComponent,
+    DiseaseReportDetailComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -56,7 +63,7 @@ registerLocaleData(localeGB);
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    }),
+    }), MatTableModule, MatDialogModule, MatDividerModule,
   ],
   providers: [
     {
