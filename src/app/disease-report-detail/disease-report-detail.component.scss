@@ -44,3 +44,24 @@ mat-divider {
   display: flex;
   align-items: baseline;
 }
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.mr-10 {
+  margin-right: 20px;
+}
+
+gallery {
+  width: 500px;
+}
+
+.w-80 {
+  width: 200px;
+}

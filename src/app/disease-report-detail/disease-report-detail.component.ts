@@ -1,9 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {DiseaseReportService} from '../disease-report.service';
-import {DiseaseReport} from '../models/disease-report';
+import {DiseaseReport} from '../medical-manager/models/disease-report';
 import {FormControl, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {GalleryItem, ImageItem} from 'ng-gallery';
 
 @Component({
   selector: 'app-disease-report-detail',
@@ -14,6 +15,7 @@ export class DiseaseReportDetailComponent implements OnInit {
 
   diseaseReport: DiseaseReport;
   dateRangeControl: FormControl = new FormControl('', [Validators.required, Validators.min(1), Validators.max(30)]);
+  galleryItems: GalleryItem[];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: string,
               private diseaseReportService: DiseaseReportService,
@@ -21,7 +23,13 @@ export class DiseaseReportDetailComponent implements OnInit {
               private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.diseaseReportService.getDiseaseReport(this.data).subscribe(value => this.diseaseReport = value)
+    this.diseaseReportService.getDiseaseReport(this.data).subscribe(value => {
+      this.diseaseReport = value;
+      this.galleryItems = this.diseaseReport.reportImageUrls?.map(value1 => new ImageItem({
+        src: value1,
+        thumb: value1,
+      })) ?? [];
+    })
   }
 
   notify() {

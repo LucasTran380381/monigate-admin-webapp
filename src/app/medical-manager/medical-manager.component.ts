@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {MatTableDataSource} from '@angular/material/table';
-import {DiseaseReport} from '../models/disease-report';
+import {DiseaseReport} from './models/disease-report';
 import {DiseaseReportService} from '../disease-report.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DiseaseReportDetailComponent} from '../disease-report-detail/disease-report-detail.component';
+import {MatPaginator} from '@angular/material/paginator';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-medical-manager',
@@ -14,6 +16,13 @@ import {DiseaseReportDetailComponent} from '../disease-report-detail/disease-rep
 export class MedicalManagerComponent implements OnInit {
   displayedColumns = ['no', 'id', 'userId', 'date', 'action'];
   dataSource: MatTableDataSource<DiseaseReport> = new MatTableDataSource<DiseaseReport>();
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
+  filterFrom = new FormGroup({
+      startDay: new FormControl(),
+      endDay: new FormControl(),
+    },
+  )
 
   constructor(private title: Title,
               private diseaseService: DiseaseReportService,
@@ -25,13 +34,35 @@ export class MedicalManagerComponent implements OnInit {
     this.diseaseService.getDiseaseReports().subscribe(value => {
       console.log(value);
       this.dataSource.data = value.sort((a, b) => new Date(b.reportDate).getTime() - new Date(a.reportDate).getTime())
+      this.dataSource.paginator = this.paginator
+      this.dataSource.filterPredicate = (data, filter) => {
+        let startDayPredicate = true
+        let endDayPredicate = true
+        const reportDay = new Date(data.reportDate)
+        reportDay.setHours(0, 0, 0, 0)
+        const filterObj = JSON.parse(filter);
+
+        if (filterObj.startDay != null) {
+          const startDay = new Date(filterObj.startDay)
+          startDayPredicate = reportDay.getTime() >= startDay.getTime()
+        }
+
+        if (filterObj.endDay != null) {
+          const endDay = new Date(filterObj.endDay)
+          endDayPredicate = reportDay.getTime() <= endDay.getTime()
+        }
+        return startDayPredicate && endDayPredicate
+      }
+    })
+    this.filterFrom.valueChanges.subscribe(form => {
+      this.dataSource.filter = JSON.stringify(form)
     })
   }
 
   openDialog(id: string) {
     this.dialog.open(DiseaseReportDetailComponent, {
       data: id,
-      width: '700px',
+      width: '1200px',
     })
   }
 }

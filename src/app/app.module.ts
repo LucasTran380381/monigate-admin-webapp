@@ -30,6 +30,11 @@ import {MatTableModule} from '@angular/material/table';
 import {DiseaseReportDetailComponent} from './disease-report-detail/disease-report-detail.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {IvyGalleryModule} from 'angular-gallery';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {GalleryModule} from 'ng-gallery';
+import {LightboxModule} from 'ng-gallery/lightbox';
 
 registerLocaleData(localeGB);
 
@@ -43,6 +48,8 @@ registerLocaleData(localeGB);
     DiseaseReportDetailComponent,
   ],
   imports: [
+    IvyGalleryModule,
+    GalleryModule,
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
@@ -63,7 +70,7 @@ registerLocaleData(localeGB);
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    }), MatTableModule, MatDialogModule, MatDividerModule,
+    }), MatTableModule, MatDialogModule, MatDividerModule, MatPaginatorModule, ScrollingModule, LightboxModule,
   ],
   providers: [
     {

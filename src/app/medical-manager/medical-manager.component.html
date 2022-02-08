@@ -1,44 +1,64 @@
-<div class="container">
-  <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
+<div class=" card mat-elevation-z8">
+  <div class="card-header card-header__flex">
+    <h2>Danh sách bệnh án</h2>
+  </div>
+  <div class="card-content">
+    <div class="filter-section">
+      <h2 class="filter-section__header">Bộ lọc</h2>
+      <mat-form-field [formGroup]="filterFrom" appearance="outline">
+        <mat-label>Lọc theo ngày</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input formControlName="startDay" matStartDate placeholder="Ngày bắt đầu">
+          <input formControlName="endDay" matEndDate placeholder="Ngày kết thúc">
+        </mat-date-range-input>
+        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="no">
-      <th *matHeaderCellDef mat-header-cell> No.</th>
-      <td *matCellDef="let i = index" mat-cell> {{i}} </td>
-    </ng-container>
+    <table [dataSource]="dataSource" mat-table>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="id">
-      <th *matHeaderCellDef mat-header-cell> Id</th>
-      <td *matCellDef="let element" mat-cell> {{element.id}} </td>
-    </ng-container>
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="userId">
-      <th *matHeaderCellDef mat-header-cell> Mã nhân viên</th>
-      <td *matCellDef="let element" mat-cell> {{element.reportedUserId}} </td>
-    </ng-container>
+      <!-- Position Column -->
+      <ng-container matColumnDef="no">
+        <th *matHeaderCellDef mat-header-cell> No.</th>
+        <td *matCellDef="let i = index" mat-cell> {{i}} </td>
+      </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="date">
-      <th *matHeaderCellDef mat-header-cell>Thời gian</th>
-      <td *matCellDef="let element" mat-cell> {{element.reportDate | date}} </td>
-    </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="id">
+        <th *matHeaderCellDef mat-header-cell> Id</th>
+        <td *matCellDef="let element" mat-cell> {{element.id}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="action">
-      <th *matHeaderCellDef mat-header-cell></th>
-      <td *matCellDef="let element" mat-cell>
-        <button (click)="openDialog(element.id)" color="primary" mat-icon-button>
-          <mat-icon>more_horiz</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="userId">
+        <th *matHeaderCellDef mat-header-cell> Mã nhân viên</th>
+        <td *matCellDef="let element" mat-cell> {{element.reportedUserId}} </td>
+      </ng-container>
 
-    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-  </table>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="date">
+        <th *matHeaderCellDef mat-header-cell>Thời gian</th>
+        <td *matCellDef="let element" mat-cell> {{element.reportDate | date}} </td>
+      </ng-container>
 
+      <ng-container matColumnDef="action">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+          <button (click)="openDialog(element.id)" color="primary" mat-icon-button>
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>
 </div>
+

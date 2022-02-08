@@ -6,10 +6,10 @@
   </button>
 </div>
 
-<div mat-dialog-content>
+<div class="flex" mat-dialog-content>
 
-  <div *ngIf="diseaseReport" class="card mat-elevation-z8">
-    <h2 class="card-header">Thông tin chung</h2>
+  <div *ngIf="diseaseReport" class="card mat-elevation-z8 mr-10 flex-1">
+    <h2 class="card-header ">Thông tin chung</h2>
     <div class="card-content">
       <div class="info-section">
         <div class="info-title">Mã báo cáo</div>
@@ -19,9 +19,17 @@
         <div class="info-title">Mã nhân viên</div>
         <div class="info-content">{{diseaseReport.reportedUserId}}</div>
       </div>
+      <!--      <div class="info-section">-->
+      <!--        <div class="info-title">Tên nhân viên</div>-->
+      <!--        <div class="info-content">{{diseaseReport.reportUser.lastName + ' ' + diseaseReport.reportUser.firstName}}</div>-->
+      <!--      </div>-->
       <div class="info-section">
         <div class="info-title">Mẫ chuẩn đoán</div>
         <div class="info-content">{{diseaseReport.diseaseCode}}</div>
+      </div>
+      <div class="info-section">
+        <div *ngIf="diseaseReport.note" class="info-title">Ghi chú</div>
+        <div class="info-content">{{diseaseReport.note}}</div>
       </div>
       <div class="info-section">
         <div class="info-title">Ngày tháng</div>
@@ -30,10 +38,17 @@
     </div>
   </div>
 
-  <div *ngIf="diseaseReport?.reportImageUrls" class=" card mat-elevation-z8">
+  <div *ngIf="diseaseReport?.reportImageUrls" class=" card mat-elevation-z8 flex-1">
     <h2 class="card-header">Hình ảnh thêm</h2>
-    <div class="card-content">
-      <img *ngFor="let src of diseaseReport.reportImageUrls" [src]="src" alt="" class="img-cover" width="100%">
+    <!--    <div class="card-content cdk-virtual-scroll-data-source-example">-->
+    <!--      <cdk-virtual-scroll-viewport  orientation="horizontal" itemSize="200" class="gallery-viewport">-->
+    <!--        <div *cdkVirtualFor="let item of diseaseReport.reportImageUrls" class="gallery-item">-->
+    <!--          <img  [src]="item" alt="" class="img-cover" width="100%">-->
+    <!--        </div>-->
+    <!--      </cdk-virtual-scroll-viewport>-->
+    <!--    </div>-->
+    <div class="card-content flex main-center cross-center mb-10">
+      <gallery [items]="galleryItems" gallerize=""></gallery>
     </div>
   </div>
 </div>
