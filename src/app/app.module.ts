@@ -35,6 +35,7 @@ import {IvyGalleryModule} from 'angular-gallery';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {GalleryModule} from 'ng-gallery';
 import {LightboxModule} from 'ng-gallery/lightbox';
+import {MatMenuModule} from '@angular/material/menu';
 
 registerLocaleData(localeGB);
 
@@ -70,7 +71,7 @@ registerLocaleData(localeGB);
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    }), MatTableModule, MatDialogModule, MatDividerModule, MatPaginatorModule, ScrollingModule, LightboxModule,
+    }), MatTableModule, MatDialogModule, MatDividerModule, MatPaginatorModule, ScrollingModule, LightboxModule, MatMenuModule,
   ],
   providers: [
     {

@@ -25,25 +25,30 @@
       <!-- Position Column -->
       <ng-container matColumnDef="no">
         <th *matHeaderCellDef mat-header-cell> No.</th>
-        <td *matCellDef="let i = index" mat-cell> {{i}} </td>
+        <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell> Id</th>
-        <td *matCellDef="let element" mat-cell> {{element.id}} </td>
+        <th *matHeaderCellDef mat-header-cell>Mã nhân viên</th>
+        <td *matCellDef="let element" mat-cell> {{element.reportedUser.id}} </td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="userId">
-        <th *matHeaderCellDef mat-header-cell> Mã nhân viên</th>
-        <td *matCellDef="let element" mat-cell> {{element.reportedUserId}} </td>
+        <th *matHeaderCellDef mat-header-cell>Họ và tên</th>
+        <td *matCellDef="let element" mat-cell> {{element.reportedUser.lastName}} {{element.reportedUser.firstName}}</td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="date">
         <th *matHeaderCellDef mat-header-cell>Thời gian</th>
         <td *matCellDef="let element" mat-cell> {{element.reportDate | date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th *matHeaderCellDef mat-header-cell>Trạng thái</th>
+        <td *matCellDef="let element" mat-cell> {{getStatusName(element.status)}} </td>
       </ng-container>
 
       <ng-container matColumnDef="action">

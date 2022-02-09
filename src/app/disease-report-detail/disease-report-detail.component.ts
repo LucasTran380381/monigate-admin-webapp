@@ -16,6 +16,7 @@ export class DiseaseReportDetailComponent implements OnInit {
   diseaseReport: DiseaseReport;
   dateRangeControl: FormControl = new FormControl('', [Validators.required, Validators.min(1), Validators.max(30)]);
   galleryItems: GalleryItem[];
+  shouldShowNotifyForm = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: string,
               private diseaseReportService: DiseaseReportService,
@@ -37,6 +38,22 @@ export class DiseaseReportDetailComponent implements OnInit {
     this.diseaseReportService.notifyDiseaseReport(this.data, this.dateRangeControl.value).subscribe(value => {
       console.log(value);
       this.snackbar.open('Đã gửi thông báo', '', {
+        panelClass: 'green-snackbar',
+      })
+      this.dialogRef.close()
+    }, _ => this.snackbar.open('Đã có lỗi xảy ra, vui lòng thử lại', '', {
+      panelClass: 'red-snackbar',
+    }))
+  }
+
+  showNotifyForm() {
+    this.shouldShowNotifyForm = true
+  }
+
+  approve() {
+    this.diseaseReportService.approveDiseaseReport(this.data).subscribe(value => {
+      console.log(value);
+      this.snackbar.open('Đã chấp nhận', '', {
         panelClass: 'green-snackbar',
       })
       this.dialogRef.close()

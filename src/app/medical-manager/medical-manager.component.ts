@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DiseaseReportDetailComponent} from '../disease-report-detail/disease-report-detail.component';
 import {MatPaginator} from '@angular/material/paginator';
 import {FormControl, FormGroup} from '@angular/forms';
+import {DiseaseReportStatus} from '../models/enums/disease-report-status';
 
 @Component({
   selector: 'app-medical-manager',
@@ -14,7 +15,7 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./medical-manager.component.scss'],
 })
 export class MedicalManagerComponent implements OnInit {
-  displayedColumns = ['no', 'id', 'userId', 'date', 'action'];
+  displayedColumns = ['no', 'id', 'userId', 'date', 'status', 'action'];
   dataSource: MatTableDataSource<DiseaseReport> = new MatTableDataSource<DiseaseReport>();
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -31,6 +32,10 @@ export class MedicalManagerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getDiseaseReports()
+  }
+
+  getDiseaseReports() {
     this.diseaseService.getDiseaseReports().subscribe(value => {
       console.log(value);
       this.dataSource.data = value.sort((a, b) => new Date(b.reportDate).getTime() - new Date(a.reportDate).getTime())
@@ -63,6 +68,18 @@ export class MedicalManagerComponent implements OnInit {
     this.dialog.open(DiseaseReportDetailComponent, {
       data: id,
       width: '1200px',
-    })
+    }).afterClosed().subscribe(_ => this.getDiseaseReports())
+  }
+
+  getStatusName(status: DiseaseReportStatus): string {
+    switch (status) {
+      case DiseaseReportStatus.notApprove:
+        return 'Chưa được chấp nhận'
+      case DiseaseReportStatus.approved:
+        return 'Đã chấp nhận'
+      case DiseaseReportStatus.notified:
+        return 'Đã thông báo'
+    }
+    return 'status named'
   }
 }

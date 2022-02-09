@@ -21,4 +21,10 @@ export class DiseaseReportService {
   notifyDiseaseReport(id: string, dateRange: number) {
     return this.http.post<DiseaseReport>(`${environment.apiUrl}/DiseaseReport/notify?reportId=${id}&days=${dateRange}`, {});
   }
+
+  approveDiseaseReport(id: string) {
+    return this.http.put(`${environment.apiUrl}/DiseaseReport/approve`, {
+      id,
+    })
+  }
 }
