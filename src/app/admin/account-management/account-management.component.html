@@ -1,0 +1,43 @@
+<div class="card mat-elevation-z8">
+  <div class="card-header">
+    <h2>Danh sách người dùng</h2>
+  </div>
+
+  <div class="card-content">
+    <table [dataSource]="accountDataSource" mat-table>
+
+      <ng-container matColumnDef="position">
+        <th *matHeaderCellDef mat-header-cell>Stt</th>
+        <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th *matHeaderCellDef mat-header-cell>Tên đăng nhập</th>
+        <td *matCellDef="let element" mat-cell> {{element.username}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th *matHeaderCellDef mat-header-cell>Quyền người dùng</th>
+        <td *matCellDef="let element" mat-cell>{{element.role.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+          <button [matMenuTriggerFor]="menu" color="primary" mat-icon-button>
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="openConfirmResetAccountDialog(element)" mat-menu-item>Khôi phục tài khoản</button>
+            <button mat-menu-item>Item 2</button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayColumns;" mat-row></tr>
+    </table>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]">
+    </mat-paginator>
+  </div>
+</div>

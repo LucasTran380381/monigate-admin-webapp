@@ -1,0 +1,15 @@
+<div mat-dialog-title>
+  <h1>Xác nhận khôi phục</h1>
+</div>
+
+<div mat-dialog-content>
+  <h2>Bạn có muốn khôi phục tài khoản {{data.username}}</h2>
+</div>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions>
+  <button color="warn" mat-dialog-close="" mat-raised-button>Huỷ</button>
+  <button (click)="resetAccount()" color="primary" mat-raised-button>Khôi phục</button>
+
+</div>

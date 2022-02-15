@@ -29,6 +29,7 @@ export class RootComponent implements OnInit {
       case 'Admin':
         this.navItems = [
           new NavItem('Quản lí người dùng', '/admin/user-management'),
+          new NavItem('Quản lí tài khoản bổ sung', '/admin/account-management'),
           new NavItem('Quản lí phòng ban', '/admin/department-management'),
           new NavItem('Quản lí quyền người dùng', '/admin/role-management'),
         ]
@@ -52,6 +53,6 @@ export class RootComponent implements OnInit {
 
     }
     //share nav link
-    this.navItems.push(new NavItem('Profile', '/profile'));
+    // this.navItems.push(new NavItem('Profile', '/profile'));
   }
 }

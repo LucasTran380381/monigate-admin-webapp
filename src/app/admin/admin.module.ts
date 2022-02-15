@@ -29,9 +29,12 @@ import {ImportUserComponent} from './import-user/import-user.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {RoleManagementComponent} from './role-management/role-management.component';
 import {RoleManipulationComponent} from './role-manipulation/role-manipulation.component';
+import {AccountManagementComponent} from './account-management/account-management.component';
+import {ConfirmResetAccountComponent} from './confirm-reset-account/confirm-reset-account.component';
 
 const routes: Routes = [
   {path: 'user-management', component: UserManagementComponent},
+  {path: 'account-management', component: AccountManagementComponent},
   {path: '', redirectTo: 'user-management', pathMatch: 'full'},
   {path: 'department-management', component: DepartmentManagementComponent},
   {path: 'role-management', component: RoleManagementComponent},
@@ -47,6 +50,8 @@ const routes: Routes = [
     DepartmentManipulationComponent,
     RoleManagementComponent,
     RoleManipulationComponent,
+    AccountManagementComponent,
+    ConfirmResetAccountComponent,
   ],
   imports: [
     CommonModule,
