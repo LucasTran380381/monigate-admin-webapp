@@ -15,7 +15,7 @@ import {CreateAccountComponent} from '../create-account/create-account.component
 })
 export class AccountManagementComponent implements OnInit {
   accountDataSource: MatTableDataSource<SupplementaryAccount> = new MatTableDataSource<SupplementaryAccount>();
-  displayColumns = ['position', 'username', 'role', 'actions'];
+  displayColumns = ['position', 'username', 'role', 'user', 'actions'];
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator
