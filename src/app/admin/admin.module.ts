@@ -31,6 +31,7 @@ import {RoleManagementComponent} from './role-management/role-management.compone
 import {RoleManipulationComponent} from './role-manipulation/role-manipulation.component';
 import {AccountManagementComponent} from './account-management/account-management.component';
 import {ConfirmResetAccountComponent} from './confirm-reset-account/confirm-reset-account.component';
+import {CreateAccountComponent} from './create-account/create-account.component';
 
 const routes: Routes = [
   {path: 'user-management', component: UserManagementComponent},
@@ -52,6 +53,7 @@ const routes: Routes = [
     RoleManipulationComponent,
     AccountManagementComponent,
     ConfirmResetAccountComponent,
+    CreateAccountComponent,
   ],
   imports: [
     CommonModule,

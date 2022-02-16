@@ -1,3 +1,19 @@
 table {
   width: 100%;
 }
+
+.card {
+  width: 90%;
+}
+
+mat-paginator {
+  border-radius: 0 0 20px 20px;
+}
+
+.card-header {
+  display: flex;
+}
+
+.spacer {
+  flex: 1;
+}

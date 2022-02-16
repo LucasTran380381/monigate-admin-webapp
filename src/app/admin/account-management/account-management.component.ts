@@ -6,6 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmResetAccountComponent} from '../confirm-reset-account/confirm-reset-account.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {CreateAccountComponent} from '../create-account/create-account.component';
 
 @Component({
   selector: 'app-account-management',
@@ -48,5 +49,18 @@ export class AccountManagementComponent implements OnInit {
         }
       },
     );
+  }
+
+  openCreateAccountDialog() {
+    this.dialog.open(CreateAccountComponent, {
+      width: '600px',
+    }).afterClosed().subscribe(message => {
+      if (message == 'success') {
+        this._fetchAccount()
+        this.snackbar.open('Tạo tài khoản thành công', '', {
+          panelClass: 'green-snackbar',
+        })
+      }
+    })
   }
 }

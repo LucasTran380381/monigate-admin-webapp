@@ -1,0 +1,38 @@
+<div mat-dialog-title>
+  <h1>Tạo tài khoản</h1>
+  <div class="spacer"></div>
+  <button mat-dialog-close="" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div mat-dialog-content>
+  <form [formGroup]="accountForm">
+    <!--    role field-->
+    <mat-form-field appearance="outline">
+      <mat-label>Quyền người dùng</mat-label>
+      <mat-select formControlName="roleId" required>
+        <mat-option *ngFor="let role of roles" [value]="role.id">
+          {{role.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="accountForm.controls.roleId.hasError('required')">Vui lòng chọn quyền</mat-error>
+    </mat-form-field>
+
+    <!--    username field-->
+    <mat-form-field appearance="outline" class="flex-1">
+      <mat-label>Tên đăng nhập</mat-label>
+      <input formControlName="username" matInput maxlength="20" minlength="5" required>
+      <mat-error *ngIf="accountForm.controls.username.hasError('required')">Vui lòng nhập tên đăng nhập</mat-error>
+      <mat-error *ngIf="accountForm.controls.username.hasError('minlength')">Vui lòng nhập tên đăng nhập trên 5 ký tự</mat-error>
+      <mat-error *ngIf="accountForm.controls.username.hasError('maxlength')">Vui lòng nhập tên đăng nhập dưới 20 ký tự</mat-error>
+      <mat-error *ngIf="accountForm.controls.username.hasError('duplicate')">Tên đăng nhập đã được sử dụng</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions>
+  <button (click)="createAccount()" [disabled]="accountForm.invalid" color="primary" mat-raised-button>Tạo</button>
+</div>

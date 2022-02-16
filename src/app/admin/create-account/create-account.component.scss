@@ -1,0 +1,16 @@
+.mat-dialog-title {
+  background-color: #3f51b5;
+  display: flex;
+  color: white;
+  padding: 20px 20px 10px;
+  justify-content: space-between;
+}
+
+form {
+  display: flex;
+  gap: 20px;
+}
+
+.flex-1 {
+  flex: 1;
+}
