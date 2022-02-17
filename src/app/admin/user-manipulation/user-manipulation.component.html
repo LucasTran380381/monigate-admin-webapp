@@ -1,6 +1,6 @@
 <div class="mat-dialog-header">
   <h1>{{isAddMode ? 'Thêm người dùng' : 'Cập nhật thông tin'}}</h1>
-  <button mat-dialog-close mat-icon-button>
+  <button mat-dialog-close="" mat-icon-button>
     <mat-icon>close</mat-icon>
   </button>
 </div>
@@ -14,14 +14,6 @@
       <input formControlName="id" matInput>
       <mat-error *ngIf="userForm.controls.id.errors?.required">Vui lòng nhập id</mat-error>
       <mat-error *ngIf="userForm.controls.id.errors?.duplicate">Id đã bị trùng</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="role">
-      <mat-label>Quyền người dùng*</mat-label>
-      <mat-select formControlName="roleId">
-        <mat-option *ngFor="let role of roles" [value]="role.id">
-          {{role.name}}
-        </mat-option>
-      </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline" class="department">
       <mat-label>Phòng ban*</mat-label>

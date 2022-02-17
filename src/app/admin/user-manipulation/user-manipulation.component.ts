@@ -25,7 +25,6 @@ export class UserManipulation implements OnInit {
     lastname: ['', [Validators.maxLength(20), Validators.minLength(1)]],
     email: ['', [Validators.email]],
     phone: ['', Validators.pattern('[0-9]{10}')],
-    roleId: ['', Validators.required],
     departmentId: ['', Validators.required],
   })
 
@@ -46,39 +45,27 @@ export class UserManipulation implements OnInit {
         lastname: this.data?.lastName,
         email: this.data?.email,
         phone: this.data?.phone,
-        roleId: this.data?.currentAccount.role?.id,
         departmentId: this.data?.departmentId,
       },
     )
     this.departmentService.getDepartments(DepartmentStatus.active).subscribe(value => this.departments = value)
-    this.onGetAllRole().then()
-
   }
 
   onCloseDialog() {
     this.dialogRef.close()
   }
 
-  async onGetAllRole() {
-    try { this.roles = await this.userService.getUserRoles().toPromise()} catch (e) { }
-  }
-
   async onSubmit() {
     try {
       if (!this.isAddMode) {
-
+        await this.userService.updateUser(this.userForm.value).toPromise()
+        this.dialogRef.close('update success')
       } else {
         await this.userService.onRegisterUser(this.userForm.value).toPromise();
-        this.snackbar.open(
-          'Tạo user thành công',
-          undefined,
-          {
-            panelClass: 'green-snackbar',
-          },
-        )
+        this.dialogRef.close("create success")
       }
-      this.dialogRef.close()
     } catch (e) {
+      console.log(e);
       if (e.status === 500) {
         this.userForm.controls.id.setErrors({
           duplicate: true,

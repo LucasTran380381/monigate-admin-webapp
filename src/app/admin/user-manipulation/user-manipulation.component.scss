@@ -29,7 +29,7 @@ form {
   align-items: center;
   grid-template-areas:
     'id id id'
-    'role department department'
+    'department department department'
     'lastName firstName firstName'
     'phone email email';
   grid-template-columns:

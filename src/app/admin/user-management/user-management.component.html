@@ -115,22 +115,19 @@
               <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="id">
+              <th *matHeaderCellDef mat-header-cell>Mã nhân viên</th>
+              <td *matCellDef="let element" mat-cell> {{element.id}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="name">
               <th *matHeaderCellDef mat-header-cell>Họ và tên</th>
               <td *matCellDef="let element" mat-cell> {{element.lastName + ' ' + element.firstName}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="username">
-              <th *matHeaderCellDef mat-header-cell>Tên đăng nhập</th>
-              <td *matCellDef="let element" mat-cell> {{element.account.username}} </td>
-            </ng-container>
             <ng-container matColumnDef="email">
               <th *matHeaderCellDef mat-header-cell>Email</th>
               <td *matCellDef="let element" mat-cell> {{element.email}} </td>
-            </ng-container>
-            <ng-container matColumnDef="roleName">
-              <th *matHeaderCellDef mat-header-cell>Quyền người dùng</th>
-              <td *matCellDef="let element" mat-cell>hello</td>
             </ng-container>
 
             <tr *matHeaderRowDef="disabledUserTableColumns" mat-header-row></tr>

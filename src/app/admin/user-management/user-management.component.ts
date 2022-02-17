@@ -25,7 +25,7 @@ export class UserManagementComponent implements OnInit, OnDestroy, AfterViewInit
   userDataSource: MatTableDataSource<User> = new MatTableDataSource<User>()
   disabledUserDataSource: MatTableDataSource<User> = new MatTableDataSource<User>()
   userTableColumns: string[] = ['position', 'name', 'userId', 'status', 'action'];
-  disabledUserTableColumns: string[] = ['position', 'name', 'username', 'email', 'roleName'];
+  disabledUserTableColumns: string[] = ['position', 'id', 'name', 'email'];
   isNotFoundUser = false
   @ViewChild('paginator', {static: false})
   private paginator: MatPaginator | undefined;
@@ -51,6 +51,29 @@ export class UserManagementComponent implements OnInit, OnDestroy, AfterViewInit
       width: '600px',
       data: user,
       disableClose: true,
+    })
+    this.editUserDialog.afterClosed().subscribe(message => {
+      let friendlyMessage;
+
+      if (message == 'create success') {
+        friendlyMessage = 'Tạo user thành công'
+      }
+
+      if (message == 'update success') {
+        friendlyMessage = 'Cập nhật user thành công'
+      }
+
+      if (friendlyMessage) {
+        this.searchUsers().then(_ => {})
+        this.snackbar.open(
+          friendlyMessage,
+          undefined,
+          {
+            panelClass: 'green-snackbar',
+          },
+        )
+      }
+
     })
   }
 
