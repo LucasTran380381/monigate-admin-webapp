@@ -12,10 +12,10 @@ export class AuthorizationGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    let isInvalidRole = this.authService.currentUser?.account.roleName !== route.data.role
+    let isInvalidRole = this.authService.currentUser?.currentAccount.roleName !== route.data.role
     if (isInvalidRole) {
       let commands = ['']
-      switch (this.authService.currentUser?.account.roleName) {
+      switch (this.authService.currentUser?.currentAccount.roleName) {
         case 'Admin':
           commands = ['admin']
           break;

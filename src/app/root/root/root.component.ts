@@ -24,7 +24,7 @@ export class RootComponent implements OnInit {
   }
 
   setupNavLinks() {
-    const role = this.authService.currentUser?.account.roleName;
+    const role = this.authService.currentUser?.currentAccount.roleName;
     switch (role) {
       case 'Admin':
         this.navItems = [

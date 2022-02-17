@@ -12,7 +12,7 @@
           <mat-error *ngIf="searchControl.errors">Vui lòng nhập ít nhất 3 ký tự</mat-error>
         </mat-form-field>
       </div>
-      <button (click)="onSearch()" color="primary" mat-icon-button>
+      <button (click)="searchUsers()" color="primary" mat-icon-button>
         <mat-icon>search</mat-icon>
       </button>
       <div class="spacer"></div>
@@ -47,18 +47,15 @@
               <td *matCellDef="let i = index" mat-cell> {{i + 1}} </td>
             </ng-container>
 
+
+            <ng-container matColumnDef="userId">
+              <th *matHeaderCellDef mat-header-cell>Mã nhân viên</th>
+              <td *matCellDef="let element" mat-cell>{{element.id}}</td>
+            </ng-container>
+
             <ng-container matColumnDef="name">
               <th *matHeaderCellDef mat-header-cell>Họ và tên</th>
               <td *matCellDef="let element" mat-cell> {{element.lastName + ' ' + element.firstName}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="username">
-              <th *matHeaderCellDef mat-header-cell>Tên đăng nhập</th>
-              <td *matCellDef="let element" mat-cell> {{element.account.username}} </td>
-            </ng-container>
-            <ng-container matColumnDef="roleName">
-              <th *matHeaderCellDef mat-header-cell>Quyền người dùng</th>
-              <td *matCellDef="let element" mat-cell>{{element.account.role.name}}</td>
             </ng-container>
 
             <ng-container matColumnDef="status">
@@ -83,6 +80,12 @@
                     <mat-icon>edit</mat-icon>
                     <span>Cập nhật thông tin</span>
                   </button>
+
+                  <button (click)="assignRole(element)" mat-menu-item>
+                    <mat-icon>person_add</mat-icon>
+                    <span>Thêm quyền người dùng</span>
+                  </button>
+
                   <button mat-menu-item>
                     <mat-icon>password</mat-icon>
                     <span>Đặt lại mật khẩu</span>

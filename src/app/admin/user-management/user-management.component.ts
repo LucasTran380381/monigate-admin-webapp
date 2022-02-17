@@ -10,6 +10,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {ConfirmDialogComponent} from '../../root/confirm-dialog/confirm-dialog.component';
 import {DialogData} from '../../models/dialog-data';
 import {ImportUserComponent} from '../import-user/import-user.component';
+import {AssignRoleComponent} from '../assign-role/assign-role.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +24,7 @@ export class UserManagementComponent implements OnInit, OnDestroy, AfterViewInit
   originalUsers: User [] = []
   userDataSource: MatTableDataSource<User> = new MatTableDataSource<User>()
   disabledUserDataSource: MatTableDataSource<User> = new MatTableDataSource<User>()
-  userTableColumns: string[] = ['position', 'name', 'username', 'roleName', 'status', 'action'];
+  userTableColumns: string[] = ['position', 'name', 'userId', 'status', 'action'];
   disabledUserTableColumns: string[] = ['position', 'name', 'username', 'email', 'roleName'];
   isNotFoundUser = false
   @ViewChild('paginator', {static: false})
@@ -30,7 +32,11 @@ export class UserManagementComponent implements OnInit, OnDestroy, AfterViewInit
   @ViewChild('disablePaginator', {static: false})
   private disablePaginator: MatPaginator | undefined;
 
-  constructor(private title: Title, private dialog: MatDialog, private userService: UserService, private changeDetector: ChangeDetectorRef) {
+  constructor(private title: Title,
+              private dialog: MatDialog,
+              private userService: UserService,
+              private snackbar: MatSnackBar,
+              private changeDetector: ChangeDetectorRef) {
     this.title.setTitle('Monigate Admin')
   }
 
@@ -52,7 +58,7 @@ export class UserManagementComponent implements OnInit, OnDestroy, AfterViewInit
     this.editUserDialog?.close()
   }
 
-  async onSearch() {
+  async searchUsers() {
     if (this.searchControl.invalid || !this.searchControl.value?.trim()) {
       this.searchControl.setErrors({
         minLength: true,
@@ -117,5 +123,19 @@ export class UserManagementComponent implements OnInit, OnDestroy, AfterViewInit
 
   openImportUserDialog() {
     this.dialog.open(ImportUserComponent)
+  }
+
+  assignRole(user: User) {
+    this.dialog.open(AssignRoleComponent, {
+      data: user,
+      width: '500px',
+    }).afterClosed().subscribe(message => {
+      if (message == 'success') {
+        this.searchUsers().then(_ => {})
+        this.snackbar.open('Thêm quyền thành công', '', {
+          panelClass: 'green-snackbar',
+        })
+      }
+    })
   }
 }

@@ -26,7 +26,7 @@ export class AuthService {
       username, password,
     }).pipe(map(value => {
       const user = value.user as User
-      user.account = new Account(value.username, value.roleName)
+      user.currentAccount = new Account(value.username, value.roleName)
       this.currentUser = user
       this.token = value.accessToken.token
       localStorage.setItem('currentUser', JSON.stringify(user))

@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     try {
       const user = await this.authService.login(formValue.username, formValue.password).toPromise()
       let command = ['']
-      switch (user.account.roleName) {
+      switch (user.currentAccount.roleName) {
         case'Admin':
           command = ['admin']
           break

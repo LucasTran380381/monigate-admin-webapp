@@ -29,7 +29,7 @@ export class AccountManagementComponent implements OnInit {
   }
 
   _fetchAccount() {
-    this.accountService.getSupplementaryAccount().subscribe(value => {
+    this.accountService.getSupplementaryAccounts().subscribe(value => {
       console.log(value);
       this.accountDataSource.data = value
       this.accountDataSource.paginator = this.paginator;

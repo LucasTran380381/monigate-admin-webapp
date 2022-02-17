@@ -46,7 +46,7 @@ export class UserManipulation implements OnInit {
         lastname: this.data?.lastName,
         email: this.data?.email,
         phone: this.data?.phone,
-        roleId: this.data?.account.role?.id,
+        roleId: this.data?.currentAccount.role?.id,
         departmentId: this.data?.departmentId,
       },
     )

@@ -11,9 +11,10 @@ export class User {
   email: string;
   departmentId: string;
   department: Department;
-  account: Account;
+  currentAccount: Account;
+  accounts: Account[];
 
-  constructor(id: string, firstName: string, lastName: string, avatarUrl: string, status: number, phone: string, email: string, departmentId: string, department: Department, account: Account) {
+  constructor(id: string, firstName: string, lastName: string, avatarUrl: string, status: number, phone: string, email: string, departmentId: string, department: Department, currentAccount: Account, accounts: Account[]) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -23,7 +24,8 @@ export class User {
     this.email = email;
     this.departmentId = departmentId;
     this.department = department;
-    this.account = account;
+    this.currentAccount = currentAccount;
+    this.accounts = accounts;
   }
 
   get fullName(): string {

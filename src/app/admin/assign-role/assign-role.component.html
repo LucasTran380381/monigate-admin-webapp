@@ -1,0 +1,51 @@
+<div mat-dialog-title>
+  <h1>Thêm quyền người dùng</h1>
+  <div class="spacer"></div>
+  <button mat-dialog-close="" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div mat-dialog-content>
+  <mat-stepper #stepper linear orientation="vertical">
+    <mat-step [stepControl]="roleControl">
+      <ng-template matStepLabel>Chọn quyền người dùng</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Quyền người dùng</mat-label>
+        <mat-select [formControl]="roleControl" required>
+          <mat-option *ngFor="let role of roles" [value]="role.id">{{role.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="roleControl.hasError('required')">Vui lòng chọn quyền</mat-error>
+      </mat-form-field>
+      <div>
+        <button (click)="findAvailableAccount()" mat-button matStepperNext>Tiếp theo</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Chọn tài khoản</ng-template>
+
+
+      <div *ngIf="availableAccounts?.length; else notHaveAvailableAccounts">
+        <mat-form-field appearance="outline">
+          <mat-label>Tên đăng nhập</mat-label>
+          <mat-select [formControl]="usernameControl" required>
+            <mat-option *ngFor="let account of availableAccounts" [value]="account.username">{{account.username}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="usernameControl.hasError('required')">Vui lòng chọn tên đăng nhập</mat-error>
+        </mat-form-field>
+      </div>
+
+      <ng-template #notHaveAvailableAccounts>
+        <div>
+          Hiện không có tài khoản khả dụng
+        </div>
+      </ng-template>
+    </mat-step>
+  </mat-stepper>
+</div>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions>
+  <button (click)="assignAccount()" [disabled]="usernameControl.invalid" color="primary" mat-raised-button>Thêm</button>
+</div>
