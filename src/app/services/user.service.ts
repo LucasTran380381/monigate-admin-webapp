@@ -47,7 +47,7 @@ export class UserService {
   private static _handleResponseMessage(resp: any[], users: UserForManipulation[]) {
     return resp.map(record => {
       const user = users.find(user => user.id == record.id)
-      return [user?.id, user?.firstName, user?.lastName, user?.phone, user?.email, user?.departmentId, user?.roleId, ResultStatus.toString(record.resultEnum), record.resultMessage]
+      return [user?.id, user?.firstName, user?.lastName, user?.phone, user?.email, user?.departmentId, ResultStatus.toString(record.resultEnum), record.resultMessage]
     })
   }
 

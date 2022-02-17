@@ -23,7 +23,6 @@ export class ImportUserComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.userService.getUserRoles().subscribe(value => this.roles = value)
   }
 
   addAttachment($event: any) {
@@ -31,7 +30,7 @@ export class ImportUserComponent implements OnInit {
     this.fileName = file.name
     const fileReader = new FileReader()
     fileReader.readAsBinaryString(file)
-    fileReader.onload = (e) => {
+    fileReader.onload = (_) => {
       const binaryData = fileReader.result
       const wb = XLSX.read(binaryData, {type: 'binary'})
 
@@ -42,14 +41,13 @@ export class ImportUserComponent implements OnInit {
 
       this.users = XLSX.utils.sheet_to_json(ws)
         .map((record: any) => {
-          const roleId = this.roles.find(role => role.name == record[header[6]])?.id
           const id = record[header[0]]
-          const firstName = record[header[1]]
-          const lastName = record[header[2]]
+          const firstName = record[header[2]]
+          const lastName = record[header[1]]
           const phone = record[header[3]]
           const email = record[header[4]]
           const departmentId = record[header[5]]
-          return new UserForManipulation(id, firstName, lastName, phone, email, departmentId, roleId ?? '')
+          return new UserForManipulation(id, firstName, lastName, phone, email, departmentId)
         })
       console.log(this.users)
     }
@@ -59,12 +57,12 @@ export class ImportUserComponent implements OnInit {
     document.getElementById('file-input')?.click()
   }
 
-  importDepartments() {
+  importUsers() {
     if (!this.users.length)
       return
     this.userService.importUser(this.users).subscribe(value => {
-      const header = ['Mã nhân viên', 'Họ', 'Tên', 'Số điện thoại', 'Email', 'Mã phòng ban', 'Mã role', 'Trạng thái', 'Thông báo']
-      const headerRef = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1', 'I1']
+      const header = ['Mã nhân viên', 'Họ', 'Tên', 'Số điện thoại', 'Email', 'Mã phòng ban', 'Trạng thái', 'Thông báo']
+      const headerRef = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1']
       value.unshift(header)
       this.excelService.exportExcel(value, 'kết quả', headerRef);
       this.dialogRef.close('refresh')

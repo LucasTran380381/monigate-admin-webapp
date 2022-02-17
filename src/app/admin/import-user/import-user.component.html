@@ -8,10 +8,7 @@
 </div>
 
 <div mat-dialog-content>
-  <div *ngIf="!roles.length" class="loading">
-    <mat-spinner></mat-spinner>
-  </div>
-  <mat-stepper #stepper *ngIf="roles.length" [linear]="true" orientation="vertical">
+  <mat-stepper orientation="vertical">
     <mat-step>
       <ng-template matStepLabel>Tải file template</ng-template>
       <div>Nhân vào đường link bên dưới để tải file excel và chỉnh sửa theo template</div>
@@ -37,7 +34,7 @@
       </div>
 
       <div>
-        <button (click)="importDepartments()" [disabled]="!users.length" color="primary" mat-raised-button>Nhập</button>
+        <button (click)="importUsers()" [disabled]="!users.length" color="primary" mat-raised-button>Nhập</button>
       </div>
 
       <input (change)="addAttachment($event)"
