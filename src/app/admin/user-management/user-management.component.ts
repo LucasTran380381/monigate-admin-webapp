@@ -166,6 +166,12 @@ export class UserManagementComponent implements OnInit, OnDestroy, AfterViewInit
   resetPassword(element: User) {
     this.dialog.open(ResetPasswordComponent, {
       data: element,
-    }).afterClosed().subscribe(message => console.log(message));
+    }).afterClosed().subscribe(message => {
+      if (message == 'success') {
+        this.snackbar.open('Đặt lại mật khẩu thành công', '', {
+          panelClass: 'green-snackbar',
+        })
+      }
+    });
   }
 }

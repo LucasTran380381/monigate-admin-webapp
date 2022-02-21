@@ -26,7 +26,7 @@ export class AccountService {
   }
 
   resetPassword(username: string) {
-    return this.http.post(`${environment.apiUrl}/Account/reset-password?=${username}`, {})
+    return this.http.post(`${environment.apiUrl}/Account/reset-password?username=${username}`, {})
   }
 
   createSuppAccount(username: string, roleId: string) {
