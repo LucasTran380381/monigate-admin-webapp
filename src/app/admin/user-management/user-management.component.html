@@ -39,7 +39,7 @@
 
     <div class="card-contetn">
       <mat-tab-group mat-align-tabs="start">
-        <mat-tab label="Người dùng không bị vô hiệu hoá">
+        <mat-tab label="Người dùng khả dụng">
           <table [dataSource]="userDataSource" mat-table>
 
             <ng-container matColumnDef="position">
@@ -86,7 +86,7 @@
                     <span>Thêm quyền người dùng</span>
                   </button>
 
-                  <button mat-menu-item>
+                  <button (click)="resetPassword(element)" mat-menu-item>
                     <mat-icon>password</mat-icon>
                     <span>Đặt lại mật khẩu</span>
                   </button>

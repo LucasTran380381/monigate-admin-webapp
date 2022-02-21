@@ -45,4 +45,8 @@ export class AssignRoleComponent implements OnInit, AfterContentChecked {
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges()
   }
+
+  getUserRoles() {
+    return this.data.accounts.map(value => value.role?.name).join(', ')
+  }
 }

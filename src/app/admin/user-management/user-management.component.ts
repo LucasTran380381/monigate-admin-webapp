@@ -12,6 +12,7 @@ import {DialogData} from '../../models/dialog-data';
 import {ImportUserComponent} from '../import-user/import-user.component';
 import {AssignRoleComponent} from '../assign-role/assign-role.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ResetPasswordComponent} from '../reset-password/reset-password.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -160,5 +161,11 @@ export class UserManagementComponent implements OnInit, OnDestroy, AfterViewInit
         })
       }
     })
+  }
+
+  resetPassword(element: User) {
+    this.dialog.open(ResetPasswordComponent, {
+      data: element,
+    }).afterClosed().subscribe(message => console.log(message));
   }
 }

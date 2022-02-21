@@ -7,6 +7,9 @@
 </div>
 
 <div mat-dialog-content>
+  <h3>Các quyền hiện tại của người dùng: <b>
+    {{getUserRoles()}}
+  </b></h3>
   <mat-stepper #stepper linear orientation="vertical">
     <mat-step [stepControl]="roleControl">
       <ng-template matStepLabel>Chọn quyền người dùng</ng-template>

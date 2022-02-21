@@ -33,6 +33,7 @@ import {AccountManagementComponent} from './account-management/account-managemen
 import {ConfirmResetAccountComponent} from './confirm-reset-account/confirm-reset-account.component';
 import {CreateAccountComponent} from './create-account/create-account.component';
 import {AssignRoleComponent} from './assign-role/assign-role.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {path: 'user-management', component: UserManagementComponent},
@@ -56,6 +57,7 @@ const routes: Routes = [
     ConfirmResetAccountComponent,
     CreateAccountComponent,
     AssignRoleComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
