@@ -16,6 +16,7 @@ export class IssueDetailComponent implements OnInit {
   ngOnInit(): void {
     this.technicalService.getTechnicalIssue(this.issue.id).subscribe(value => {
       this.issue = value
+      console.log(value)
     });
   }
 
@@ -58,5 +59,9 @@ export class IssueDetailComponent implements OnInit {
     }
     if (!isValidStatus) style.color = 'red'
     return style
+  }
+
+  getIssueTypes() {
+    return this.issue.issueTypes.map((value: any) => value.issueType.name).join(', ')
   }
 }

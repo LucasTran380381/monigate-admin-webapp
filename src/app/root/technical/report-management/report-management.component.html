@@ -92,11 +92,6 @@
           <td *matCellDef="let element;" mat-cell> {{element.reportDate | date:'d/M/yyyy'}} </td>
         </ng-container>
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="type">
-          <th *matHeaderCellDef mat-header-cell>Loại vấn đề</th>
-          <td *matCellDef="let element" mat-cell> {{element.issueType.name}} </td>
-        </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="status">

@@ -16,7 +16,7 @@
       <mat-divider></mat-divider>
       <div class="issue-expanded-content">
         <p class="issue-detail"><span class="title">Id:</span><span class="content">{{issue.id}}</span></p>
-        <p class="issue-detail"><span class="title">Loại vấn đề: </span><span class="content">{{issue.issueType.name}}</span></p>
+        <p class="issue-detail"><span class="title">Loại vấn đề: </span><span class="content">{{getIssueTypes()}}</span></p>
         <p class="issue-detail"><span class="title">Ghi chú:</span><span class="content">{{issue.note}}</span></p>
         <p class="issue-detail"><span class="title">Ngày báo cáo: </span><span class="content">{{issue.reportDate | date:'d/M/yyyy'}}</span>
         </p>
@@ -46,22 +46,22 @@
       </div>
     </mat-expansion-panel>
     <div class="vertical-spacer"></div>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Thông tin người dùng</mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-divider></mat-divider>
-      <div class="issue-expanded-content">
-        <p
-          class="issue-detail"><span class="title">Email</span><span
-          class="content">{{issue.reportedCheckin.user.email}}</span></p>
-        <p
-          class="issue-detail"><span class="title">Họ và tên</span><span
-          class="content">{{issue.reportedCheckin.user.lastName + ' ' + issue.reportedCheckin.user.firstName}}</span></p>
-        <p
-          class="issue-detail"><span class="title">Số điện thoại</span><span
-          class="content">{{issue.reportedCheckin.user.phone}}</span></p>
-      </div>
-    </mat-expansion-panel>
+    <!--    <mat-expansion-panel>-->
+    <!--      <mat-expansion-panel-header>-->
+    <!--        <mat-panel-title>Thông tin người dùng</mat-panel-title>-->
+    <!--      </mat-expansion-panel-header>-->
+    <!--      <mat-divider></mat-divider>-->
+    <!--      <div class="issue-expanded-content">-->
+    <!--        <p-->
+    <!--          class="issue-detail"><span class="title">Email</span><span-->
+    <!--          class="content">{{issue.reportedCheckin.user.email}}</span></p>-->
+    <!--        <p-->
+    <!--          class="issue-detail"><span class="title">Họ và tên</span><span-->
+    <!--          class="content">{{issue.reportedCheckin.user.lastName + ' ' + issue.reportedCheckin.user.firstName}}</span></p>-->
+    <!--        <p-->
+    <!--          class="issue-detail"><span class="title">Số điện thoại</span><span-->
+    <!--          class="content">{{issue.reportedCheckin.user.phone}}</span></p>-->
+    <!--      </div>-->
+    <!--    </mat-expansion-panel>-->
   </mat-accordion>
 </div>

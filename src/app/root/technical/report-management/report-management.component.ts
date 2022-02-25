@@ -20,7 +20,7 @@ export class ReportManagementComponent implements OnInit {
   rejectedIssue = 0
   issueTypes: TechnicalIssueType[] = []
   issueDataSource = new MatTableDataSource<TechnicalIssue>()
-  displayedColumns: string[] = ['position', 'date', 'type', 'status', 'action'];
+  displayedColumns: string[] = ['position', 'date', 'status', 'action'];
   paginator: MatPaginator | undefined
   filterForm = new FormGroup({
     startDate: new FormControl(),
@@ -64,6 +64,7 @@ export class ReportManagementComponent implements OnInit {
 
   async onGetTechnicalIssues() {
     const issues = await this.technicalService.getTechnicalIssues(this.issueTypes).toPromise()
+    console.log(issues)
     this.issueDataSource.data = issues.sort((a, b) => new Date(b.reportDate).getTime() - new Date(a.reportDate).getTime())
     this.openedIssue = issues.filter(issue => issue.status === 100).length
     this.approvedIssue = issues.filter(issue => issue.status === 200).length

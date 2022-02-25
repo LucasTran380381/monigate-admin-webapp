@@ -4,6 +4,7 @@ import {CheckinReport} from './checkin-report';
 export class TechnicalIssue {
   id: string;
   issueType: TechnicalIssueType;
+  issueTypes: any;
   note: string;
   reportDate: Date;
   reportedCheckinId: string;
