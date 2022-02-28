@@ -21,6 +21,7 @@ export class ManagerService {
       return undefined
     const checkins = resp.map(checkin => new CheckinForStaffDetail(checkin.id,
       checkin.checkinTime,
+      checkin.checkoutTime,
       checkin.temperature,
       checkin.invalidFaceMaskUrl,
       checkin.faceMaskStatus,

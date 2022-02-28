@@ -91,6 +91,9 @@ registerLocaleData(localeGB);
     },
   ],
   bootstrap: [AppComponent],
+  exports: [
+    TimestampPipe,
+  ],
 })
 export class AppModule {
 }

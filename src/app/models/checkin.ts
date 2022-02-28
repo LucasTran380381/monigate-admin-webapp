@@ -5,6 +5,7 @@ import {FaceMaskStatus} from './enums/face-mask-status';
 export class Checkin {
   id: string;
   checkinTime: Date;
+  checkoutTime?: Date;
   temperature: number;
   invalidFaceMaskUrl: string;
   status: CheckinStatus

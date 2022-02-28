@@ -44,6 +44,7 @@
         >
       </div>
       <div *ngIf="getCheckin(day.date); let checkin" style="margin: 5px">
+        <div>{{checkin.checkinTime | date:'shortTime'}} | {{checkin.checkoutTime | date:'shortTime'}}</div>
         <mat-icon *ngIf="formatMaskStatus(checkin.faceMaskStatus); let status" [class]="status.style" [matTooltip]="status.tooltip">masks
         </mat-icon>
         <mat-icon *ngIf="formatTemperatureStatus(checkin.temperature); let status" [class]="status.style" [matTooltip]="status.tooltip

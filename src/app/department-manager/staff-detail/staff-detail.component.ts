@@ -22,10 +22,12 @@ export class StaffDetailComponent implements OnInit {
     this.managerService
       .getStaffDetail(this.data.id, this.data.dateFrom, this.data.dateTo)
       .subscribe(value => {
+        console.log(value);
         if (!value)
           return
         this.user = value.user
         this.checkins = value.checkins
+        console.log(this.checkins);
       })
   }
 
