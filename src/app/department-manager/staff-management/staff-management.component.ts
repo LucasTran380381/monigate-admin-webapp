@@ -73,25 +73,41 @@ export class StaffManagementComponent implements OnInit {
     const daysInMonth = this.getDaysInMonth(this.month, today.getFullYear())
     const formatDaysInMoth = daysInMonth.map(value => `${value.getDate()}/${value.getMonth() + 1}`)
     const time = [`Ngày ${today.getDate()}, Tháng ${today.getMonth() + 1}, Năm ${today.getFullYear()}`]
-    const header = ['Mã nhân viên', 'Họ và tên', 'Số ngày đi làm', ...formatDaysInMoth]
+    const header = ['Mã nhân viên', 'Họ và tên', 'Ngày', 'Giờ vào làm theo quy định', 'Giờ tan về theo qui định', 'Giờ vào làm', 'Giờ tan làm', 'Đi trễ', 'Về sớm']
     const title = [`Báo cáo theo dõi nhân viên tháng ${this.month + 1} phòng ban ${this.authService.currentUser?.department.name}`]
 
-    this.managerService.getExportData(this.firstDateOfMonth, this.lastDateOfMonth).subscribe(staffDetails => {
-      const isoDays = daysInMonth.map(value => {
-        value.setMinutes(value.getMinutes() - value.getTimezoneOffset())
-        return value.toISOString().slice(0, -5)
-      })
+    // this.managerService.getExportData(this.firstDateOfMonth, this.lastDateOfMonth).subscribe(staffDetails => {
+    //   const isoDays = daysInMonth.map(value => {
+    //     value.setMinutes(value.getMinutes() - value.getTimezoneOffset())
+    //     return value.toISOString().slice(0, -5)
+    //   })
+    //
+    //   const data = staffDetails.map(detail => {
+    //     const formatCheckins = isoDays.map(day => detail.checkins?.[day]?.consumption?.toString() ?? '0')
+    //
+    //     return [detail.id, `${detail.lastName} ${detail.firstName}`, detail.totalWorkingDays, ...formatCheckins]
+    //   })
+    //
+    //   data.unshift(title, [], header);
+    //   data.push([], time)
+    //   this.excelService.exportExcel(data, title[0])
+    // });
 
-      const data = staffDetails.map(detail => {
-        const formatCheckins = isoDays.map(day => detail.checkins?.[day]?.consumption?.toString() ?? '0')
+    this.managerService.exportStaffData(this.firstDateOfMonth, this.lastDateOfMonth, '08:00', '18:00').subscribe(value => {
 
-        return [detail.id, `${detail.lastName} ${detail.firstName}`, detail.totalWorkingDays, ...formatCheckins]
+      const data = value.map(detail => {
+        detail.timeIn = new Date(detail.timeIn)
+        detail.timeOut = new Date(detail.timeOut)
+        const date = new Date(detail.date)
+        const timeIn = `${detail.timeIn.getHours()}:${detail.timeIn.getMinutes()}`
+        const timeOut = `${detail.timeOut.getHours()}:${detail.timeOut.getMinutes()}`
+        return [detail.id, `${detail.lastName} ${detail.firstName}`, `${date.getDate()}/${date.getMonth()}`, detail.stdIn, detail.stdOut, timeIn, timeOut, detail.comeLate, detail.leaveSoon];
       })
 
       data.unshift(title, [], header);
       data.push([], time)
       this.excelService.exportExcel(data, title[0])
-    });
+    })
 
     // const data = this.staffListDataSource.data.map(staff => [staff.id, `${staff.lastName} ${staff.firstName}`, staff.checkinCount]);
 

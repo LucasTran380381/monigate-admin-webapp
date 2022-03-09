@@ -8,6 +8,7 @@ import {map} from 'rxjs/operators';
 import {StaffDetail} from '../models/staff-detail';
 import {CheckinForStaffDetail} from '../models/checkin-for-staff-detail';
 import {ExportDataDetail} from '../models/export-data-detail';
+import {StaffExportDetail} from '../models/staff-export-detail';
 
 @Injectable({
   providedIn: 'root',
@@ -58,6 +59,25 @@ export class ManagerService {
         timeMin: pipe.transform(dateFrom), timeMax: pipe.transform(dateTo),
       },
     })
+  }
+
+  exportStaffData(dateFrom: Date, dateTo: Date, stdIn: string, stdOut: string) {
+    const pipe = new TimestampPipe();
+
+    return this.http.get<StaffExportDetail[]>(`${environment.apiUrl}/User/export-deparment-report-ver-2`,
+      {
+        params: {
+          timeMin: pipe.transform(dateFrom), timeMax: pipe.transform(dateTo),
+          stdIn: stdIn, stdOut: stdOut,
+        },
+      }).pipe(map(resp => resp.sort((a, b) => {
+            a.date = new Date(a.date)
+            b.date = new Date(b.date)
+            return a.date.getDate() - b.date.getDate()
+          },
+        ),
+      ),
+    )
   }
 
 }
