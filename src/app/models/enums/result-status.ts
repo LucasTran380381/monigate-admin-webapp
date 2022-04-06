@@ -8,7 +8,7 @@ export namespace ResultStatus {
   export function toString(status: ResultStatus): string {
     switch (status) {
       case ResultStatus.duplicate:
-        return 'Trùng mã phòng ban';
+        return 'Trùng mã id';
       case ResultStatus.error:
         return 'Có lỗi xảy ra'
       case ResultStatus.created:

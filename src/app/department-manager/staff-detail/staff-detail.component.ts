@@ -53,7 +53,11 @@ export class StaffDetailComponent implements OnInit {
   }
 
   getCheckin(date: string) {
-    return this.checkins.find(checkin => new Date(checkin.checkinTime).getDate() == new Date(date).getDate())
+    return this.checkins.find(checkin => {
+      const viewDate = new Date(date);
+      checkin.checkinTime = new Date(checkin.checkinTime)
+      return viewDate.getDate() == checkin.checkinTime.getDate() && viewDate.getMonth() == checkin.checkinTime.getMonth();
+    })
   }
 
   formatTemperatureStatus(temperature: number) {

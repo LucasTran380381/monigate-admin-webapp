@@ -61,8 +61,9 @@ export class ImportUserComponent implements OnInit {
     if (!this.users.length)
       return
     this.userService.importUser(this.users).subscribe(value => {
-      const header = ['Mã nhân viên', 'Họ', 'Tên', 'Số điện thoại', 'Email', 'Mã phòng ban', 'Trạng thái', 'Thông báo']
-      const headerRef = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1']
+      const header = ['Mã nhân viên', 'Tên đăng nhập', 'Họ', 'Tên', 'Số điện thoại', 'Email', 'Mã phòng ban', 'Trạng' +
+      ' thái', 'Thông báo']
+      const headerRef = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1', 'I1']
       value.unshift(header)
       this.excelService.exportExcel(value, 'kết quả', headerRef);
       this.dialogRef.close('refresh')

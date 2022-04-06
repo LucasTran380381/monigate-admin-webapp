@@ -1,5 +1,6 @@
 export class UserForManipulation {
   id: string;
+  username: string
   firstName: string;
   lastName: string;
   phone: string;
