@@ -11,16 +11,9 @@
         <td *matCellDef="let element, let i= index" mat-cell> {{i + 1}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell>
-          Mã quyền
-        </th>
-        <td *matCellDef="let element;" mat-cell> {{element.id}} </td>
-      </ng-container>
-
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell>
-          Tên quyền
+          Quyền người dùng
         </th>
         <td *matCellDef="let element" mat-cell>{{element.name}}</td>
       </ng-container>

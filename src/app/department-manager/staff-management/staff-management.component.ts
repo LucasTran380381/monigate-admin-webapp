@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {StaffListItem} from '../models/staff-list-item';
 import {ManagerService} from '../services/manager.service';
@@ -9,17 +9,24 @@ import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {StaffDetailComponent} from '../staff-detail/staff-detail.component';
 import {ExcelService} from '../../services/excel.service';
+import {MatSort} from '@angular/material/sort';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-staff-managerment',
   templateUrl: './staff-management.component.html',
   styleUrls: ['./staff-management.component.scss'],
 })
-export class StaffManagementComponent implements OnInit {
+export class StaffManagementComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['no', 'id', 'name', 'checkinCounter', 'faultFaceMaskCounter', 'highTemperatureCounter', 'action'];
   staffListDataSource: MatTableDataSource<StaffListItem> = new MatTableDataSource<StaffListItem>()
   @ViewChild(MatPaginator, {static: false})
   paginator?: MatPaginator
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngAfterViewInit() {
+    this.staffListDataSource.sort = this.sort;
+  }
 
   currentDate = new Date()
   monthIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
@@ -94,19 +101,20 @@ export class StaffManagementComponent implements OnInit {
     // });
 
     this.managerService.exportStaffData(this.firstDateOfMonth, this.lastDateOfMonth, '08:00', '18:00').subscribe(value => {
-
       const data = value.map(detail => {
         detail.timeIn = new Date(detail.timeIn)
         detail.timeOut = new Date(detail.timeOut)
         const date = new Date(detail.date)
-        const timeIn = `${detail.timeIn.getHours()}:${detail.timeIn.getMinutes()}`
-        const timeOut = `${detail.timeOut.getHours()}:${detail.timeOut.getMinutes()}`
-        return [detail.id, `${detail.lastName} ${detail.firstName}`, `${date.getDate()}/${date.getMonth()}`, detail.stdIn, detail.stdOut, timeIn, timeOut, detail.comeLate, detail.leaveSoon];
+        const datePipe = new DatePipe('vi')
+        const timeIn = datePipe.transform(detail.timeIn, "HH:mm");
+        const timeOut = datePipe.transform(detail.timeOut, "HH:mm")
+        return [detail.id, `${detail.lastName} ${detail.firstName}`, datePipe.transform(date, 'd/M'), detail.stdIn, detail.stdOut, timeIn, timeOut, detail.comeLate, detail.leaveSoon];
       })
 
       data.unshift(title, [], header);
       data.push([], time)
-      this.excelService.exportExcel(data, title[0])
+      const headerPref = ['A1', 'A3', 'B3', 'C3', 'D3', 'E3', 'F3', 'G3', 'H3', 'I3', `A${data.length}`]
+      this.excelService.exportExcel(data, title[0], headerPref)
     })
 
     // const data = this.staffListDataSource.data.map(staff => [staff.id, `${staff.lastName} ${staff.firstName}`, staff.checkinCount]);

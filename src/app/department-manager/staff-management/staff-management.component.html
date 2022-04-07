@@ -25,7 +25,7 @@
     </button>
   </div>
   <div class="card-content">
-    <table [dataSource]="staffListDataSource" mat-table>
+    <table [dataSource]="staffListDataSource" mat-table matSort>
       <ng-container matColumnDef="no">
         <th *matHeaderCellDef mat-header-cell>
           Số thứ tự
@@ -48,7 +48,7 @@
       </ng-container>
 
       <ng-container matColumnDef="checkinCounter">
-        <th *matHeaderCellDef mat-header-cell>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header="checkinCount">
           Số lần checkin
         </th>
         <td *matCellDef="let element" mat-cell>
@@ -57,7 +57,7 @@
       </ng-container>
 
       <ng-container matColumnDef="faultFaceMaskCounter">
-        <th *matHeaderCellDef mat-header-cell>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header="maskFaultCount">
           Số lần sai khẩu trang
         </th>
         <td *matCellDef="let element" mat-cell>
@@ -70,7 +70,7 @@
       </ng-container>
 
       <ng-container matColumnDef="highTemperatureCounter">
-        <th *matHeaderCellDef mat-header-cell>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header="abnormalTempCount">
           Số lần nhiệt độ cao
         </th>
         <td *matCellDef="let element" mat-cell>

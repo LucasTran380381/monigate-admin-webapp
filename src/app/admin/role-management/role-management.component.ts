@@ -14,7 +14,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class RoleManagementComponent implements OnInit {
   rolesDataSource: MatTableDataSource<Role> = new MatTableDataSource<Role>();
-  displayedColumns = ['no', 'id', 'name'];
+  displayedColumns = ['no', 'name'];
   @ViewChild(MatPaginator)
   paginator: MatPaginator
 

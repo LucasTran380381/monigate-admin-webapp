@@ -15,6 +15,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {CalendarCommonModule, CalendarMonthModule} from 'angular-calendar';
+import {MatSortModule} from '@angular/material/sort';
 
 const routes: Routes = [
   {path: 'staff-management', component: StaffManagementComponent},
@@ -42,6 +43,7 @@ const routes: Routes = [
     MatDatepickerModule,
     CalendarMonthModule,
     CalendarCommonModule,
+    MatSortModule,
   ],
 })
 export class DepartmentManagerModule {}
