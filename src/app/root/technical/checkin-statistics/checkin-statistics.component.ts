@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {CheckinService} from '../../../services/checkin.service';
 import {Checkin} from '../../../models/checkin';
@@ -8,22 +8,30 @@ import {FaceMaskStatus} from '../../../models/enums/face-mask-status';
 import {ChartConfiguration, ChartOptions, ChartType} from 'chart.js';
 import {DatePipe} from '@angular/common';
 import {BaseChartDirective} from 'ng2-charts';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-checkin-statistics',
   templateUrl: './checkin-statistics.component.html',
   styleUrls: ['./checkin-statistics.component.scss'],
 })
-export class CheckinStatisticsComponent implements OnInit {
+export class CheckinStatisticsComponent implements OnInit, AfterViewInit {
   checkinDataSource = new MatTableDataSource<Checkin>()
   midnightCurrentDate = new Date(new Date().setHours(0, 0, 0, 0))
   firstDateOfMonth = new Date(this.midnightCurrentDate.getFullYear(), this.midnightCurrentDate.getMonth(), 1)
   displayedColumns = ['no', 'time', 'temperature', 'faceMaskStatus', 'status'];
-  @ViewChild(MatPaginator, {static: false})
-  paginator?: MatPaginator
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator
   totalCheckin = 0
   numOfWrongFaceMask = 0
   numOfHighTemperature = 0
+  endDate = new Date()
+  startDate = new Date(new Date().setDate(this.endDate.getDate() - 30))
+
+  filterForm = new FormGroup({
+    startDate: new FormControl(this.startDate),
+    endDate: new FormControl(this.endDate),
+  });
 
   chartData: ChartConfiguration['data'] = {
     datasets: [
@@ -75,6 +83,7 @@ export class CheckinStatisticsComponent implements OnInit {
   chartType: ChartType = 'line'
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective
 
+
   constructor(private checkinService: CheckinService) { }
 
   ngOnInit(): void {
@@ -87,13 +96,11 @@ export class CheckinStatisticsComponent implements OnInit {
       this.chart?.chart?.update()
     })
 
-    this.checkinService.getCheckinBetweenDate(this.midnightCurrentDate)
-      .subscribe(checkins => {
-        this.setupGeneralInfo(checkins)
-        this.checkinDataSource.data = checkins
-        if (this.paginator)
-          this.checkinDataSource.paginator = this.paginator
-      })
+    this.getCheckins()
+  }
+
+  ngAfterViewInit() {
+    this.checkinDataSource.paginator = this.paginator
   }
 
   getDatesInMonth(month?: number, year?: number) {
@@ -180,4 +187,37 @@ export class CheckinStatisticsComponent implements OnInit {
     }
   }
 
+  getCheckins() {
+    const formValues = this.filterForm.value;
+    this.startDate = formValues.startDate;
+    this.endDate = formValues.endDate;
+
+    this.checkinDataSource.data = []
+    this.checkinService.getCheckinBetweenDate(formValues.startDate, formValues.endDate)
+      .subscribe(checkins => {
+        this.setupGeneralInfo(checkins)
+        this.checkinDataSource.data = checkins
+      })
+
+    this.getChartInfo()
+  }
+
+  private getChartInfo() {
+    const formValues = this.filterForm.value;
+    this.checkinService.getCheckinChartDate(formValues.startDate, formValues.endDate).subscribe(reports => {
+      console.log(reports);
+      const pipe = new DatePipe('vi')
+      this.chartData.labels = reports.map(report => pipe.transform(report.checkinDate, 'd/M'))
+      this.chartData.datasets[0].data = reports.map(report => report.totalCheckin)
+      this.chartData.datasets[1].data = reports.map(report => report.numOfInvalidFaceMask)
+      this.chartData.datasets[2].data = reports.map(report => report.numOfHighTemperature)
+      this.chart?.chart?.update()
+    })
+    // const pipe = new DatePipe('vi')
+    // this.chartData.labels = reports.map(report => pipe.transform(report.checkinDate, 'd/M'))
+    // this.chartData.datasets[0].data = reports.map(report => report.totalCheckin)
+    // this.chartData.datasets[1].data = reports.map(report => report.numOfInvalidFaceMask)
+    // this.chartData.datasets[2].data = reports.map(report => report.numOfHighTemperature)
+    // this.chart?.chart?.update()
+  }
 }
