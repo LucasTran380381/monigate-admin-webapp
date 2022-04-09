@@ -16,10 +16,10 @@
 
     <div class="card card_small mat-elevation-z8">
       <div class="card-header">
-        <h2>Đeo khẩu trang sai</h2>
+        <h2>Vi phạm đeo khẩu trang</h2>
       </div>
       <div class="card-content__padding">
-        <mat-icon style="color: orange">masks</mat-icon>
+        <mat-icon style="color: orange; font-size: 32px">masks</mat-icon>
         <h4>{{numOfWrongFaceMask}}</h4>
       </div>
     </div>
@@ -62,6 +62,23 @@
   <!--  <mat-divider></mat-divider>-->
 
   <div class="card-content">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>Bộ lọc</mat-expansion-panel-header>
+      <form [formGroup]="filterForm" style="display: flex">
+        <mat-form-field appearance="outline">
+          <mat-label>Ngày Check-in</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input formControlName="startDate" matStartDate placeholder="Start date">
+            <input formControlName="endDate" matEndDate placeholder="End date">
+          </mat-date-range-input>
+          <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <button (click)="getCheckins()" mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+    </mat-expansion-panel>
     <table [dataSource]="checkinDataSource" mat-table>
       <ng-container matColumnDef="no">
         <th *matHeaderCellDef mat-header-cell matTooltip="Số thứ tự">
