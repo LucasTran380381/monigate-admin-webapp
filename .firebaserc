@@ -10,6 +10,5 @@
   },
   "projects": {
     "default": "monigate-admin-webapp",
-    "staging": "monigate-admin-webapp"
   }
 }
