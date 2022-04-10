@@ -9,6 +9,7 @@ import {ChartConfiguration, ChartOptions, ChartType} from 'chart.js';
 import {DatePipe} from '@angular/common';
 import {BaseChartDirective} from 'ng2-charts';
 import {FormControl, FormGroup} from '@angular/forms';
+import {CheckinChartInformation} from './checkin-chart-information';
 
 @Component({
   selector: 'app-checkin-statistics',
@@ -204,20 +205,39 @@ export class CheckinStatisticsComponent implements OnInit, AfterViewInit {
 
   private getChartInfo() {
     const formValues = this.filterForm.value;
-    this.checkinService.getCheckinChartDate(formValues.startDate, formValues.endDate).subscribe(reports => {
-      console.log(reports);
-      const pipe = new DatePipe('vi')
-      this.chartData.labels = reports.map(report => pipe.transform(report.checkinDate, 'd/M'))
-      this.chartData.datasets[0].data = reports.map(report => report.totalCheckin)
-      this.chartData.datasets[1].data = reports.map(report => report.numOfInvalidFaceMask)
-      this.chartData.datasets[2].data = reports.map(report => report.numOfHighTemperature)
-      this.chart?.chart?.update()
-    })
+    this.checkinService.getCheckinChartInfo(formValues.startDate, formValues.endDate).subscribe(
+      chartInfo => {
+        const dateRange = CheckinChartInformation.generateDateRange(formValues.startDate, formValues.endDate);
+        const labels = CheckinChartInformation.getChartLabels(dateRange);
+        const checkinDataset = chartInfo.getCheckinDataset(dateRange);
+        const maskFaultDataSet = chartInfo.getMaskFaultDataSet(dateRange);
+        const temperatureFaultDataset = chartInfo.getTemperatureFaultDataset(dateRange);
+
+        this.updateChart(labels, checkinDataset, maskFaultDataSet, temperatureFaultDataset);
+      },
+    )
+    // this.checkinService.getCheckinChartDate(formValues.startDate, formValues.endDate).subscribe(reports => {
+    //   console.log(reports);
+    //   const pipe = new DatePipe('vi')
+    //   this.chartData.labels = reports.map(report => pipe.transform(report.checkinDate, 'd/M'))
+    //   this.chartData.datasets[0].data = reports.map(report => report.totalCheckin)
+    //   this.chartData.datasets[1].data = reports.map(report => report.numOfInvalidFaceMask)
+    //   this.chartData.datasets[2].data = reports.map(report => report.numOfHighTemperature)
+    //   this.chart?.chart?.update()
+    // })
     // const pipe = new DatePipe('vi')
     // this.chartData.labels = reports.map(report => pipe.transform(report.checkinDate, 'd/M'))
     // this.chartData.datasets[0].data = reports.map(report => report.totalCheckin)
     // this.chartData.datasets[1].data = reports.map(report => report.numOfInvalidFaceMask)
     // this.chartData.datasets[2].data = reports.map(report => report.numOfHighTemperature)
     // this.chart?.chart?.update()
+  }
+
+  private updateChart(labels: string[], checkinDataset: number[], maskFaultDataSet: number[], temperatureFaultDataset: number[]) {
+    this.chartData.labels = labels
+    this.chartData.datasets[0].data = checkinDataset
+    this.chartData.datasets[1].data = maskFaultDataSet
+    this.chartData.datasets[2].data = temperatureFaultDataset
+    this.chart?.chart?.update()
   }
 }

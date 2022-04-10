@@ -2,44 +2,68 @@
   <div class="status-section-header">
     <h2>Thông tin checkin</h2>
   </div>
-  <div class="status-section-content">
+  <div class="info-section">
 
-    <div class="card card_small mat-elevation-z8">
-      <div class="card-header">
-        <h2>Tổng số checkin</h2>
-      </div>
-      <div class="card-content__padding">
-        <mat-icon style="color: #303d8f; ">meeting_room</mat-icon>
-        <h4>{{totalCheckin}}</h4>
-      </div>
-    </div>
-
-    <div class="card card_small mat-elevation-z8">
-      <div class="card-header">
-        <h2>Vi phạm đeo khẩu trang</h2>
-      </div>
-      <div class="card-content__padding">
-        <mat-icon style="color: orange; font-size: 32px">masks</mat-icon>
-        <h4>{{numOfWrongFaceMask}}</h4>
-      </div>
-    </div>
-
-    <div class="card card_small mat-elevation-z8">
-      <div class="card-header">
-        <h2>Nhiệt độ cao bất thường</h2>
-      </div>
-      <div class="card-content__padding">
-        <mat-icon style="color: red">thermostat</mat-icon>
-        <h4>{{numOfHighTemperature}}</h4>
-      </div>
-    </div>
-
+    <card-info color="#3f51b5" content="{{totalCheckin}}" logo="meeting_room" title="Tổng số check-in"></card-info>
+    <card-info color="orange" content="{{numOfWrongFaceMask}}" logo="masks" title="Vi phạm khẩu trang"></card-info>
+    <card-info color="red" content="{{numOfHighTemperature}}" logo="thermostat" title="Nhiệt độ cao"></card-info>
+    <!--    <div class="card-grid mat-elevation-z8">-->
+    <!--      <mat-icon style="grid-area: logo; font-size: 48px">meeting_room</mat-icon>-->
+    <!--      <div style="grid-area: title; background: crimson">Tổng số checkin</div>-->
+    <!--      <div style="grid-area: content; background: cornflowerblue">{{totalCheckin}}</div>-->
+    <!--    </div>-->
+    <!--    <div class="card-grid">-->
+    <!--      <mat-icon style="grid-area: logo">meeting_room</mat-icon>-->
+    <!--      <div style="grid-area: title; background: crimson">Tổng số checkin</div>-->
+    <!--      <div style="grid-area: content; background: cornflowerblue">{{totalCheckin}}</div>-->
+    <!--    </div>-->
+    <!--    <div class="card-grid">-->
+    <!--      <mat-icon style="grid-area: logo">meeting_room</mat-icon>-->
+    <!--      <div style="grid-area: title; background: crimson">Tổng số checkin</div>-->
+    <!--      <div style="grid-area: content; background: cornflowerblue">{{totalCheckin}}</div>-->
+    <!--    </div>-->
   </div>
+
+  <!--  <div class="status-section-content">-->
+
+
+  <!--    &lt;!&ndash;    <div class="card card_small mat-elevation-z8">&ndash;&gt;-->
+  <!--    &lt;!&ndash;      <div class="card-header">&ndash;&gt;-->
+  <!--    &lt;!&ndash;        <h2>Tổng số checkin</h2>&ndash;&gt;-->
+  <!--    &lt;!&ndash;      </div>&ndash;&gt;-->
+  <!--    &lt;!&ndash;      <div class="card-content__padding">&ndash;&gt;-->
+  <!--    &lt;!&ndash;        <mat-icon style="color: #303d8f; ">meeting_room</mat-icon>&ndash;&gt;-->
+  <!--    &lt;!&ndash;        <h4>{{totalCheckin}}</h4>&ndash;&gt;-->
+  <!--    &lt;!&ndash;      </div>&ndash;&gt;-->
+  <!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+
+
+  <!--    <div class="card card_small mat-elevation-z8">-->
+  <!--      <div class="card-header">-->
+  <!--        <h2>Vi phạm đeo khẩu trang</h2>-->
+  <!--      </div>-->
+  <!--      <div class="card-content__padding">-->
+  <!--        <mat-icon style="color: orange; font-size: 32px">masks</mat-icon>-->
+  <!--        <h4>{{numOfWrongFaceMask}}</h4>-->
+  <!--      </div>-->
+  <!--    </div>-->
+
+  <!--    <div class="card card_small mat-elevation-z8">-->
+  <!--      <div class="card-header">-->
+  <!--        <h2>Nhiệt độ cao bất thường</h2>-->
+  <!--      </div>-->
+  <!--      <div class="card-content__padding">-->
+  <!--        <mat-icon style="color: red">thermostat</mat-icon>-->
+  <!--        <h4>{{numOfHighTemperature}}</h4>-->
+  <!--      </div>-->
+  <!--    </div>-->
+
+  <!--  </div>-->
 </div>
 
 <div class="card mat-elevation-z8">
   <div class="card-header">
-    <h2> Danh sách checkin hôm nay - {{midnightCurrentDate | date:'dd/M/yyyy'}}</h2>
+    <h2> Danh sách checkin | {{startDate | date:'dd/MM/yyyy'}} - {{endDate|date:'dd/MM/yyyy'}}</h2>
   </div>
 
   <!--  <div class="filter-section">-->
@@ -62,9 +86,9 @@
   <!--  <mat-divider></mat-divider>-->
 
   <div class="card-content">
-    <mat-expansion-panel>
+    <mat-expansion-panel expanded>
       <mat-expansion-panel-header>Bộ lọc</mat-expansion-panel-header>
-      <form [formGroup]="filterForm" style="display: flex">
+      <form [formGroup]="filterForm" style="display: flex; align-items: baseline">
         <mat-form-field appearance="outline">
           <mat-label>Ngày Check-in</mat-label>
           <mat-date-range-input [rangePicker]="picker">
@@ -79,62 +103,67 @@
         </button>
       </form>
     </mat-expansion-panel>
-    <table [dataSource]="checkinDataSource" mat-table>
-      <ng-container matColumnDef="no">
-        <th *matHeaderCellDef mat-header-cell matTooltip="Số thứ tự">
-          Số thứ tự
-        </th>
-        <td *matCellDef="let element, let i= index" mat-cell> {{i + 1}} </td>
-      </ng-container>
+    <div [hidden]="!checkinDataSource.data.length">
+      <table [dataSource]="checkinDataSource" mat-table>
+        <ng-container matColumnDef="no">
+          <th *matHeaderCellDef mat-header-cell matTooltip="Số thứ tự">
+            Số thứ tự
+          </th>
+          <td *matCellDef="let element, let i= index" mat-cell> {{i + 1}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="time">
-        <th *matHeaderCellDef mat-header-cell matTooltip="Thời gian checkin">
-          Thời gian
-        </th>
-        <td *matCellDef="let element;" mat-cell> {{element.checkinTime | date:'H:mm'}} </td>
-      </ng-container>
+        <ng-container matColumnDef="time">
+          <th *matHeaderCellDef mat-header-cell matTooltip="Thời gian checkin">
+            Thời gian
+          </th>
+          <td *matCellDef="let element;" mat-cell> {{element.checkinTime | date:'dd/MM/yyyy hh:mm'}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="temperature">
-        <th *matHeaderCellDef mat-header-cell matTooltip="Nhiệt độ checkin">
-          Nhiệt độ
-        </th>
-        <td *matCellDef="let element" [ngStyle]="{'color': element.temperature > 37.5 ? 'red' :'black'}" mat-cell> {{element.temperature |
-          number :
-          '1.1-1'}} ˚C
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="temperature">
+          <th *matHeaderCellDef mat-header-cell matTooltip="Nhiệt độ checkin">
+            Nhiệt độ
+          </th>
+          <td *matCellDef="let element" [ngStyle]="{'color': element.temperature > 37.5 ? 'red' :'black'}" mat-cell> {{element.temperature |
+            number :
+            '1.1-1'}} ˚C
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="faceMaskStatus">
-        <th *matHeaderCellDef mat-header-cell matTooltip="Trạng thái khẩu trang">
-          Trạng thái khẩu trang
-        </th>
-        <td *matCellDef="let element" [matTooltip]="getFaceMaskStatusTooltip(element.faceMaskStatus)"
-            [style]="getFaceMaksStatusStyle(element.faceMaskStatus)" mat-cell>
-          <mat-icon>masks</mat-icon>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="faceMaskStatus">
+          <th *matHeaderCellDef mat-header-cell matTooltip="Trạng thái khẩu trang">
+            Trạng thái khẩu trang
+          </th>
+          <td *matCellDef="let element" [matTooltip]="getFaceMaskStatusTooltip(element.faceMaskStatus)"
+              [style]="getFaceMaksStatusStyle(element.faceMaskStatus)" mat-cell>
+            <mat-icon>masks</mat-icon>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="status">
-        <th *matHeaderCellDef mat-header-cell matTooltip="Trạng thái checkin">
-          Trạng thái checkin
-        </th>
-        <td *matCellDef="let element" [matTooltip]="getStatusTooltip(element.status)" [style]="getStatusStyle(element.status)" mat-cell>
-          <mat-icon>{{getStatusIcon(element.status)}}</mat-icon>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="status">
+          <th *matHeaderCellDef mat-header-cell matTooltip="Trạng thái checkin">
+            Trạng thái checkin
+          </th>
+          <td *matCellDef="let element" [matTooltip]="getStatusTooltip(element.status)" [style]="getStatusStyle(element.status)" mat-cell>
+            <mat-icon>{{getStatusIcon(element.status)}}</mat-icon>
+          </td>
+        </ng-container>
 
-      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-    </table>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+    </div>
+    <div *ngIf="!checkinDataSource.data.length">
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+    </div>
+
   </div>
 
 </div>
 
 <div class="card mat-elevation-z8">
   <div class="card-header">
-    <h2>Biểu đồ checkin tháng {{midnightCurrentDate | date : 'M/y'}}</h2>
+    <h2>Biểu đồ checkin | {{startDate | date:'dd/MM/yyyy'}} - {{endDate|date:'dd/MM/yyyy'}}</h2>
   </div>
   <div class="card-content__padding">
     <canvas [data]="chartData" [options]="chartOptions" [type]="chartType" baseChart height="600" width="400"></canvas>

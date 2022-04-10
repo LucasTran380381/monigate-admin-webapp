@@ -5,6 +5,7 @@ import {environment} from "../../environments/environment";
 import {map} from 'rxjs/operators';
 import {TimestampPipe} from '../pipes/timestamp.pipe';
 import {CheckinChart} from '../models/checkin-chart';
+import {ChartReport, CheckinChartInformation} from '../root/technical/checkin-statistics/checkin-chart-information';
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +51,21 @@ export class CheckinService {
         checkinDate: Date, checkinReport: any, faceMaskReport: any, temperatureReport: any
       }) => new CheckinChart(record.checkinDate, this.countTotalCheckin(record.checkinReport), this.countInvalidFaceMask(record.faceMaskReport), this.countHighTemperature(record.temperatureReport)));
     }));
+  }
+
+  getCheckinChartInfo(dateFrom: Date, dateTo?: Date) {
+    const timestampPipe = new TimestampPipe();
+    const params: any = {timeMin: timestampPipe.transform(dateFrom)}
+    if (dateTo) { params.timeMax = timestampPipe.transform(dateTo) }
+
+    return this.http.get<ChartReport[]>(`${environment.apiUrl}/Checkin/report`, {params}).pipe(
+      map(reports => {
+        const chartReports = reports.map(value => new ChartReport(value));
+        chartReports.sort((a, b) => new Date(a.checkinDate).getTime() - new Date(b.checkinDate).getTime())
+        return new CheckinChartInformation(chartReports)
+      }),
+    )
+
   }
 
   countTotalCheckin(checkinReport: {

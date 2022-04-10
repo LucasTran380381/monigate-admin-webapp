@@ -1,0 +1,9 @@
+main {
+  display: grid;
+  grid-template-areas:
+    'logo title'
+  'logo content';
+  gap: 10px;
+  padding: 20px;
+  border-radius: 24px;
+}

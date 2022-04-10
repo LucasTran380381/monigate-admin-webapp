@@ -16,8 +16,7 @@ import {IssueDetailComponent} from '../issue-detail/issue-detail.component';
 })
 export class ReportManagementComponent implements OnInit, AfterViewInit {
   openedIssue = 0
-  approvedIssue = 0
-  rejectedIssue = 0
+  processingIssue = 0
   issueTypes: TechnicalIssueType[] = []
   issueDataSource = new MatTableDataSource<TechnicalIssue>()
   displayedColumns: string[] = ['position', 'date', 'status', 'action'];
@@ -29,6 +28,7 @@ export class ReportManagementComponent implements OnInit, AfterViewInit {
     type: new FormControl(),
     status: new FormControl(),
   })
+  closedIssue: number;
 
   constructor(private title: Title, private technicalService: TechnicalService, private dialog: MatDialog) {
     this.title.setTitle('Monigate Technical Moderator')
@@ -72,7 +72,8 @@ export class ReportManagementComponent implements OnInit, AfterViewInit {
     this.technicalService.getIssues(this.filterForm.value).subscribe(value => {
       this.issueDataSource.data = value
       this.openedIssue = value.filter(issue => issue.status === 100).length
-      this.approvedIssue = value.filter(issue => issue.status === 200).length
+      this.processingIssue = value.filter(issue => issue.status === 200).length
+      this.closedIssue = value.filter(issue => issue.status == 300).length
     })
   }
 

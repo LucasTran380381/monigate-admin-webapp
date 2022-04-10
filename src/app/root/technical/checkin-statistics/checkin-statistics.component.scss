@@ -55,6 +55,7 @@ mat-card {
   }
 
   mat-icon {
+    font-size: 48px;
     margin-right: 20px;
   }
 }
@@ -89,4 +90,16 @@ mat-paginator {
 
 .chart-section {
   padding: 20px;
+}
+
+.info-section {
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+card-info {
+  width: 250px;
 }
