@@ -77,8 +77,8 @@ export class StaffManagementComponent implements OnInit, AfterViewInit {
 
   exportToExcel() {
     const today = new Date();
-    const daysInMonth = this.getDaysInMonth(this.month, today.getFullYear())
-    const formatDaysInMoth = daysInMonth.map(value => `${value.getDate()}/${value.getMonth() + 1}`)
+    // const daysInMonth = this.getDaysInMonth(this.month, today.getFullYear())
+    // const formatDaysInMoth = daysInMonth.map(value => `${value.getDate()}/${value.getMonth() + 1}`)
     const time = [`Ngày ${today.getDate()}, Tháng ${today.getMonth() + 1}, Năm ${today.getFullYear()}`]
     const header = ['Mã nhân viên', 'Họ và tên', 'Ngày', 'Giờ vào làm theo quy định', 'Giờ tan về theo qui định', 'Giờ vào làm', 'Giờ tan làm', 'Đi trễ', 'Về sớm']
     const title = [`Báo cáo theo dõi nhân viên tháng ${this.month + 1} phòng ban ${this.authService.currentUser?.department.name}`]
@@ -108,7 +108,7 @@ export class StaffManagementComponent implements OnInit, AfterViewInit {
         const datePipe = new DatePipe('vi')
         const timeIn = datePipe.transform(detail.timeIn, "HH:mm");
         const timeOut = datePipe.transform(detail.timeOut, "HH:mm")
-        return [detail.id, `${detail.lastName} ${detail.firstName}`, datePipe.transform(date, 'd/M'), detail.stdIn, detail.stdOut, timeIn, timeOut, detail.comeLate, detail.leaveSoon];
+        return [detail.id, `${detail.lastName} ${detail.firstName}`, datePipe.transform(date, 'dd/MM/yyyy'), detail.stdIn, detail.stdOut, timeIn, timeOut, detail.comeLate, detail.leaveSoon];
       })
 
       data.unshift(title, [], header);

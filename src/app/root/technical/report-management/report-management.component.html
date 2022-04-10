@@ -2,41 +2,48 @@
   <div class="status-section-header">
     <h2>Thông tin tổng quan | {{startDate| date:'dd/MM/yyyy'}} - {{endDate| date:'dd/MM/yyyy'}}</h2>
   </div>
-  <div class="status-section-content">
-    <div class="card mat-elevation-z8">
-      <div class="card-header">
-        <h3>Vấn đề được tiếp nhận</h3>
-      </div>
-      <div class="card-content">
-        <h4>{{openedIssue + approvedIssue + rejectedIssue}}</h4>
-      </div>
-    </div>
 
-    <div class="card mat-elevation-z8">
-      <div class="card-header">
-        <h3>Vấn đề chưa xử lí</h3>
-      </div>
-      <div class="card-content">
-        <h4>{{openedIssue}}</h4>
-      </div>
-    </div>
-    <div class="card mat-elevation-z8">
-      <div class="card-header">
-        <h3>Vấn đề đã xử lí</h3>
-      </div>
-      <div class="card-content">
-        <h4>{{approvedIssue}}</h4>
-      </div>
-    </div>
-    <!--    <div class="card mat-elevation-z8">-->
-    <!--      <div class="card-header">-->
-    <!--        <h2>Vấn đề bị từ chối</h2>-->
-    <!--      </div>-->
-    <!--      <div class="card-content">-->
-    <!--        <h4>{{rejectedIssue}}</h4>-->
-    <!--      </div>-->
-    <!--    </div>-->
+  <div class="info-section">
+    <card-info color="red" content="{{openedIssue + processingIssue + closedIssue}}" logo="bug_report"
+               title="Vấn đề đã tiếp nhận"></card-info>
+    <card-info color="orange" content="{{processingIssue}}" logo="hourglass_bottom" title="Vấn đề đang xử lí"></card-info>
+    <card-info color="green" content="{{closedIssue}}" logo="check_circle" title="Vấn đề đã xử lí"></card-info>
   </div>
+  <!--  <div class="status-section-content">-->
+  <!--    <div class="card mat-elevation-z8">-->
+  <!--      <div class="card-header">-->
+  <!--        <h3>Vấn đề được tiếp nhận</h3>-->
+  <!--      </div>-->
+  <!--      <div class="card-content">-->
+  <!--        <h4>{{openedIssue + approvedIssue + rejectedIssue}}</h4>-->
+  <!--      </div>-->
+  <!--    </div>-->
+
+  <!--    <div class="card mat-elevation-z8">-->
+  <!--      <div class="card-header">-->
+  <!--        <h3>Vấn đề chưa xử lí</h3>-->
+  <!--      </div>-->
+  <!--      <div class="card-content">-->
+  <!--        <h4>{{openedIssue}}</h4>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <div class="card mat-elevation-z8">-->
+  <!--      <div class="card-header">-->
+  <!--        <h3>Vấn đề đã xử lí</h3>-->
+  <!--      </div>-->
+  <!--      <div class="card-content">-->
+  <!--        <h4>{{approvedIssue}}</h4>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    &lt;!&ndash;    <div class="card mat-elevation-z8">&ndash;&gt;-->
+  <!--    &lt;!&ndash;      <div class="card-header">&ndash;&gt;-->
+  <!--    &lt;!&ndash;        <h2>Vấn đề bị từ chối</h2>&ndash;&gt;-->
+  <!--    &lt;!&ndash;      </div>&ndash;&gt;-->
+  <!--    &lt;!&ndash;      <div class="card-content">&ndash;&gt;-->
+  <!--    &lt;!&ndash;        <h4>{{rejectedIssue}}</h4>&ndash;&gt;-->
+  <!--    &lt;!&ndash;      </div>&ndash;&gt;-->
+  <!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+  <!--  </div>-->
 </div>
 <div class="issue-list-section mat-elevation-z10">
   <div class="issue-list-section-header">
@@ -47,7 +54,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title>Bộ lọc</mat-panel-title>
       </mat-expansion-panel-header>
-      <form [formGroup]="filterForm" style="display: flex">
+      <form [formGroup]="filterForm" style="display: flex; align-items: baseline">
         <mat-form-field appearance="outline">
           <mat-label>Ngày báo cáo</mat-label>
           <mat-date-range-input [rangePicker]="picker">
@@ -72,7 +79,7 @@
             <mat-option></mat-option>
             <mat-option [value]="100">Chưa tiếp nhận</mat-option>
             <mat-option [value]="200">Đang xử lí</mat-option>
-            <mat-option [value]="300">Từ chối tiếp nhận</mat-option>
+            <mat-option [value]="300">Đã xử lí</mat-option>
           </mat-select>
         </mat-form-field>
         <button (click)="getTechnicalIssues()" mat-icon-button>
@@ -116,6 +123,9 @@
 
       <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
     </div>
+    <h2 *ngIf="!issueDataSource.filteredData.length" class="not-found-section">
+      Không tìm thấy vấn đề phù hợp
+    </h2>
   </div>
 </div>
 

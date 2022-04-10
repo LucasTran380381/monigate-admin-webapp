@@ -93,8 +93,9 @@ tr:nth-child(even) {
 }
 
 .mat-header-cell {
-  background-color: #5d70f8;
-  color: white;
+  //background-color: #5d70f8;
+  //color: white;
+  color: #3f51b5;
 }
 
 
@@ -102,4 +103,22 @@ tr:nth-child(even) {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.not-found-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  color: #939393;
+}
+
+.info-section {
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+card-info {
 }
