@@ -8,7 +8,6 @@
       }
     }
   },
-
   "projects": {
     "default": "monigate-admin-webapp"
   }
