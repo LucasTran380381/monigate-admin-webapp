@@ -19,6 +19,8 @@ import {CheckinStatisticsComponent} from './checkin-statistics/checkin-statistic
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgChartsModule} from 'ng2-charts';
 import {CardInfoComponent} from './card-info/card-info.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {IssueTagComponent} from './issue-tag/issue-tag.component';
 
 const routes: Routes = [
   {path: 'report-management', component: ReportManagementComponent},
@@ -32,6 +34,7 @@ const routes: Routes = [
     IssueDetailComponent,
     CheckinStatisticsComponent,
     CardInfoComponent,
+    IssueTagComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +53,7 @@ const routes: Routes = [
     MatDividerModule,
     MatTooltipModule,
     NgChartsModule,
+    MatChipsModule,
   ],
 })
 export class TechnicalModule {}

@@ -6,6 +6,7 @@ import {concatMap, map} from 'rxjs/operators';
 import {TechnicalIssue} from '../models/technical-issue';
 import {CheckinReport} from '../models/checkin-report';
 import {TimestampPipe} from '../pipes/timestamp.pipe';
+import {IssueStatus} from '../root/technical/issue-tag/issue-type';
 
 @Injectable({
   providedIn: 'root',
@@ -66,6 +67,14 @@ export class TechnicalService {
     }
 
     return params
+  }
+
+  updateStatusIssue(technicalIssueId: string, issueTypeId: string, status: IssueStatus) {
+    return this.http.put(`${environment.apiUrl}/TechnicalIssue/status`, {
+      technicalIssueId,
+      issueTypeId,
+      status,
+    })
   }
 
 }

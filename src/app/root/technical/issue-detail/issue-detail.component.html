@@ -1,6 +1,6 @@
 <div class="mat-dialog-header">
   <h1>Báo cáo chi tiết</h1>
-  <button mat-dialog-close mat-icon-button>
+  <button mat-dialog-close="" mat-icon-button>
     <mat-icon>close</mat-icon>
   </button>
 </div>
@@ -15,10 +15,14 @@
       </mat-expansion-panel-header>
       <mat-divider></mat-divider>
       <div class="issue-expanded-content">
-        <p class="issue-detail"><span class="title">Id:</span><span class="content">{{issue.id}}</span></p>
-        <p class="issue-detail"><span class="title">Loại vấn đề: </span><span class="content">{{getIssueTypes()}}</span></p>
+        <!--        <p class="issue-detail"><span class="title">Id:</span><span class="content">{{issue.id}}</span></p>-->
+        <p class="issue-detail"><span class="title">Loại vấn đề: </span><span class="content">
+<!--          {{getIssueTypes()}}-->
+          <issue-tag [issueTypes]="issueTypes"></issue-tag>
+        </span></p>
         <p class="issue-detail"><span class="title">Ghi chú:</span><span class="content">{{issue.note}}</span></p>
-        <p class="issue-detail"><span class="title">Ngày báo cáo: </span><span class="content">{{issue.reportDate | date:'d/M/yyyy'}}</span>
+        <p class="issue-detail"><span class="title">Ngày báo cáo: </span><span
+          class="content">{{issue.reportDate | date:'dd/MM/yyyy'}}</span>
         </p>
         <p
           class="issue-detail"><span class="title">Trạng thái: </span><span [style]="getStatusStyle(issue.status)"
@@ -36,7 +40,7 @@
       <div class="issue-expanded-content">
         <p
           class="issue-detail"><span class="title">Thời gian</span><span
-          class="content">{{issue.reportedCheckin.checkinTime | date:'h:m d/M/yyyy'}}</span></p>
+          class="content">{{issue.reportedCheckin.checkinTime | date:'HH:mm dd/MM/yyyy'}}</span></p>
         <p
           class="issue-detail"><span class="title">Nhiệt độ</span><span
           class="content">{{issue.reportedCheckin.temperature}}</span></p>
@@ -64,4 +68,28 @@
     <!--      </div>-->
     <!--    </mat-expansion-panel>-->
   </mat-accordion>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+  <form [formGroup]="statusForm" style="display: flex; align-items: baseline; gap: 20px">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Loại vấn đề</mat-label>
+      <mat-select formControlName="issueTypeId" required>
+        <mat-option *ngFor="let type of issueTypes" [value]="type.id">
+          {{type.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Trạng thái</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option *ngFor="let option of statusOptions" [value]="option.value">{{option.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="updateStatus()" color="primary" mat-button>
+      Cập nhật
+    </button>
+  </form>
 </div>

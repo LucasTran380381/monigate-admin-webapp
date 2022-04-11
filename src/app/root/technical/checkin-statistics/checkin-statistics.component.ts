@@ -43,12 +43,12 @@ export class CheckinStatisticsComponent implements OnInit, AfterViewInit {
       },
       {
         data: [],
-        label: 'Đeo khẩu trang không đúng',
+        label: 'Vi phạm khẩu trang',
         borderColor: 'orange',
       },
       {
         data: [],
-        label: 'Nhiệt độ cao bất thường',
+        label: 'Nhiệt độ cao',
         borderColor: 'red',
       },
     ],

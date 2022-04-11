@@ -3,6 +3,8 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {TechnicalIssue} from '../../../models/technical-issue';
 import {TechnicalService} from '../../../services/technical.service';
 import {UserService} from '../../../services/user.service';
+import {IssueType} from '../issue-tag/issue-type';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-issue-detail',
@@ -10,14 +12,28 @@ import {UserService} from '../../../services/user.service';
   styleUrls: ['./issue-detail.component.scss'],
 })
 export class IssueDetailComponent implements OnInit {
+  issueTypes: IssueType[]
+  statusForm = new FormGroup({
+    issueTypeId: new FormControl(),
+    status: new FormControl(),
+  })
+  statusOptions: {
+    name: string;
+    value: number;
+  }[];
 
   constructor(@Inject(MAT_DIALOG_DATA) public issue: TechnicalIssue, private technicalService: TechnicalService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.technicalService.getTechnicalIssue(this.issue.id).subscribe(value => {
       this.issue = value
-      console.log(value)
+      this.issueTypes = value.issueTypes.map((type: any) => new IssueType(type))
     });
+
+    this.statusForm.valueChanges.subscribe(value => {
+      console.log(value);
+      this.statusOptions = this.issueTypes.find(type => type.id == value.issueTypeId)?.statusOptions ?? []
+    })
   }
 
   async onGetIssueDetail() {
@@ -28,13 +44,13 @@ export class IssueDetailComponent implements OnInit {
     let title = ''
     switch (status) {
       case 100:
-        title = 'Chưa tiếp nhận'
+        title = 'Đã tiếp nhận'
         break
       case 200:
-        title = 'Đang xử lí'
+        title = 'Đang xử lý'
         break
       case 300:
-        title = 'Từ chối tiếp nhận'
+        title = 'Đã xử lý'
         break
     }
     return title
@@ -63,5 +79,11 @@ export class IssueDetailComponent implements OnInit {
 
   getIssueTypes() {
     return this.issue.issueTypes.map((value: any) => value.issueType.name).join(', ')
+  }
+
+  updateStatus() {
+    const formValue = this.statusForm.value;
+
+    this.technicalService.updateStatusIssue(formValue.issueTypeId, this.issue.id, formValue.status).subscribe(value => console.log(value))
   }
 }

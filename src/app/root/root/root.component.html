@@ -7,7 +7,7 @@
       <!--      </button>-->
       <span>{{title.getTitle()}}</span>
       <div class="spacer"></div>
-      <span class="date-section">{{currentDay | date:'d/M/Y'}}</span>
+      <span class="date-section">{{currentDay | date:'dd/MM/yyyy'}}</span>
       <nav class="nav-list">
         <a *ngFor="let navItem of navItems" [routerLink]="navItem.routerLink" class="nav-item" matRipple
            routerLinkActive="nav-item__active">{{navItem.title}}</a>

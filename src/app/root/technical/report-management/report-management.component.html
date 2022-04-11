@@ -4,7 +4,7 @@
   </div>
 
   <div class="info-section">
-    <card-info color="red" content="{{openedIssue + processingIssue + closedIssue}}" logo="bug_report"
+    <card-info color="red" content="{{openedIssue + processingIssue + closedIssue ?? 0}}" logo="bug_report"
                title="Vấn đề đã tiếp nhận"></card-info>
     <card-info color="orange" content="{{processingIssue}}" logo="hourglass_bottom" title="Vấn đề đang xử lí"></card-info>
     <card-info color="green" content="{{closedIssue}}" logo="check_circle" title="Vấn đề đã xử lí"></card-info>
@@ -77,9 +77,9 @@
           <mat-label>Trạng thái</mat-label>
           <mat-select formControlName="status">
             <mat-option></mat-option>
-            <mat-option [value]="100">Chưa tiếp nhận</mat-option>
-            <mat-option [value]="200">Đang xử lí</mat-option>
-            <mat-option [value]="300">Đã xử lí</mat-option>
+            <mat-option [value]="100">Đã tiếp nhận</mat-option>
+            <mat-option [value]="200">Đang xử lý</mat-option>
+            <mat-option [value]="300">Đã xử lý</mat-option>
           </mat-select>
         </mat-form-field>
         <button (click)="getTechnicalIssues()" mat-icon-button>

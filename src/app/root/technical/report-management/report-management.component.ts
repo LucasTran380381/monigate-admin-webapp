@@ -81,13 +81,13 @@ export class ReportManagementComponent implements OnInit, AfterViewInit {
     let title = ''
     switch (status) {
       case 100:
-        title = 'Chưa tiếp nhận'
+        title = 'Đã tiếp nhận'
         break
       case 200:
-        title = 'Đang xử lí'
+        title = 'Đang xử lý'
         break
       case 300:
-        title = 'Từ chối tiếp nhận'
+        title = 'Đã xử lý'
         break
     }
     return title
