@@ -88,9 +88,9 @@
           Số lần nhiệt độ cao
         </th>
         <td *matCellDef="let element" mat-cell>
-          <!--          {{element.abnormalTempCount}} ({{element.abnormalTempCount / element.checkinCount |percent}})-->
+          <!--                    {{element.abnormalTempCount}} ({{element.abnormalTempCount / element.checkinCount |percent}})-->
           <div style="display: flex; justify-content: center">
-            <div style="display: flex; justify-content: space-between; width: 70%;">
+            <div style="display: flex; justify-content: space-between; width: 80px;">
               <div style="grid-area: cellLeft; text-align: end; ">
                 {{element.abnormalTempCount}}</div>
               <div style="grid-area: cellRight; text-align: center;">
@@ -98,6 +98,7 @@
               </div>
             </div>
           </div>
+
 
         </td>
       </ng-container>

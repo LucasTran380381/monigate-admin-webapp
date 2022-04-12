@@ -49,6 +49,15 @@ tr:nth-child(even) {
   text-align: center !important;
 }
 
+.mat-sort-header {
+  text-align: center !important;
+}
+
+:host ::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
+
 .cell-grid {
   display: grid;
   grid-template-areas: "cellLeft cellRight";
