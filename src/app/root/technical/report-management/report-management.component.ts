@@ -20,7 +20,7 @@ export class ReportManagementComponent implements OnInit, AfterViewInit {
   processingIssue = 0
   issueTypes: TechnicalIssueType[] = []
   issueDataSource = new MatTableDataSource<TechnicalIssue>()
-  displayedColumns: string[] = ['position', 'date', 'status', 'action'];
+  displayedColumns: string[] = ['position', 'date', 'note', 'status', 'action'];
   startDate = new Date();
   endDate = new Date(new Date().setDate(this.startDate.getDate() - 30))
   filterForm = new FormGroup({

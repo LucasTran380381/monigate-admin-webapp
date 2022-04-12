@@ -14,7 +14,7 @@ export class CheckinChartInformation {
 
   public static generateDateRange(dateFrom: Date, dateTo: Date) {
     const dateRange = [];
-    let currentDate = dateFrom;
+    let currentDate = new Date(dateFrom);
     while (currentDate <= dateTo) {
       dateRange.push(new Date(currentDate))
       currentDate.setDate(currentDate.getDate() + 1)

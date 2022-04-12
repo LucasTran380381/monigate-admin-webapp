@@ -42,15 +42,17 @@ tr:nth-child(even) {
 
 .mat-header-cell {
   text-align: center;
+  color: #3f51b5;
 }
 
 .mat-cell {
-  text-align: center;
+  text-align: center !important;
 }
 
-.cell-flex {
-  display: flex;
-  justify-content: space-evenly;
+.cell-grid {
+  display: grid;
+  grid-template-areas: "cellLeft cellRight";
+  gap: 10px;
 }
 
 .left {

@@ -165,6 +165,23 @@
   <div class="card-header">
     <h2>Biểu đồ checkin | {{startDate | date:'dd/MM/yyyy'}} - {{endDate|date:'dd/MM/yyyy'}}</h2>
   </div>
+  <mat-expansion-panel expanded>
+    <mat-expansion-panel-header>Bộ lọc</mat-expansion-panel-header>
+    <form [formGroup]="chartForm" style="display: flex; align-items: baseline">
+      <mat-form-field appearance="outline">
+        <mat-label>Ngày Check-in</mat-label>
+        <mat-date-range-input [rangePicker]="chartDatePicker">
+          <input formControlName="chartStartDate" matStartDate placeholder="Start date">
+          <input formControlName="chartEndDate" matEndDate placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle [for]="chartDatePicker" matSuffix></mat-datepicker-toggle>
+        <mat-date-range-picker #chartDatePicker></mat-date-range-picker>
+      </mat-form-field>
+      <button (click)="getChartInfo()" mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
+  </mat-expansion-panel>
   <div class="card-content__padding">
     <canvas [data]="chartData" [options]="chartOptions" [type]="chartType" baseChart height="600" width="400"></canvas>
   </div>

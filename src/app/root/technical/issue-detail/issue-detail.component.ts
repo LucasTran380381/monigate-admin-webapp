@@ -56,10 +56,10 @@ export class IssueDetailComponent implements OnInit {
     const style = {color: '#939393'}
     switch (status) {
       case 200:
-        style.color = 'green'
+        style.color = 'orange'
         break
       case 300:
-        style.color = 'red'
+        style.color = 'green'
         break
     }
     return style

@@ -56,7 +56,7 @@ export class CheckinService {
   getCheckinChartInfo(dateFrom: Date, dateTo?: Date) {
     const timestampPipe = new TimestampPipe();
     const params: any = {timeMin: timestampPipe.transform(dateFrom)}
-    if (dateTo) { params.timeMax = timestampPipe.transform(dateTo) }
+    if (dateTo) { params.timeMax = timestampPipe.transform(dateTo)}
 
     return this.http.get<ChartReport[]>(`${environment.apiUrl}/Checkin/report`, {params}).pipe(
       map(reports => {

@@ -99,7 +99,12 @@
         <!-- Name Column -->
         <ng-container matColumnDef="date">
           <th *matHeaderCellDef mat-header-cell>Ngày báo cáo</th>
-          <td *matCellDef="let element;" mat-cell> {{element.reportDate | date:'d/M/yyyy'}} </td>
+          <td *matCellDef="let element;" mat-cell> {{element.reportDate | date:'dd/MM/yyyy HH:mm'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="note">
+          <th *matHeaderCellDef mat-header-cell>Ghi chú</th>
+          <td *matCellDef="let element;" mat-cell> {{element.note}} </td>
         </ng-container>
 
 

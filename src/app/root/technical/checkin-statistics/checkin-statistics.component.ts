@@ -27,11 +27,18 @@ export class CheckinStatisticsComponent implements OnInit, AfterViewInit {
   numOfWrongFaceMask = 0
   numOfHighTemperature = 0
   endDate = new Date()
-  startDate = new Date(new Date().setDate(this.endDate.getDate() - 30))
+  startDate = new Date(new Date().setHours(0, 0, 0))
+  chartEndDate = new Date()
+  chartStartDate = new Date(new Date().setDate(this.chartEndDate.getDate() - 30))
 
   filterForm = new FormGroup({
     startDate: new FormControl(this.startDate),
     endDate: new FormControl(this.endDate),
+  });
+
+  chartForm = new FormGroup({
+    chartStartDate: new FormControl(this.chartStartDate),
+    chartEndDate: new FormControl(this.chartEndDate),
   });
 
   chartData: ChartConfiguration['data'] = {
@@ -84,7 +91,6 @@ export class CheckinStatisticsComponent implements OnInit, AfterViewInit {
   chartType: ChartType = 'line'
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective
 
-
   constructor(private checkinService: CheckinService) { }
 
   ngOnInit(): void {
@@ -98,6 +104,7 @@ export class CheckinStatisticsComponent implements OnInit, AfterViewInit {
     })
 
     this.getCheckins()
+    this.getChartInfo()
   }
 
   ngAfterViewInit() {
@@ -199,16 +206,15 @@ export class CheckinStatisticsComponent implements OnInit, AfterViewInit {
         this.setupGeneralInfo(checkins)
         this.checkinDataSource.data = checkins
       })
-
-    this.getChartInfo()
   }
 
-  private getChartInfo() {
-    const formValues = this.filterForm.value;
-    this.checkinService.getCheckinChartInfo(formValues.startDate, formValues.endDate).subscribe(
+  getChartInfo() {
+    const formValues = this.chartForm.value;
+    const dateRange = CheckinChartInformation.generateDateRange(formValues.chartStartDate, formValues.chartEndDate);
+    const labels = CheckinChartInformation.getChartLabels(dateRange);
+    this.chart?.chart?.clear()
+    this.checkinService.getCheckinChartInfo(formValues.chartStartDate, formValues.chartEndDate).subscribe(
       chartInfo => {
-        const dateRange = CheckinChartInformation.generateDateRange(formValues.startDate, formValues.endDate);
-        const labels = CheckinChartInformation.getChartLabels(dateRange);
         const checkinDataset = chartInfo.getCheckinDataset(dateRange);
         const maskFaultDataSet = chartInfo.getMaskFaultDataSet(dateRange);
         const temperatureFaultDataset = chartInfo.getTemperatureFaultDataset(dateRange);
@@ -216,21 +222,6 @@ export class CheckinStatisticsComponent implements OnInit, AfterViewInit {
         this.updateChart(labels, checkinDataset, maskFaultDataSet, temperatureFaultDataset);
       },
     )
-    // this.checkinService.getCheckinChartDate(formValues.startDate, formValues.endDate).subscribe(reports => {
-    //   console.log(reports);
-    //   const pipe = new DatePipe('vi')
-    //   this.chartData.labels = reports.map(report => pipe.transform(report.checkinDate, 'd/M'))
-    //   this.chartData.datasets[0].data = reports.map(report => report.totalCheckin)
-    //   this.chartData.datasets[1].data = reports.map(report => report.numOfInvalidFaceMask)
-    //   this.chartData.datasets[2].data = reports.map(report => report.numOfHighTemperature)
-    //   this.chart?.chart?.update()
-    // })
-    // const pipe = new DatePipe('vi')
-    // this.chartData.labels = reports.map(report => pipe.transform(report.checkinDate, 'd/M'))
-    // this.chartData.datasets[0].data = reports.map(report => report.totalCheckin)
-    // this.chartData.datasets[1].data = reports.map(report => report.numOfInvalidFaceMask)
-    // this.chartData.datasets[2].data = reports.map(report => report.numOfHighTemperature)
-    // this.chart?.chart?.update()
   }
 
   private updateChart(labels: string[], checkinDataset: number[], maskFaultDataSet: number[], temperatureFaultDataset: number[]) {

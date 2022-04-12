@@ -1,20 +1,20 @@
 <!--filter section-->
-<div class="card mat-elevation-z8">
-  <div class="card-header">
-    <h2>Bộ lọc</h2>
-  </div>
-  <div class="card-content__padding">
-    <mat-form-field appearance="outline">
-      <mat-label>Tháng</mat-label>
-      <mat-select [formControl]="filterFormControl">
-        <mat-option *ngFor="let monthIndex of monthIndexes" [value]="monthIndex">Tháng {{monthIndex + 1}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button (click)="fetchStaffList()" color="primary" mat-icon-button>
-      <mat-icon>search</mat-icon>
-    </button>
-  </div>
-</div>
+<!--<div class="card mat-elevation-z8">-->
+<!--  <div class="card-header">-->
+<!--    <h2>Bộ lọc</h2>-->
+<!--  </div>-->
+<!--  <div class="card-content__padding">-->
+<!--    <mat-form-field appearance="outline">-->
+<!--      <mat-label>Tháng</mat-label>-->
+<!--      <mat-select [formControl]="filterFormControl">-->
+<!--        <mat-option *ngFor="let monthIndex of monthIndexes" [value]="monthIndex">Tháng {{monthIndex + 1}}</mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
+<!--    <button (click)="fetchStaffList()" color="primary" mat-icon-button>-->
+<!--      <mat-icon>search</mat-icon>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</div>-->
 
 <!--staff list-->
 <div class="card mat-elevation-z8">
@@ -25,6 +25,21 @@
     </button>
   </div>
   <div class="card-content">
+    <mat-expansion-panel class="filter-section" expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Bộ lọc</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field appearance="outline">
+        <mat-label>Tháng</mat-label>
+        <mat-select [formControl]="filterFormControl">
+          <mat-option *ngFor="let monthIndex of monthIndexes" [value]="monthIndex">Tháng {{monthIndex + 1}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button (click)="fetchStaffList()" color="primary" mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-expansion-panel>
+
     <table [dataSource]="staffListDataSource" mat-table matSort>
       <ng-container matColumnDef="no">
         <th *matHeaderCellDef mat-header-cell>
@@ -61,10 +76,9 @@
           Số lần sai khẩu trang
         </th>
         <td *matCellDef="let element" mat-cell>
-          <div class="cell-flex">
-            <div class="left">{{element.maskFaultCount}}</div>
-            <span class="center">|</span>
-            <div class="right">{{element.maskFaultCount / element.checkinCount | percent}}</div>
+          <div style="display: flex; justify-content: center;  gap: 10px">
+            <div>{{element.maskFaultCount}}</div>
+            <div>({{element.maskFaultCount / element.checkinCount | percent}})</div>
           </div>
         </td>
       </ng-container>
@@ -74,11 +88,17 @@
           Số lần nhiệt độ cao
         </th>
         <td *matCellDef="let element" mat-cell>
-          <div class="cell-flex">
-            <div class="left">{{element.abnormalTempCount}}</div>
-            <span class="center">|</span>
-            <div class="right">{{element.abnormalTempCount / element.checkinCount | percent}}</div>
+          <!--          {{element.abnormalTempCount}} ({{element.abnormalTempCount / element.checkinCount |percent}})-->
+          <div style="display: flex; justify-content: center">
+            <div style="display: flex; justify-content: space-between; width: 70%;">
+              <div style="grid-area: cellLeft; text-align: end; ">
+                {{element.abnormalTempCount}}</div>
+              <div style="grid-area: cellRight; text-align: center;">
+                ({{element.abnormalTempCount / element.checkinCount |percent}})
+              </div>
+            </div>
           </div>
+
         </td>
       </ng-container>
 
