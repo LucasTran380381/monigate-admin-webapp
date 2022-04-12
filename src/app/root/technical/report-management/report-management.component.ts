@@ -8,6 +8,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {IssueDetailComponent} from '../issue-detail/issue-detail.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-report-management',
@@ -30,7 +31,10 @@ export class ReportManagementComponent implements OnInit, AfterViewInit {
   })
   closedIssue: number;
 
-  constructor(private title: Title, private technicalService: TechnicalService, private dialog: MatDialog) {
+  constructor(private title: Title,
+              private technicalService: TechnicalService,
+              private dialog: MatDialog,
+              private snackbar: MatSnackBar) {
     this.title.setTitle('Monigate Technical Moderator')
   }
 
@@ -100,10 +104,10 @@ export class ReportManagementComponent implements OnInit, AfterViewInit {
         style.color = '#939393'
         break
       case 200:
-        style.color = 'green'
+        style.color = 'orange'
         break
       case 300:
-        style.color = 'red'
+        style.color = 'green'
         break
     }
     return style
@@ -113,6 +117,13 @@ export class ReportManagementComponent implements OnInit, AfterViewInit {
     this.dialog.open(IssueDetailComponent, {
       data: issue,
       width: '900px',
+    }).afterClosed().subscribe(msg => {
+      if (msg == 'refresh') {
+        this.getTechnicalIssues()
+        this.snackbar.open('Cập nhật thành công', '', {
+          panelClass: 'green-snackbar',
+        })
+      }
     })
   }
 }

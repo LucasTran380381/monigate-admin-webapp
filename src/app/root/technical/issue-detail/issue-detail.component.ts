@@ -1,8 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TechnicalIssue} from '../../../models/technical-issue';
 import {TechnicalService} from '../../../services/technical.service';
-import {UserService} from '../../../services/user.service';
 import {IssueType} from '../issue-tag/issue-type';
 import {FormControl, FormGroup} from '@angular/forms';
 
@@ -22,7 +21,9 @@ export class IssueDetailComponent implements OnInit {
     value: number;
   }[];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public issue: TechnicalIssue, private technicalService: TechnicalService, private userService: UserService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public issue: TechnicalIssue
+    , private technicalService: TechnicalService,
+              private dialogRef: MatDialogRef<IssueDetailComponent>) { }
 
   ngOnInit(): void {
     this.technicalService.getTechnicalIssue(this.issue.id).subscribe(value => {
@@ -31,13 +32,8 @@ export class IssueDetailComponent implements OnInit {
     });
 
     this.statusForm.valueChanges.subscribe(value => {
-      console.log(value);
       this.statusOptions = this.issueTypes.find(type => type.id == value.issueTypeId)?.statusOptions ?? []
     })
-  }
-
-  async onGetIssueDetail() {
-    this.issue.reportedCheckin = await this.technicalService.getChecking(this.issue.reportedCheckinId).toPromise()
   }
 
   getStatusTitle(status: number) {
@@ -84,6 +80,7 @@ export class IssueDetailComponent implements OnInit {
   updateStatus() {
     const formValue = this.statusForm.value;
 
-    this.technicalService.updateStatusIssue(formValue.issueTypeId, this.issue.id, formValue.status).subscribe(value => console.log(value))
+    this.technicalService.updateStatusIssue(this.issue.id, formValue.issueTypeId, formValue.status)
+      .subscribe(_ => this.dialogRef.close('refresh'))
   }
 }
