@@ -6,7 +6,7 @@
 </div>
 <div mat-dialog-content>
   <img alt="" class="img-section"
-       src="{{issue.reportedCheckin?.faceMaskImageUrl??'https://phocode.com/wp-content/uploads/2020/10/placeholder-1-1.png'}}"
+       [src]="issue.reportedCheckin.faceMaskImageUrl ?? 'https://phocode.com/wp-content/uploads/2020/10/placeholder-1-1.png'"
        width="200px">
   <mat-accordion>
     <mat-expansion-panel expanded>

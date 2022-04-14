@@ -4,6 +4,7 @@ import {TechnicalIssue} from '../../../models/technical-issue';
 import {TechnicalService} from '../../../services/technical.service';
 import {IssueType} from '../issue-tag/issue-type';
 import {FormControl, FormGroup} from '@angular/forms';
+import {mergeMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-issue-detail',
@@ -26,10 +27,16 @@ export class IssueDetailComponent implements OnInit {
               private dialogRef: MatDialogRef<IssueDetailComponent>) { }
 
   ngOnInit(): void {
-    this.technicalService.getTechnicalIssue(this.issue.id).subscribe(value => {
-      this.issue = value
-      this.issueTypes = value.issueTypes.map((type: any) => new IssueType(type))
-    });
+
+    this.technicalService.getTechnicalIssue(this.issue.id).pipe(
+      tap(issueDetail => {
+        this.issue = issueDetail
+        this.issueTypes = issueDetail.issueTypes.map((type: any) => new IssueType(type))
+        return issueDetail
+      }),
+      mergeMap(issueDetail => this.technicalService.getCheckinImage('14962334-5420-4100-85f6-a770427119f9')),
+    ).subscribe(
+      value => this.issue.reportedCheckin.faceMaskImageUrl = value)
 
     this.statusForm.valueChanges.subscribe(value => {
       this.statusOptions = this.issueTypes.find(type => type.id == value.issueTypeId)?.statusOptions ?? []

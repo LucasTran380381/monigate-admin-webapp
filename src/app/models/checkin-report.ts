@@ -3,6 +3,7 @@ import {User} from './user';
 export class CheckinReport {
   checkinTime: Date;
   faceMaskImageUrl?: string;
+  image: Blob
   gateId?: string;
   id: string;
   isValidFaceMask?: boolean;

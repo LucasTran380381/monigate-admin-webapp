@@ -29,6 +29,15 @@ export class TechnicalService {
     )
   }
 
+  getCheckinImage(checkinId: string) {
+    return this.http.get(`${environment.apiUrl}/Checkin/checkin-image`, {
+      params: {
+        checkinId,
+      },
+      responseType: 'text',
+    })
+  }
+
   getIssues(formValue: any) {
     const params = this.convertParams(formValue)
     return this.getIssueTypes().pipe(concatMap(issueTypes => this.http.get<any[]>(`${environment.apiUrl}/TechnicalIssue/filter`, {
