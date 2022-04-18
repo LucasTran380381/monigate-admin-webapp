@@ -30,11 +30,10 @@ export class TechnicalService {
   }
 
   getCheckinImage(checkinId: string) {
-    return this.http.get(`${environment.apiUrl}/Checkin/checkin-image`, {
+    return this.http.get<any>(`${environment.apiUrl}/Checkin/checkin-image`, {
       params: {
         checkinId,
       },
-      responseType: 'text',
     })
   }
 

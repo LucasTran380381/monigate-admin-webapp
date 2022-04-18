@@ -5,9 +5,13 @@
   </button>
 </div>
 <div mat-dialog-content>
-  <img alt="" class="img-section"
-       [src]="issue.reportedCheckin.faceMaskImageUrl ?? 'https://phocode.com/wp-content/uploads/2020/10/placeholder-1-1.png'"
-       width="200px">
+  <!--  <img alt="" class="img-section"-->
+  <!--       [src]="issue.reportedCheckin.faceMaskImageUrl ?? 'https://phocode.com/wp-content/uploads/2020/10/placeholder-1-1.png'"-->
+  <!--       width="200px">-->
+
+  <div class="img-section">
+    <gallery [items]="galleryItems" gallerize=""></gallery>
+  </div>
   <mat-accordion>
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
