@@ -36,7 +36,7 @@ export class IssueDetailComponent implements OnInit {
         this.issueTypes = issueDetail.issueTypes.map((type: any) => new IssueType(type))
         return issueDetail
       }),
-      mergeMap(issueDetail => this.technicalService.getCheckinImage('14962334-5420-4100-85f6-a770427119f9')),
+      mergeMap(issueDetail => this.technicalService.getCheckinImage(issueDetail.reportedCheckinId)),
     ).subscribe(
       value => {
         this.galleryItems = [new ImageItem({
