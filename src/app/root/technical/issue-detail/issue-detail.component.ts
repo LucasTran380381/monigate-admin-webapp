@@ -39,7 +39,6 @@ export class IssueDetailComponent implements OnInit {
       mergeMap(issueDetail => this.technicalService.getCheckinImage('14962334-5420-4100-85f6-a770427119f9')),
     ).subscribe(
       value => {
-        console.log(value)
         this.galleryItems = [new ImageItem({
           src: value.faceMaskImageUrl,
           thumb: value.faceMaskImageUrl,
