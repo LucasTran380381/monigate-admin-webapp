@@ -46,6 +46,9 @@ export class TechnicalService {
         issue.issueType = issueTypes.find(type => type.id == issue.issueTypeId)
         return issue as TechnicalIssue
       })),
+      map(issues => issues.sort((a, b) => {
+        return new Date(b.reportDate).getTime() - new Date(a.reportDate).getTime();
+      })),
     )))
   }
 
