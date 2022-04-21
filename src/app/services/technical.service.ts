@@ -30,11 +30,10 @@ export class TechnicalService {
   }
 
   getCheckinImage(checkinId: string) {
-    return this.http.get(`${environment.apiUrl}/Checkin/checkin-image`, {
+    return this.http.get<any>(`${environment.apiUrl}/Checkin/checkin-image`, {
       params: {
         checkinId,
       },
-      responseType: 'text',
     })
   }
 
@@ -46,6 +45,9 @@ export class TechnicalService {
       map(issues => issues.map(issue => {
         issue.issueType = issueTypes.find(type => type.id == issue.issueTypeId)
         return issue as TechnicalIssue
+      })),
+      map(issues => issues.sort((a, b) => {
+        return new Date(b.reportDate).getTime() - new Date(a.reportDate).getTime();
       })),
     )))
   }

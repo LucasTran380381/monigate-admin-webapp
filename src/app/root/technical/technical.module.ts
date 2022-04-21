@@ -21,6 +21,8 @@ import {NgChartsModule} from 'ng2-charts';
 import {CardInfoComponent} from './card-info/card-info.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {IssueTagComponent} from './issue-tag/issue-tag.component';
+import {GalleryModule} from 'ng-gallery';
+import {LightboxModule} from 'ng-gallery/lightbox';
 
 const routes: Routes = [
   {path: 'report-management', component: ReportManagementComponent},
@@ -54,6 +56,8 @@ const routes: Routes = [
     MatTooltipModule,
     NgChartsModule,
     MatChipsModule,
+    GalleryModule,
+    LightboxModule,
   ],
 })
 export class TechnicalModule {}

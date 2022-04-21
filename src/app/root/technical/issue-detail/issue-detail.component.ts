@@ -5,6 +5,7 @@ import {TechnicalService} from '../../../services/technical.service';
 import {IssueType} from '../issue-tag/issue-type';
 import {FormControl, FormGroup} from '@angular/forms';
 import {mergeMap, tap} from 'rxjs/operators';
+import {GalleryItem, ImageItem} from 'ng-gallery';
 
 @Component({
   selector: 'app-issue-detail',
@@ -21,6 +22,7 @@ export class IssueDetailComponent implements OnInit {
     name: string;
     value: number;
   }[];
+  galleryItems: GalleryItem[] = [];
 
   constructor(@Inject(MAT_DIALOG_DATA) public issue: TechnicalIssue
     , private technicalService: TechnicalService,
@@ -34,9 +36,22 @@ export class IssueDetailComponent implements OnInit {
         this.issueTypes = issueDetail.issueTypes.map((type: any) => new IssueType(type))
         return issueDetail
       }),
-      mergeMap(issueDetail => this.technicalService.getCheckinImage('14962334-5420-4100-85f6-a770427119f9')),
+      mergeMap(issueDetail => this.technicalService.getCheckinImage(issueDetail.reportedCheckinId)),
     ).subscribe(
-      value => this.issue.reportedCheckin.faceMaskImageUrl = value)
+      value => {
+        this.galleryItems = [new ImageItem({
+          src: value.faceMaskImageUrl,
+          thumb: value.faceMaskImageUrl,
+        })]
+
+        if (value.thermalImageUrl) {
+          this.galleryItems.push(new ImageItem({
+            src: value.thermalImageUrl,
+            thumb: value.thermalImageUrl,
+          }))
+        }
+
+      })
 
     this.statusForm.valueChanges.subscribe(value => {
       this.statusOptions = this.issueTypes.find(type => type.id == value.issueTypeId)?.statusOptions ?? []
