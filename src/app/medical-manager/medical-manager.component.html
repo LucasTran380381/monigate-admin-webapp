@@ -43,7 +43,7 @@
       <!-- Symbol Column -->
       <ng-container matColumnDef="date">
         <th *matHeaderCellDef mat-header-cell>Thời gian</th>
-        <td *matCellDef="let element" mat-cell> {{element.reportDate | date}} </td>
+        <td *matCellDef="let element" mat-cell> {{element.reportDate | date:'dd/MM/yyyy'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
