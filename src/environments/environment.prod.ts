@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  // apiUrl: 'https://monigate-capstone-ubuntu.azurewebsites.net/api/',
+  // apiUrl: 'http://13.214.164.164:8080/api',
   apiUrl: 'https://swp-monigate-ubuntu.azurewebsites.net/api',
   firebase: {
     apiKey: "AIzaSyA5P0-YKgjUaHKhwHk-5mci6qix4HW8PLc",

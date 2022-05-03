@@ -140,6 +140,7 @@ export class CheckinStatisticsComponent implements OnInit, AfterViewInit {
       case CheckinStatus.approveManual:
         return 'warning_amber'
       case CheckinStatus.decline:
+      case CheckinStatus.declineManually:
         return 'close'
     }
   }
@@ -151,6 +152,7 @@ export class CheckinStatisticsComponent implements OnInit, AfterViewInit {
       case CheckinStatus.approveManual:
         return 'Lưu ý checkin này'
       case CheckinStatus.decline:
+      case CheckinStatus.declineManually:
         return 'Checkin thất bại'
     }
   }

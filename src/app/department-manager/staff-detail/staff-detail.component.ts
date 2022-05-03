@@ -37,6 +37,7 @@ export class StaffDetailComponent implements OnInit {
       case CheckinStatus.approveManual:
         return {style: 'warning-color', tooltip: 'Được phép cho vào', icon: 'report_problem'}
       case CheckinStatus.decline:
+      case CheckinStatus.declineManually:
         return {style: 'error-color', tooltip: 'Checkin thất bại', icon: 'error_outline'}
     }
   }
